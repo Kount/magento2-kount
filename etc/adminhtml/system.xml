@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2017 KOUNT, INC.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="swarming" translate="label" sortOrder="500">
+            <label>Swarming</label>
+        </tab>
+        <section id="swarming_kount" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Kount Integration</label>
+            <tab>swarming</tab>
+            <resource>Swarming_Kount::config</resource>
+            <group id="account" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Account Information</label>
+
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable or disable the module store wide.</comment>
+                </field>
+
+                <field id="test" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Environment</label>
+                    <source_model>Swarming\Kount\Model\Config\Source\Environment</source_model>
+                    <comment>Whether the extension server will run in test mode.</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="merchantnum" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Merchant Number</label>
+                    <validate>validate-number validate-range range-100000-999999</validate>
+                    <comment>Your 6 digit merchant number you wish to use from AWC.</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="website" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Website ID</label>
+                    <comment>The Website ID from AWC, exactly as it appears.</comment>
+                    <validate>validate-length maximum-length-8</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="api_key_production" translate="label comment" type="obscure" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>API Key</label>
+                    <comment>API authentication token.</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                        <field id="test">0</field>
+                    </depends>
+                </field>
+
+                <field id="api_key_test" translate="label comment" type="obscure" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>API Key</label>
+                    <comment>API authentication token.</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                        <field id="test">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="workflow" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Payment Review Workflow</label>
+
+                <field id="workflow_mode" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Payment Review Workflow Mode</label>
+                    <source_model>Swarming\Kount\Model\Config\Source\WorkflowMode</source_model>
+                    <depends>
+                        <field id="swarming_kount/account/enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="decline_action" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Decline Action</label>
+                    <source_model>Swarming\Kount\Model\Config\Source\DeclineAction</source_model>
+                    <comment>Cancel should be used with payment method in Authorize Only mode.  Refund should be used with payment method in Authorize and Capture mode.</comment>
+                    <depends>
+                        <field id="swarming_kount/account/enabled">1</field>
+                        <field id="workflow_mode">post_auth</field>
+                    </depends>
+                </field>
+
+                <field id="notify_processor_decline" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Notify Kount RIS of Processor Decline</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>For Post Auth transactions only.</comment>
+                    <depends>
+                        <field id="swarming_kount/account/enabled">1</field>
+                        <field id="workflow_mode">post_auth</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="paymentmethods" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Disable Payment Methods</label>
+                <comment>Kount RIS inquiry is not performed for payment methods which are disabled here.</comment>
+
+                <field id="disable_methods" translate="label comment" type="multiselect" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Disable Payment Method Codes</label>
+                    <source_model>Swarming\Kount\Model\Config\Source\PaymentMethods</source_model>
+                    <comment>Select payment methods to disable.</comment>
+                    <depends>
+                        <field id="swarming_kount/account/enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="ens" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Event Notifications</label>
+
+                <field id="did_where" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Url</label>
+                    <frontend_model>Swarming\Kount\Block\Adminhtml\System\Config\Ens</frontend_model>
+                    <depends>
+                        <field id="swarming_kount/account/enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="addition_ips" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Additional IPs for Load Balancer</label>
+                    <comment>Additional IPs from which allowed ENS. Enter comma separated.</comment>
+                    <depends>
+                        <field id="swarming_kount/account/enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="log" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Logging</label>
+
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable Kount SDK Logging</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="swarming_kount/account/enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="ris_metrics_enabled" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Log Ris Metrics</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="swarming_kount/log/enabled">1</field>
+                        <field id="swarming_kount/account/enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="download" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Log File</label>
+                    <frontend_model>Swarming\Kount\Block\Adminhtml\System\Config\Log</frontend_model>
+                    <depends>
+                        <field id="swarming_kount/account/enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="admin" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Admin Ordering</label>
+
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Use Kount for Backend Ordering</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="swarming_kount/account/enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="phonetoweb_enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Phone To Web Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable Phone-to-Web orders.</comment>
+                    <depends>
+                        <field id="swarming_kount/account/enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="phonetoweb_ipaddresses" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>IP Address Exclude</label>
+                    <comment>The IP Addresses you wish to exclude for Phone-to-Web orders. Enter comma separated.</comment>
+                    <frontend_model>Swarming\Kount\Block\Adminhtml\System\Config\IpAddress</frontend_model>
+                    <depends>
+                        <field id="swarming_kount/account/enabled">1</field>
+                        <field id="phonetoweb_enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

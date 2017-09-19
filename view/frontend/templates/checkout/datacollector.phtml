@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright (c) 2017 KOUNT, INC.
+ * See COPYING.txt for license details.
+ */
+
+/* @var $block \Swarming\Kount\Block\Checkout\DataCollector */
+?>
+
+<?php if ($block->isEnabled()) : ?>
+    <iframe width="<?php echo $block->getWidth() ?>"
+            height="<?php echo $block->getHeight() ?>" frameborder="0" scrolling="no"
+            src="<?php echo $block->getIFrameUrl() ?>"
+            <?php if ($block->isTestMode()): ?>style="border: 2px solid blue;"<?php endif; ?>>
+        <img width="<?php echo $block->getWidth() ?>"
+             height="<?php echo $block->getHeight() ?>"
+             src="<?php echo $block->getGifUrl() ?>" alt="" title=""/>
+    </iframe>
+<?php endif; ?>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2017 KOUNT, INC.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_payment_place_start">
+        <observer name="swarming_kount_observer" instance="Swarming\Kount\Observer\PaymentPlaceStart" />
+    </event>
+    <event name="sales_order_payment_place_end">
+        <observer name="swarming_kount_observer" instance="Swarming\Kount\Observer\PaymentPlaceEnd" />
+    </event>
+    <event name="sales_model_service_quote_submit_failure">
+        <observer name="swarming_kount_observer" instance="Swarming\Kount\Observer\QuoteSubmitFailure" />
+    </event>
+    <event name="checkout_submit_all_after">
+        <observer name="swarming_kount_observer" instance="Swarming\Kount\Observer\SubmitAllAfter" />
+    </event>
+    <event name="paypal_express_place_order_success">
+        <observer name="swarming_kount_observer" instance="Swarming\Kount\Observer\SubmitAllAfter" />
+    </event>
+    <event name="sales_order_save_after">
+        <observer name="swarming_kount_observer" instance="Swarming\Kount\Observer\Order\SaveAfter" />
+    </event>
+</config>
