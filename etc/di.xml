@@ -30,6 +30,9 @@
             </argument>
         </arguments>
     </type>
+    <type name="Magento\Sales\Model\Order\Payment\State\RegisterCaptureNotificationCommand">
+        <plugin name="swarming_kount" type="Swarming\Kount\Plugin\Sales\Payment\RegisterCaptureNotificationCommand"/>
+    </type>
     <type name="Swarming\Kount\Model\Ens\Manager">
         <arguments>
             <argument name="supportedEvents" xsi:type="array">

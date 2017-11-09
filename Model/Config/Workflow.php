@@ -50,4 +50,17 @@ class Workflow
     {
         return $this->scopeConfig->isSetFlag('swarming_kount/workflow/notify_processor_decline', ScopeInterface::SCOPE_STORE, $storeCode);
     }
+
+    /**
+     * @param string|null $storeCode
+     * @return bool
+     */
+    public function isPreventResettingOrderStatus($storeCode = null)
+    {
+        return $this->scopeConfig->isSetFlag(
+            'swarming_kount/workflow/prevent_resetting_order_status',
+            ScopeInterface::SCOPE_STORE,
+            $storeCode
+        );
+    }
 }

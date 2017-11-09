@@ -101,6 +101,15 @@
                         <field id="workflow_mode">post_auth</field>
                     </depends>
                 </field>
+
+                <field id="prevent_resetting_order_status" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Prevent Resetting of Order Status</label>
+                    <comment>Prevent resetting of order status on 'payment review' and 'fraud' by payment method.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="swarming_kount/account/enabled">1</field>
+                    </depends>
+                </field>
             </group>
 
             <group id="paymentmethods" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
