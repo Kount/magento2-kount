@@ -4,7 +4,7 @@
   "keywords": ["magento2", "kount"],
   "version": "2.1.0",
   "type": "magento2-module",
-  "license": ["Custom"],
+  "license": ["proprietary"],
   "authors": [
     {
       "name": "Swarming Technology",
