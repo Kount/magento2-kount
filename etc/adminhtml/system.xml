@@ -112,7 +112,25 @@
                 </field>
             </group>
 
-            <group id="paymentmethods" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+            <group id="order_settings" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Order Settings</label>
+
+                <field id="display_review" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Display on Review</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Orders in Kount review status display in customer's account.]]></comment>
+                    <backend_model>Swarming\Kount\Model\Config\Backend\OrderStatusReview</backend_model>
+                </field>
+
+                <field id="display_decline" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Display Declined</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Orders in Kount declined status display in customer's account.]]></comment>
+                    <backend_model>Swarming\Kount\Model\Config\Backend\OrderStatusDecline</backend_model>
+                </field>
+            </group>
+
+            <group id="paymentmethods" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
                 <label>Disable Payment Methods</label>
                 <comment>Kount RIS inquiry is not performed for payment methods which are disabled here.</comment>
 
@@ -126,7 +144,7 @@
                 </field>
             </group>
 
-            <group id="ens" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+            <group id="ens" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
                 <label>Event Notifications</label>
 
                 <field id="did_where" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
@@ -146,7 +164,7 @@
                 </field>
             </group>
 
-            <group id="log" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+            <group id="log" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
                 <label>Logging</label>
 
                 <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
@@ -175,7 +193,7 @@
                 </field>
             </group>
 
-            <group id="admin" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+            <group id="admin" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
                 <label>Admin Ordering</label>
 
                 <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
