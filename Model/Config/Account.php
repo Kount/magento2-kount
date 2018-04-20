@@ -7,6 +7,7 @@ namespace Swarming\Kount\Model\Config;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
+use Magento\Store\Model\Store;
 
 class Account
 {
@@ -43,6 +44,16 @@ class Account
             && !empty($this->getMerchantNumber($websiteCode))
             && !empty($this->getWebsite($websiteCode))
             && !empty($this->getApiKey($websiteCode));
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->scopeConfig->getValue(Store::XML_PATH_PRICE_SCOPE, ScopeInterface::SCOPE_STORE) == Store::PRICE_SCOPE_GLOBAL
+            ? $this->scopeConfig->getValue(\Magento\Directory\Model\Currency::XML_PATH_CURRENCY_BASE)
+            : $this->scopeConfig->getValue('swarming_kount/account/currency');
     }
 
     /**
