@@ -69,6 +69,15 @@
                         <field id="test">1</field>
                     </depends>
                 </field>
+
+                <field id="currency" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Currency</label>
+                    <frontend_model>Swarming\Kount\Block\Adminhtml\System\Config\Currency</frontend_model>
+                    <source_model>Magento\Config\Model\Config\Source\Locale\Currency</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
             </group>
 
             <group id="workflow" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">

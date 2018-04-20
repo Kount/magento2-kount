@@ -22,6 +22,7 @@
                 <data_collector_url_test_mode>https://tst.kaptcha.com</data_collector_url_test_mode>
                 <data_collector_width>1</data_collector_width>
                 <data_collector_height>1</data_collector_height>
+                <currency>USD</currency>
             </account>
             <phonetoweb>
                 <enable>0</enable>

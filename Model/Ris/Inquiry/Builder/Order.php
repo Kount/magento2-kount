@@ -6,6 +6,8 @@
 namespace Swarming\Kount\Model\Ris\Inquiry\Builder;
 
 use Magento\Framework\App\Area;
+use Magento\Framework\App\ObjectManager;
+use Swarming\Kount\Model\Config\Account as ConfigAccount;
 
 class Order
 {
@@ -13,8 +15,6 @@ class Order
     const FIELD_METHOD = 'METHOD';
     const FIELD_COUPON_CODE = 'COUPON_CODE';
     const FIELD_ACCOUNT_NAME = 'ACCOUNT_NAME';
-
-    const CURRENCY = 'USD';
 
     const LOCAL_IP = '10.0.0.1';
 
@@ -39,6 +39,11 @@ class Order
     protected $cartItemFactory;
 
     /**
+     * @var \Swarming\Kount\Model\Config\Account
+     */
+    protected $configAccount;
+
+    /**
      * @var \Swarming\Kount\Model\Config\PhoneToWeb
      */
     protected $configPhoneToWeb;
@@ -61,6 +66,7 @@ class Order
      * @param \Swarming\Kount\Model\Config\PhoneToWeb $configPhoneToWeb
      * @param \Magento\Framework\HTTP\Header $httpHeader
      * @param \Swarming\Kount\Model\Logger $logger
+     * @param \Swarming\Kount\Model\Config\Account|null $configAccount
      */
     public function __construct(
         \Magento\Framework\App\State $appState,
@@ -69,12 +75,14 @@ class Order
         \Swarming\Kount\Model\Ris\Inquiry\Builder\Order\CartItemFactory $cartItemFactory,
         \Swarming\Kount\Model\Config\PhoneToWeb $configPhoneToWeb,
         \Magento\Framework\HTTP\Header $httpHeader,
-        \Swarming\Kount\Model\Logger $logger
+        \Swarming\Kount\Model\Logger $logger,
+        \Swarming\Kount\Model\Config\Account $configAccount = null
     ) {
         $this->appState = $appState;
         $this->customerRegistry = $customerRegistry;
         $this->directoryHelper = $directoryHelper;
         $this->cartItemFactory = $cartItemFactory;
+        $this->configAccount = $configAccount ?: ObjectManager::getInstance()->get(ConfigAccount::class);
         $this->configPhoneToWeb = $configPhoneToWeb;
         $this->httpHeader = $httpHeader;
         $this->logger = $logger;
@@ -109,10 +117,12 @@ class Order
     {
         $baseGrandTotal = $this->convertAndRoundAmount($order->getBaseGrandTotal(), $order->getBaseCurrencyCode());
         $request->setTotal($baseGrandTotal);
-        $request->setCurrency(self::CURRENCY);
+
+        $currency = $this->configAccount->getCurrency();
+        $request->setCurrency($currency);
 
         $this->logger->info('Base Currency: ' . $order->getBaseCurrencyCode());
-        $this->logger->info('Base Grand Total (USD): ' . $baseGrandTotal);
+        $this->logger->info("Base Grand Total ({$currency}): " . $baseGrandTotal);
     }
 
     /**
@@ -122,9 +132,10 @@ class Order
      */
     protected function convertAndRoundAmount($amount, $baseCurrencyCode)
     {
-        $amount = self::CURRENCY === $baseCurrencyCode
+        $currency = $this->configAccount->getCurrency();
+        $amount = $currency === $baseCurrencyCode
             ? $amount
-            : $this->directoryHelper->currencyConvert($amount, $baseCurrencyCode, self::CURRENCY);
+            : $this->directoryHelper->currencyConvert($amount, $baseCurrencyCode, $currency);
         return round($amount * 100);
     }
 
