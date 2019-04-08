@@ -99,6 +99,9 @@
                 <item name="payflow_link" xsi:type="string">Swarming\Kount\Model\Ris\Inquiry\Builder\Payment\PaypalPayflowLink</item>
                 <item name="payflow_advanced" xsi:type="string">Swarming\Kount\Model\Ris\Inquiry\Builder\Payment\PaypalPayflowAdvanced</item>
                 <item name="payflowpro" xsi:type="string">Swarming\Kount\Model\Ris\Inquiry\Builder\Payment\PaypalPayflowPro</item>
+                <item name="authorizenet_acceptjs" xsi:type="string">Swarming\Kount\Model\Ris\Inquiry\Builder\Payment\AuthorizenetAcceptjs</item>
+                <item name="amazon_payment" xsi:type="string">Swarming\Kount\Model\Ris\Inquiry\Builder\Payment\AmazonPay</item>
+                <item name="klarna_kp" xsi:type="string">Swarming\Kount\Model\Ris\Inquiry\Builder\Payment\KlarnaPayments</item>
             </argument>
         </arguments>
     </virtualType>
@@ -115,6 +118,7 @@
                 <item name="payflow_link" xsi:type="string">Swarming\Kount\Model\Ris\Update\Builder\Payment\PaypalPayflowLink</item>
                 <item name="payflow_advanced" xsi:type="string">Swarming\Kount\Model\Ris\Update\Builder\Payment\PaypalPayflowLink</item>
                 <item name="payflowpro" xsi:type="string">Swarming\Kount\Model\Ris\Update\Builder\Payment\PaypalPayflowPro</item>
+                <item name="authorizenet_acceptjs" xsi:type="string">Swarming\Kount\Model\Ris\Update\Builder\Payment\AuthorizenetAcceptjs</item>
             </argument>
         </arguments>
     </virtualType>
