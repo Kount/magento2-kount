@@ -60,6 +60,10 @@ class Manager
     public function handleRequest($xmlString)
     {
         $xml = $this->asXmlObject($xmlString);
+        if (!$xml instanceof \Magento\Framework\Simplexml\Element) {
+            throw new \InvalidArgumentException('Invalid Merchant Id in event Xml.');
+        }
+
         if ($xml->getAttribute('merchant') != $this->configAccount->getMerchantNumber()) {
             throw new \InvalidArgumentException('Invalid Merchant Id in event Xml.');
         }
