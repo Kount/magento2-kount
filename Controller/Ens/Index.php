@@ -6,12 +6,13 @@
 namespace Swarming\Kount\Controller\Ens;
 
 use Magento\Framework\App\Action\Action;
-use Magento\Framework\App\Action\Context;
+use Magento\Framework\App\Request\InvalidRequestException;
+use Magento\Framework\App\RequestInterface;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Exception\AuthenticationException;
 
-class Index extends Action
+class Index extends Action implements \Magento\Framework\App\CsrfAwareActionInterface
 {
     /**
      * @var \Swarming\Kount\Model\Config\Account
@@ -96,5 +97,23 @@ class Index extends Action
         return $this->configAccount->isTestMode()
             ||
             $this->configEns->isAllowedIp($this->remoteAddress->getRemoteAddress());
+    }
+
+    /**
+     * @param \Magento\Framework\App\RequestInterface $request
+     * @return InvalidRequestException|null
+     */
+    public function createCsrfValidationException(RequestInterface $request): ?InvalidRequestException
+    {
+        return null;
+    }
+
+    /**
+     * @param \Magento\Framework\App\RequestInterface $request
+     * @return bool|null
+     */
+    public function validateForCsrf(RequestInterface $request): ?bool
+    {
+        return true;
     }
 }
