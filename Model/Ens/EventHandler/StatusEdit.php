@@ -244,6 +244,7 @@ class StatusEdit implements EventHandlerInterface
         $this->logger->info('Kount status transitioned from review to decline. Order: ' . $order->getIncrementId());
 
         $this->orderActionFactory->create(OrderActionFactory::RESTORE)->process($order);
+        $this->orderRepository->save($order);
         $this->orderActionFactory->create(OrderActionFactory::DECLINE)->process($order);
         $this->orderRepository->save($order);
     }

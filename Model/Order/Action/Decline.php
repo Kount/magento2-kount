@@ -153,6 +153,9 @@ class Decline implements ActionInterface
                 $this->creditmemoLoader->setInvoiceId($invoice->getId());
 
                 $creditmemo = $this->creditmemoLoader->load();
+                if (!$creditmemo instanceof \Magento\Sales\Model\Order\Creditmemo) {
+                    throw new LocalizedException(__('Cannot create creditmemo for invoice: %1.', $invoice->getIncrementId()));
+                }
 
                 $creditmemo->addComment(__('Kount Decline'), true);
                 $creditmemo->setCustomerNote(__('Kount Decline'));
