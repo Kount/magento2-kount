@@ -6,9 +6,19 @@
 namespace Swarming\Kount\Observer;
 
 use Magento\Framework\Event\Observer;
+use Magento\Framework\Exception\LocalizedException;
+use Swarming\Kount\Model\Config\Source\DeclineAction;
+use Magento\Sales\Model\Order;
 
 class SubmitAllAfter implements \Magento\Framework\Event\ObserverInterface
 {
+    private const REVIEW_STATUSES = [
+        DeclineAction::ACTION_HOLD,
+        DeclineAction::ACTION_CANCEL,
+        DeclineAction::ACTION_REFUND,
+        Order::STATE_CANCELED
+    ];
+
     /**
      * @var \Swarming\Kount\Helper\Workflow
      */
@@ -78,6 +88,11 @@ class SubmitAllAfter implements \Magento\Framework\Event\ObserverInterface
 
         $workflow = $this->workflowFactory->create($this->configWorkflow->getWorkflowMode($order->getStoreId()));
         $workflow->success($order);
+
+        $status = $order->getStatus();
+        if (in_array($status, self::REVIEW_STATUSES)) {
+            throw new LocalizedException(__('Order declined / voided due to Kount RIS Decline. Please ensure billing/shipping/payment information is correct.  If more problems persist, please contact us for more information'));
+        }
 
         $this->logger->info('checkout_submit_all_after Done');
     }
