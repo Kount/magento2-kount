@@ -14,7 +14,7 @@ class Session extends \Magento\Framework\Session\SessionManager
      */
     public function incrementKountSessionId()
     {
-        $kountSessionId = md5(rand(0, 100000) . '-' . microtime());
+        $kountSessionId = hash('sha512', rand(0, 100000) . '-' . microtime());
         $this->storage->setData(self::KOUNT_SESSION_ID, $kountSessionId);
 
         return $this;
