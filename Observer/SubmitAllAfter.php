@@ -12,7 +12,7 @@ use Magento\Sales\Model\Order;
 
 class SubmitAllAfter implements \Magento\Framework\Event\ObserverInterface
 {
-    private const REVIEW_STATUSES = [
+    const REVIEW_STATUSES = [
         DeclineAction::ACTION_HOLD,
         DeclineAction::ACTION_CANCEL,
         DeclineAction::ACTION_REFUND,
