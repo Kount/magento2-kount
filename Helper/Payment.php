@@ -95,7 +95,7 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
             $res[] = $methodInstance;
         }
 
-        @uasort(
+        uasort(
             $res,
             function (MethodInterface $a, MethodInterface $b) {
                 if ((int)$a->getConfigData('sort_order') < (int)$b->getConfigData('sort_order')) {
