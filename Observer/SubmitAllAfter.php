@@ -91,7 +91,7 @@ class SubmitAllAfter implements \Magento\Framework\Event\ObserverInterface
 
         $status = $order->getStatus();
         if (in_array($status, self::REVIEW_STATUSES)) {
-            throw new LocalizedException(__('Order declined / voided due to Kount RIS Decline. Please ensure billing/shipping/payment information is correct.  If more problems persist, please contact us for more information'));
+            throw new LocalizedException(__('Order declined. Please ensure your information is correct. If the problem persists, please contact us for assistance.'));
         }
 
         $this->logger->info('checkout_submit_all_after Done');
