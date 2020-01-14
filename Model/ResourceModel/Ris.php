@@ -7,6 +7,8 @@ namespace Swarming\Kount\Model\ResourceModel;
 
 class Ris extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
+    const TABLE_NAME = 'swarming_kount_ris';
+
     /**
      * @return void
      */

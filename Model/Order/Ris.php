@@ -103,6 +103,12 @@ class Ris
         $ris->setCards($response->getCards());
         $ris->setEmails($response->getEmails());
         $ris->setDevices($response->getDevices());
+        $ris->setOmniscore($response->getOmniscore());
+        $ris->setIpAddress($response->getIPAddress());
+        $ris->setIpCity($response->getIPAddressCity());
+        $ris->setNetw($response->getNetwork());
+        $ris->setMobileDevice($response->getMobileDevice());
+        $ris->setMobileType($response->getMobileType());
 
         if ($order->getEntityId()) {
             $this->linkRis($ris, $order);
@@ -120,6 +126,12 @@ class Ris
         $this->logger->info('Cards: ' . $ris->getCards());
         $this->logger->info('Emails: ' . $ris->getEmails());
         $this->logger->info('Devices: ' . $ris->getDevices());
+        $this->logger->info('Omniscore: ' . $ris->getOmniscore());
+        $this->logger->info('IP Address: ' . $ris->getIpAddress());
+        $this->logger->info('IP City: ' . $ris->getIpCity());
+        $this->logger->info('Network: ' . $ris->getNetw());
+        $this->logger->info('Mobile Device: ' . $ris->getMobileDevice());
+        $this->logger->info('Mobile Type: ' . $ris->getMobileType());
     }
 
     /**

@@ -174,6 +174,54 @@ class Kount extends \Magento\Backend\Block\Template implements \Magento\Backend\
     /**
      * @return string
      */
+    public function getOmniscore()
+    {
+        return $this->ris->getOmniscore() ? : __('N/A');
+    }
+
+    /**
+     * @return string
+     */
+    public function getIpAddress()
+    {
+        return $this->ris->getIpAddress() ? : __('N/A');
+    }
+
+    /**
+     * @return string
+     */
+    public function getIpCity()
+    {
+        return $this->ris->getIpCity() ? : __('N/A');
+    }
+
+    /**
+     * @return string
+     */
+    public function getNetw()
+    {
+        return $this->ris->getNetw() ? : __('N/A');
+    }
+
+    /**
+     * @return string
+     */
+    public function getMobileDevice()
+    {
+        return $this->ris->getMobileDevice() ? : __('N');
+    }
+
+    /**
+     * @return string
+     */
+    public function getMobileType()
+    {
+        return $this->ris->getMobileType() ? : __('N/A');
+    }
+
+    /**
+     * @return string
+     */
     public function getTabLabel()
     {
         return __('Kount');

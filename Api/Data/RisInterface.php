@@ -20,6 +20,12 @@ interface RisInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     const CARDS = 'cards';
     const EMAILS = 'emails';
     const DEVICES = 'devices';
+    const OMNISCORE = 'omniscore';
+    const IP_ADDRESS = 'ip_address';
+    const IP_CITY = 'ip_city';
+    const NETW = 'netw';
+    const MOBILE_DEVICE = 'mobile_device';
+    const MOBILE_TYPE = 'mobile_type';
 
     /**
      * @return int
@@ -164,4 +170,70 @@ interface RisInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      * @return $this
      */
     public function setDevices($devices);
+
+    /**
+     * @return string
+     */
+    public function getOmniscore();
+
+    /**
+     * @param string $omniscore
+     * @return $this
+     */
+    public function setOmniscore($omniscore);
+
+    /**
+     * @return string
+     */
+    public function getIpAddress();
+
+    /**
+     * @param string $ipAddress
+     * @return $this
+     */
+    public function setIpAddress($ipAddress);
+
+    /**
+     * @return string
+     */
+    public function getIpCity();
+
+    /**
+     * @param string $ipCity
+     * @return $this
+     */
+    public function setIpCity($ipCity);
+
+    /**
+     * @return string
+     */
+    public function getNetw();
+
+    /**
+     * @param string $netw
+     * @return $this
+     */
+    public function setNetw($netw);
+
+    /**
+     * @return string
+     */
+    public function getMobileDevice();
+
+    /**
+     * @param string $mobileDevice
+     * @return $this
+     */
+    public function setMobileDevice($mobileDevice);
+
+    /**
+     * @return string
+     */
+    public function getMobileType();
+
+    /**
+     * @param string $mobileType
+     * @return $this
+     */
+    public function setMobileType($mobileType);
 }
