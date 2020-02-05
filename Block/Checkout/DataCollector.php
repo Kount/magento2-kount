@@ -91,17 +91,9 @@ class DataCollector extends \Magento\Framework\View\Element\Template
     /**
      * @return string
      */
-    public function getIFrameUrl()
+    public function getJsDataCollectorUrl()
     {
-        return $this->generateUrl('htm');
-    }
-
-    /**
-     * @return string
-     */
-    public function getGifUrl()
-    {
-        return $this->generateUrl('gif');
+        return $this->generateJsUrl();
     }
 
     /**
@@ -161,17 +153,15 @@ class DataCollector extends \Magento\Framework\View\Element\Template
         }
         return false;
     }
-
+    
     /**
-     * @param string $mode
      * @return string
      */
-    private function generateUrl($mode)
+    private function generateJsUrl()
     {
         return sprintf(
-            '%s/logo.%s?m=%s&s=%s',
+            '%s/collect/sdk?m=%s&s=%s',
             $this->configAccount->getDataCollectorUrl(),
-            $mode,
             $this->configAccount->getMerchantNumber(),
             $this->kountSession->getKountSessionId()
         );
