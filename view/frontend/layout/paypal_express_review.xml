@@ -7,6 +7,8 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
+        <attribute name="class" value="kaxsdc"/>
+        <attribute name="data-event" value="load"/>
         <referenceContainer name="content">
             <block class="Swarming\Kount\Block\Checkout\DataCollector" name="swarming.kount.datacollector" template="Swarming_Kount::checkout/datacollector.phtml" cacheable="false"/>
         </referenceContainer>
