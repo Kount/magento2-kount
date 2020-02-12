@@ -28,6 +28,7 @@
                 <enable>0</enable>
             </phonetoweb>
             <ens>
+                <enabled>1</enabled>
                 <kount_ips>64.128.91.251,209.81.12.251</kount_ips>
             </ens>
             <workflow>

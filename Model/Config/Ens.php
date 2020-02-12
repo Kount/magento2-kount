@@ -70,4 +70,13 @@ class Ens
     {
         return in_array($ip, $this->getAllowedIps($websiteCode), true);
     }
+
+    /**
+     * @param string|null $websiteCode
+     * @return bool
+     */
+    public function isEnabled($websiteCode = null)
+    {
+        return (bool)$this->scopeConfig->getValue('swarming_kount/ens/enabled', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
+    }
 }

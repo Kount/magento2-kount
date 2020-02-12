@@ -12,27 +12,22 @@
     </div>
     <div class="fieldset fieldset-wide">
         <div class="fieldset">
-            <table cellspacing="0" class="form-list">
+            <table cellspacing="0" class="form-list admin__table-primary">
                 <tr>
-                    <td class="label"><label><?php echo __('RIS Score') ?></label></td>
-                    <td class="value"><strong><?php echo $block->getRisScore() ?></strong></td>
+                    <td class="label">
+                        <label><?php echo __('Score') ?></label>
+                        <p><i><?= __('Higher indicates less risk')?></i></p>
+                    </td>
+                    <td class="value"><strong><?php echo $block->getOmniscore() ?></strong></td>
                 </tr>
                 <tr>
-                    <td class="label"><label><?php echo __('RIS Response') ?></label></td>
+                    <td class="label"><label><?php echo __('Decision Status') ?></label></td>
                     <td class="value"><strong><?php echo $block->getRisResponse() ?></strong></td>
                 </tr>
                 <tr>
-                    <td class="label"><label><?php echo __('RIS Response Reason') ?></label></td>
-                    <td class="value"><strong><?php echo $block->getRisDescription() ?></strong></td>
-                </tr>
-                <tr>
-                    <td class="label"><label><?php echo __('RIS Rules Triggered') ?></label></td>
+                    <td class="label"><label><?php echo __('Rules Triggered') ?></label></td>
                     <td class="value"><strong><?php echo nl2br($block->getRisRules()) ?></strong></td>
                 </tr>
-            </table>
-        </div>
-        <div class="fieldset">
-            <table cellspacing="0" class="form-list">
                 <tr>
                     <td class="label"><label><?php echo __('Transaction ID (TRAN)') ?></label></td>
                     <td class="value">
@@ -64,6 +59,26 @@
                 <tr>
                     <td class="label"><label><?php echo __('Devices associated with Persona (DEVICES)') ?></label></td>
                     <td class="value"><strong><?php echo $block->getRisDevices() ?></strong></td>
+                </tr>
+                <tr>
+                    <td class="label"><label><?php echo __('IP Address') ?></label></td>
+                    <td class="value"><strong><?php echo $block->getIpAddress() ?></strong></td>
+                </tr>
+                <tr>
+                    <td class="label"><label><?php echo __('IP City') ?></label></td>
+                    <td class="value"><strong><?php echo $block->getIpCity() ?></strong></td>
+                </tr>
+                <tr>
+                    <td class="label"><label><?php echo __('Network Type') ?></label></td>
+                    <td class="value"><strong><?php echo $block->getNetw() ?></strong></td>
+                </tr>
+                <tr>
+                    <td class="label"><label><?php echo __('Is Mobile Device') ?></label></td>
+                    <td class="value"><strong><?php echo $block->getMobileDevice() ?></strong></td>
+                </tr>
+                <tr>
+                    <td class="label"><label><?php echo __('Mobile Type') ?></label></td>
+                    <td class="value"><strong><?php echo $block->getMobileType() ?></strong></td>
                 </tr>
             </table>
         </div>

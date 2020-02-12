@@ -235,8 +235,8 @@ class Ris extends AbstractModel implements RisInterface
     }
 
     /**
-     * @return string
-     */
+ * @return string
+ */
     public function getDevices()
     {
         return $this->getData(self::DEVICES);
@@ -249,6 +249,114 @@ class Ris extends AbstractModel implements RisInterface
     public function setDevices($devices)
     {
         $this->setData(self::DEVICES, $devices);
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOmniscore()
+    {
+        return $this->getData(self::OMNISCORE);
+    }
+
+    /**
+     * @param string $omniscore
+     * @return $this
+     */
+    public function setOmniscore($omniscore)
+    {
+        $this->setData(self::OMNISCORE, $omniscore);
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIpAddress()
+    {
+        return $this->getData(self::IP_ADDRESS);
+    }
+
+    /**
+     * @param string $ipAddress
+     * @return $this
+     */
+    public function setIpAddress($ipAddress)
+    {
+        $this->setData(self::IP_ADDRESS, $ipAddress);
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIpCity()
+    {
+        return $this->getData(self::IP_CITY);
+    }
+
+    /**
+     * @param string $ipCity
+     * @return $this
+     */
+    public function setIpCity($ipCity)
+    {
+        $this->setData(self::IP_CITY, $ipCity);
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNetw()
+    {
+        return $this->getData(self::NETW);
+    }
+
+    /**
+     * @param string $netw
+     * @return $this
+     */
+    public function setNetw($netw)
+    {
+        $this->setData(self::NETW, $netw);
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMobileDevice()
+    {
+        return $this->getData(self::MOBILE_DEVICE);
+    }
+
+    /**
+     * @param string $mobileDevice
+     * @return $this
+     */
+    public function setMobileDevice($mobileDevice)
+    {
+        $this->setData(self::MOBILE_DEVICE, $mobileDevice);
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMobileType()
+    {
+        return $this->getData(self::MOBILE_TYPE);
+    }
+
+    /**
+     * @param string $mobileType
+     * @return $this
+     */
+    public function setMobileType($mobileType)
+    {
+        $this->setData(self::MOBILE_TYPE, $mobileType);
         return $this;
     }
 }
