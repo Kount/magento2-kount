@@ -8,77 +8,77 @@
 ?>
 <div class="entry-edit">
     <div class="entry-edit-head">
-        <h4><?php echo __('Kount') ?></h4>
+        <h4><?= __('Kount') ?></h4>
     </div>
     <div class="fieldset fieldset-wide">
         <div class="fieldset">
             <table cellspacing="0" class="form-list admin__table-primary">
                 <tr>
                     <td class="label">
-                        <label><?php echo __('Score') ?></label>
+                        <label><?= __('Score') ?></label>
                         <p><i><?= __('Higher indicates less risk')?></i></p>
                     </td>
-                    <td class="value"><strong><?php echo $block->getOmniscore() ?></strong></td>
+                    <td class="value"><strong><?= $block->getOmniscore() ?></strong></td>
                 </tr>
                 <tr>
-                    <td class="label"><label><?php echo __('Decision Status') ?></label></td>
-                    <td class="value"><strong><?php echo $block->getRisResponse() ?></strong></td>
+                    <td class="label"><label><?= __('Decision Status') ?></label></td>
+                    <td class="value"><strong><?= $block->getRisResponse() ?></strong></td>
                 </tr>
                 <tr>
-                    <td class="label"><label><?php echo __('Rules Triggered') ?></label></td>
-                    <td class="value"><strong><?php echo nl2br($block->getRisRules()) ?></strong></td>
+                    <td class="label"><label><?= __('Rules Triggered') ?></label></td>
+                    <td class="value"><strong><?= nl2br($block->getRisRules()) ?></strong></td>
                 </tr>
                 <tr>
-                    <td class="label"><label><?php echo __('Transaction ID (TRAN)') ?></label></td>
+                    <td class="label"><label><?= __('Transaction ID (TRAN)') ?></label></td>
                     <td class="value">
                         <?php if ($block->getRisTransactionId()): ?>
-                            <strong><a href="<?php echo $block->getAWCUrl() ?>" target="_blank"><?php echo $block->getRisTransactionId() ?></a></strong>
+                            <strong><a href="<?= $block->getAWCUrl() ?>" target="_blank"><?= $block->getRisTransactionId() ?></a></strong>
                         <?php endif; ?>
                     </td>
                 </tr>
                 <tr>
-                    <td class="label"><label><?php echo __('Persona Country (GEOX)') ?></label></td>
-                    <td class="value"><strong><?php echo $block->getRisGeox() ?></strong></td>
+                    <td class="label"><label><?= __('Persona Country (GEOX)') ?></label></td>
+                    <td class="value"><strong><?= $block->getRisGeox() ?></strong></td>
                 </tr>
                 <tr>
-                    <td class="label"><label><?php echo __('Device Country (DVCC)') ?></label></td>
-                    <td class="value"><strong><?php echo $block->getRisCountry() ?></strong></td>
+                    <td class="label"><label><?= __('Device Country (DVCC)') ?></label></td>
+                    <td class="value"><strong><?= $block->getRisCountry() ?></strong></td>
                 </tr>
                 <tr>
-                    <td class="label"><label><?php echo __('Data Collector Present (KAPT)') ?></label></td>
-                    <td class="value"><strong><?php echo $block->getRisKaptcha() ?></strong></td>
+                    <td class="label"><label><?= __('Data Collector Present (KAPT)') ?></label></td>
+                    <td class="value"><strong><?= $block->getRisKaptcha() ?></strong></td>
                 </tr>
                 <tr>
-                    <td class="label"><label><?php echo __('Cards associated with Persona (CARDS)') ?></label></td>
-                    <td class="value"><strong><?php echo $block->getRisCards() ?></strong></td>
+                    <td class="label"><label><?= __('Cards associated with Persona (CARDS)') ?></label></td>
+                    <td class="value"><strong><?= $block->getRisCards() ?></strong></td>
                 </tr>
                 <tr>
-                    <td class="label"><label><?php echo __('Emails associated with Persona (EMAILS)') ?></label></td>
-                    <td class="value"><strong><?php echo $block->getRisEmails() ?></strong></td>
+                    <td class="label"><label><?= __('Emails associated with Persona (EMAILS)') ?></label></td>
+                    <td class="value"><strong><?= $block->getRisEmails() ?></strong></td>
                 </tr>
                 <tr>
-                    <td class="label"><label><?php echo __('Devices associated with Persona (DEVICES)') ?></label></td>
-                    <td class="value"><strong><?php echo $block->getRisDevices() ?></strong></td>
+                    <td class="label"><label><?= __('Devices associated with Persona (DEVICES)') ?></label></td>
+                    <td class="value"><strong><?= $block->getRisDevices() ?></strong></td>
                 </tr>
                 <tr>
-                    <td class="label"><label><?php echo __('IP Address') ?></label></td>
-                    <td class="value"><strong><?php echo $block->getIpAddress() ?></strong></td>
+                    <td class="label"><label><?= __('IP Address') ?></label></td>
+                    <td class="value"><strong><?= $block->getIpAddress() ?></strong></td>
                 </tr>
                 <tr>
-                    <td class="label"><label><?php echo __('IP City') ?></label></td>
-                    <td class="value"><strong><?php echo $block->getIpCity() ?></strong></td>
+                    <td class="label"><label><?= __('IP City') ?></label></td>
+                    <td class="value"><strong><?= $block->getIpCity() ?></strong></td>
                 </tr>
                 <tr>
-                    <td class="label"><label><?php echo __('Network Type') ?></label></td>
-                    <td class="value"><strong><?php echo $block->getNetw() ?></strong></td>
+                    <td class="label"><label><?= __('Network Type') ?></label></td>
+                    <td class="value"><strong><?= $block->getNetw() ?></strong></td>
                 </tr>
                 <tr>
-                    <td class="label"><label><?php echo __('Is Mobile Device') ?></label></td>
-                    <td class="value"><strong><?php echo $block->getMobileDevice() ?></strong></td>
+                    <td class="label"><label><?= __('Is Mobile Device') ?></label></td>
+                    <td class="value"><strong><?= $block->getMobileDevice() ?></strong></td>
                 </tr>
                 <tr>
-                    <td class="label"><label><?php echo __('Mobile Type') ?></label></td>
-                    <td class="value"><strong><?php echo $block->getMobileType() ?></strong></td>
+                    <td class="label"><label><?= __('Mobile Type') ?></label></td>
+                    <td class="value"><strong><?= $block->getMobileType() ?></strong></td>
                 </tr>
             </table>
         </div>
