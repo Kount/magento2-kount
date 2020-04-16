@@ -73,25 +73,25 @@ class SubmitAllAfter implements \Magento\Framework\Event\ObserverInterface
     {
         $this->logger->info('checkout_submit_all_after Start');
 
-        /** @var \Magento\Sales\Model\Order $order */
-        $order = $observer->getEvent()->getData('order');
-        $payment = $order->getPayment();
+        $event = $observer->getEvent();
+        $orders = $event->getOrders() ?: [$event->getOrder()];
 
-        if (!$this->helperWorkflow->isProcessable($order)) {
-            return;
-        }
+        foreach ($orders as $order) {
+            $payment = $order->getPayment();
+            if (!$this->helperWorkflow->isProcessable($order)) {
+                continue;
+            }
+            if (!$this->condition->is($payment, $order->getStoreId())) {
+                $this->logger->info("Skip for {$payment->getMethod()} payment method.");
+                continue;
+            }
 
-        if (!$this->condition->is($payment, $order->getStoreId())) {
-            $this->logger->info("Skip for {$payment->getMethod()} payment method.");
-            return;
-        }
-
-        $workflow = $this->workflowFactory->create($this->configWorkflow->getWorkflowMode($order->getStoreId()));
-        $workflow->success($order);
-
-        $status = $order->getStatus();
-        if (in_array($status, self::REVIEW_STATUSES)) {
-            throw new LocalizedException(__('Order declined. Please ensure your information is correct. If the problem persists, please contact us for assistance.'));
+            $workflow = $this->workflowFactory->create($this->configWorkflow->getWorkflowMode($order->getStoreId()));
+            $workflow->success($order);
+            $status = $order->getStatus();
+            if (in_array($status, self::REVIEW_STATUSES)) {
+                throw new LocalizedException(__('Order declined. Please ensure your information is correct. If the problem persists, please contact us for assistance.'));
+            }
         }
 
         $this->logger->info('checkout_submit_all_after Done');
