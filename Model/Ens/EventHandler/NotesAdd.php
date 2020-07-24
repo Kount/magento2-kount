@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2020 KOUNT, INC.
  * See COPYING.txt for license details.
  */
 namespace Swarming\Kount\Model\Ens\EventHandler;
@@ -58,9 +58,11 @@ class NotesAdd extends EventHandlerOrder implements EventHandlerInterface
         $this->logger->info('agent: ' . $event->agent);
         $this->logger->info('occurred: ' . $event->occurred);
 
+        // Create a new comment for the order
         $newComment = "Reason Code: " . $newValue['@']['reason_code'] . "<br>"
                       . "Comment: " . $newValue[0];
 
+        // Add the comment to the order
         $order = $this->loadOrder($orderId);
         $order->addCommentToStatusHistory($newComment);
         $this->orderRepository->save($order);

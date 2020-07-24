@@ -1,10 +1,13 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2020 KOUNT, INC.
  * See COPYING.txt for license details.
  */
 namespace Swarming\Kount\Model\Ens\EventHandler;
 
+/**
+ * Parent class for WORKFLOW events. The class contains common methods.
+ */
 class EventHandlerOrder
 {
     /**
