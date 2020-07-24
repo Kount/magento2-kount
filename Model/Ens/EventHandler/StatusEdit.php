@@ -9,7 +9,7 @@ use Swarming\Kount\Model\Ens\EventHandlerInterface;
 use Swarming\Kount\Model\RisService;
 use Swarming\Kount\Model\Order\ActionFactory as OrderActionFactory;
 
-class StatusEdit implements EventHandlerInterface
+class StatusEdit extends EventHandlerOrder implements EventHandlerInterface
 {
     const EVENT_NAME = 'WORKFLOW_STATUS_EDIT';
 
@@ -57,6 +57,7 @@ class StatusEdit implements EventHandlerInterface
         $this->orderRis = $orderRis;
         $this->orderRepository = $orderRepository;
         $this->logger = $logger;
+        parent::__construct($orderFactory);
     }
 
     /**
@@ -84,41 +85,6 @@ class StatusEdit implements EventHandlerInterface
 
         $this->updateRisResponse($order, $ris, $newValue);
         $this->updateOrderStatus($order, $ris, $oldValue, $newValue);
-    }
-
-    /**
-     * @param \Magento\Framework\Simplexml\Element $event
-     * @return array
-     */
-    protected function fetchVars($event)
-    {
-        $eventData = $event->asArray();
-        return [
-            (empty($eventData['key'][0]) ? '' : $eventData['key'][0]),
-            (empty($eventData['key']['@']['order_number']) ? '' : $eventData['key']['@']['order_number']),
-            (empty($eventData['old_value']) ? '' : $eventData['old_value']),
-            (empty($eventData['new_value']) ? '' : $eventData['new_value'])
-        ];
-    }
-
-    /**
-     * @param string $orderId
-     * @return \Magento\Sales\Model\Order
-     *
-     * @throws \InvalidArgumentException
-     */
-    protected function loadOrder($orderId)
-    {
-        if (empty($orderId)) {
-            throw new \InvalidArgumentException('Invalid Order number.');
-        }
-
-        $order = $this->orderFactory->create()->loadByIncrementId($orderId);
-
-        if (!$order->getId()) {
-            throw new \InvalidArgumentException("Unable to locate order for: {$orderId}");
-        }
-        return $order;
     }
 
     /**
