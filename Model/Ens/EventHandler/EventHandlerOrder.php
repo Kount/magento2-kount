@@ -11,17 +11,41 @@ namespace Swarming\Kount\Model\Ens\EventHandler;
 class EventHandlerOrder
 {
     /**
-     * @var \Magento\Sales\Model\OrderFactory
+     * @var \Magento\Sales\Api\OrderRepositoryInterface
      */
-    protected $orderFactory;
+    private $orderRepository;
 
     /**
-     * @param \Magento\Sales\Model\OrderFactory $orderFactory
+     * @var \Magento\Framework\Api\SearchCriteriaInterface
+     */
+    private $searchCriteria;
+
+    /**
+     * @var \Magento\Framework\Api\Search\FilterGroup
+     */
+    private $filterGroup;
+
+    /**
+     * @var \Magento\Framework\Api\FilterBuilder
+     */
+    private $filterBuilder;
+
+    /**
+     * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
+     * @param \Magento\Framework\Api\SearchCriteriaInterface $criteria
+     * @param \Magento\Framework\Api\Search\FilterGroup $filterGroup
+     * @param \Magento\Framework\Api\FilterBuilder $filterBuilder
      */
     public function __construct(
-        \Magento\Sales\Model\OrderFactory $orderFactory
+        \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
+        \Magento\Framework\Api\SearchCriteriaInterface $criteria,
+        \Magento\Framework\Api\Search\FilterGroup $filterGroup,
+        \Magento\Framework\Api\FilterBuilder $filterBuilder
     ) {
-        $this->orderFactory = $orderFactory;
+        $this->orderRepository = $orderRepository;
+        $this->searchCriteria = $criteria;
+        $this->filterGroup = $filterGroup;
+        $this->filterBuilder = $filterBuilder;
     }
 
     /**
@@ -51,7 +75,16 @@ class EventHandlerOrder
             throw new \InvalidArgumentException('Invalid Order number.');
         }
 
-        $order = $this->orderFactory->create()->loadByIncrementId($orderId);
+        // $orderId is an increment ID. That why it have to use the method getFirstItem() on search result
+        $this->filterGroup->setFilters([
+            $this->filterBuilder
+                ->setField('increment_id')
+                ->setConditionType('eq')
+                ->setValue($orderId)
+                ->create()
+            ]);
+        $this->searchCriteria->setFilterGroups([$this->filterGroup]);
+        $order = $this->orderRepository->getList($this->searchCriteria)->getFirstItem();
 
         if (!$order->getId()) {
             throw new \InvalidArgumentException("Unable to locate order for: {$orderId}");
