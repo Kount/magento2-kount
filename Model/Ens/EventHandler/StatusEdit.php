@@ -46,25 +46,21 @@ class StatusEdit extends EventHandlerOrder implements EventHandlerInterface
      * @param OrderActionFactory $orderActionFactory
      * @param \Swarming\Kount\Model\Order\Ris $orderRis
      * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
-     * @param \Magento\Framework\Api\SearchCriteriaInterface $criteria
-     * @param \Magento\Framework\Api\Search\FilterGroup $filterGroup
-     * @param \Magento\Framework\Api\FilterBuilder $filterBuilder
+     * @param \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
      * @param \Swarming\Kount\Model\Logger $logger
      */
     public function __construct(
         \Swarming\Kount\Model\Order\ActionFactory $orderActionFactory,
         \Swarming\Kount\Model\Order\Ris $orderRis,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
-        \Magento\Framework\Api\SearchCriteriaInterface $criteria,
-        \Magento\Framework\Api\Search\FilterGroup $filterGroup,
-        \Magento\Framework\Api\FilterBuilder $filterBuilder,
+        \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
         \Swarming\Kount\Model\Logger $logger
     ) {
         $this->orderActionFactory = $orderActionFactory;
         $this->orderRis = $orderRis;
         $this->orderRepository = $orderRepository;
         $this->logger = $logger;
-        parent::__construct($orderRepository, $criteria, $filterGroup, $filterBuilder);
+        parent::__construct($orderRepository, $searchCriteriaBuilder);
     }
 
     /**

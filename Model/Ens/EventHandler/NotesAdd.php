@@ -24,20 +24,16 @@ class NotesAdd extends EventHandlerOrder implements EventHandlerInterface
     /**
      * @param \Swarming\Kount\Model\Logger $logger
      * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
-     * @param \Magento\Framework\Api\SearchCriteriaInterface $criteria
-     * @param \Magento\Framework\Api\Search\FilterGroup $filterGroup
-     * @param \Magento\Framework\Api\FilterBuilder $filterBuilder
+     * @param \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
      */
     public function __construct(
         \Swarming\Kount\Model\Logger $logger,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
-        \Magento\Framework\Api\SearchCriteriaInterface $criteria,
-        \Magento\Framework\Api\Search\FilterGroup $filterGroup,
-        \Magento\Framework\Api\FilterBuilder $filterBuilder
+        \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
     ) {
         $this->logger = $logger;
         $this->orderRepository = $orderRepository;
-        parent::__construct($orderRepository, $criteria, $filterGroup, $filterBuilder);
+        parent::__construct($orderRepository, $searchCriteriaBuilder);
     }
 
     /**
