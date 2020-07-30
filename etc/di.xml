@@ -37,6 +37,7 @@
         <arguments>
             <argument name="supportedEvents" xsi:type="array">
                 <item name="WORKFLOW_STATUS_EDIT" xsi:type="string">WORKFLOW_STATUS_EDIT</item>
+                <item name="WORKFLOW_NOTES_ADD" xsi:type="string">WORKFLOW_NOTES_ADD</item>
             </argument>
         </arguments>
     </type>
@@ -44,6 +45,7 @@
         <arguments>
             <argument name="handlers" xsi:type="array">
                 <item name="WORKFLOW_STATUS_EDIT" xsi:type="string">Swarming\Kount\Model\Ens\EventHandler\StatusEdit</item>
+                <item name="WORKFLOW_NOTES_ADD" xsi:type="string">Swarming\Kount\Model\Ens\EventHandler\NotesAdd</item>
             </argument>
         </arguments>
     </type>
