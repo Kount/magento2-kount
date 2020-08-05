@@ -255,15 +255,24 @@ class Order
      */
     protected function processCart(\Kount_Ris_Request_Inquiry $request, \Magento\Sales\Model\Order $order)
     {
+        $realOrderItems = [];
+        $orderItems = $order->getAllItems();
+        foreach ($orderItems as $orderItem) {
+            if ($orderItem->getParentItem()) {
+                continue;
+            }
+            $realOrderItems[] = $orderItem;
+        }
+
         $cart = [];
-        /** @var \Magento\Sales\Model\Order\Item $item */
-        foreach ($order->getAllVisibleItems() as $item) {
+        /** @var \Magento\Sales\Model\Order\Item $realOrderItem */
+        foreach ($realOrderItems as $realOrderItem) {
             $cart[] = $this->cartItemFactory->create([
-                'productType' => $item->getSku(),
-                'itemName' => $item->getName(),
-                'description' => ($item->getDescription() ? $item->getDescription() : ''),
-                'quantity' => round($item->getQtyOrdered()),
-                'price' => $this->convertAndRoundAmount($item->getBasePrice(), $order->getBaseCurrencyCode()),
+                'productType' => $realOrderItem->getSku(),
+                'itemName' => $realOrderItem->getName(),
+                'description' => ($realOrderItem->getDescription() ? $realOrderItem->getDescription() : ''),
+                'quantity' => round($realOrderItem->getQtyOrdered()),
+                'price' => $this->convertAndRoundAmount($realOrderItem->getBasePrice(), $order->getBaseCurrencyCode()),
             ]);
         }
         $request->setCart($cart);
