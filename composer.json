@@ -2,7 +2,7 @@
   "name": "swarming/magento2-kount",
   "description": "Magento 2 Kount integration",
   "keywords": ["magento2", "kount"],
-  "version": "4.2.7",
+  "version": "4.2.8",
   "type": "magento2-module",
   "license": ["proprietary"],
   "authors": [
