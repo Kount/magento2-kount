@@ -76,7 +76,9 @@ class Index extends Action implements \Magento\Framework\App\CsrfAwareActionInte
             }
 
             if (!$this->isAllowed()) {
-                throw new AuthenticationException(__('Invalid ENS Ip Address.'));
+                throw new AuthenticationException(
+                    __('Invalid ENS Ip Address: ' . $this->remoteAddress->getRemoteAddress() . '. Please ensure you whitelist this ip address in the Magento Kount configuration settings')
+                );
             }
 
             $xmlString = file_get_contents('php://input');
