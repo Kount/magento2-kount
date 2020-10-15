@@ -53,6 +53,44 @@ class Ens
     }
 
     /**
+     *
+     * @param $ip
+     * @param array $ips
+     * @return bool
+     */
+    private function isInCidrRange($ip, array $ips) : bool
+    {
+        $cidrRanges = array_filter(
+            $ips,
+            function ($ipAddress) {
+                return strpos($ipAddress, '/') !== false;
+            }
+        );
+
+        if (empty($cidrRanges)) {
+            return false;
+        }
+
+        $longIp = ip2long($ip);
+        if (!$longIp) {
+            return false;
+        }
+
+        foreach ($cidrRanges as $cidrIp) {
+            $cidr = explode('/', $cidrIp);
+            $range[0] = long2ip((ip2long($cidr[0])) & ((-1 << (32 - (int)$cidr[1]))));
+            $range[1] = long2ip((ip2long($range[0])) + pow(2, (32 - (int)$cidr[1])) - 1);
+            $rangeStart = ip2long($range[0]);
+            $rangeEnd = ip2long($range[1]);
+            if ($rangeStart <= $longIp && $longIp <= $rangeEnd) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * @param string|null $websiteCode
      * @return array
      */
@@ -68,7 +106,8 @@ class Ens
      */
     public function isAllowedIp($ip, $websiteCode = null)
     {
-        return in_array($ip, $this->getAllowedIps($websiteCode), true);
+        $allowedIps = $this->getAllowedIps($websiteCode);
+        return in_array($ip, $allowedIps, true) || $this->isInCidrRange($ip, $allowedIps) ;
     }
 
     /**
