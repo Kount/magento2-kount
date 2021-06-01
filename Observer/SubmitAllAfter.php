@@ -1,13 +1,13 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Observer;
+namespace Kount\Kount\Observer;
 
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Exception\LocalizedException;
-use Swarming\Kount\Model\Config\Source\DeclineAction;
+use Kount\Kount\Model\Config\Source\DeclineAction;
 use Magento\Sales\Model\Order;
 
 class SubmitAllAfter implements \Magento\Framework\Event\ObserverInterface
@@ -20,43 +20,43 @@ class SubmitAllAfter implements \Magento\Framework\Event\ObserverInterface
     ];
 
     /**
-     * @var \Swarming\Kount\Helper\Workflow
+     * @var \Kount\Kount\Helper\Workflow
      */
     protected $helperWorkflow;
 
     /**
-     * @var \Swarming\Kount\Model\Config\Workflow
+     * @var \Kount\Kount\Model\Config\Workflow
      */
     protected $configWorkflow;
 
     /**
-     * @var \Swarming\Kount\Model\WorkflowFactory
+     * @var \Kount\Kount\Model\WorkflowFactory
      */
     protected $workflowFactory;
 
     /**
-     * @var \Swarming\Kount\Model\Observer\ConditionInterface
+     * @var \Kount\Kount\Model\Observer\ConditionInterface
      */
     protected $condition;
 
     /**
-     * @var \Swarming\Kount\Model\Logger
+     * @var \Kount\Kount\Model\Logger
      */
     protected $logger;
 
     /**
-     * @param \Swarming\Kount\Helper\Workflow $helperWorkflow
-     * @param \Swarming\Kount\Model\Config\Workflow $configWorkflow
-     * @param \Swarming\Kount\Model\WorkflowFactory $workflowFactory
-     * @param \Swarming\Kount\Model\Observer\ConditionInterface $condition
-     * @param \Swarming\Kount\Model\Logger $logger
+     * @param \Kount\Kount\Helper\Workflow $helperWorkflow
+     * @param \Kount\Kount\Model\Config\Workflow $configWorkflow
+     * @param \Kount\Kount\Model\WorkflowFactory $workflowFactory
+     * @param \Kount\Kount\Model\Observer\ConditionInterface $condition
+     * @param \Kount\Kount\Model\Logger $logger
      */
     public function __construct(
-        \Swarming\Kount\Helper\Workflow $helperWorkflow,
-        \Swarming\Kount\Model\Config\Workflow $configWorkflow,
-        \Swarming\Kount\Model\WorkflowFactory $workflowFactory,
-        \Swarming\Kount\Model\Observer\ConditionInterface $condition,
-        \Swarming\Kount\Model\Logger $logger
+        \Kount\Kount\Helper\Workflow $helperWorkflow,
+        \Kount\Kount\Model\Config\Workflow $configWorkflow,
+        \Kount\Kount\Model\WorkflowFactory $workflowFactory,
+        \Kount\Kount\Model\Observer\ConditionInterface $condition,
+        \Kount\Kount\Model\Logger $logger
     ) {
         $this->helperWorkflow = $helperWorkflow;
         $this->configWorkflow = $configWorkflow;

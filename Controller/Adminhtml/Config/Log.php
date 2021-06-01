@@ -1,13 +1,13 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Controller\Adminhtml\Config;
+namespace Kount\Kount\Controller\Adminhtml\Config;
 
 use Magento\Backend\App\Action;
 use Magento\Framework\App\Filesystem\DirectoryList;
-use Swarming\Kount\Model\Config\Log as ConfigLog;
+use Kount\Kount\Model\Config\Log as ConfigLog;
 
 class Log extends Action
 {

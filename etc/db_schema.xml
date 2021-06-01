@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
 -->
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
-    <table name="swarming_kount_ris" resource="default" engine="innodb" comment="Kount Ris Data">
+    <table name="kount_ris" resource="default" engine="innodb" comment="Kount Ris Data">
         <column xsi:type="int" name="ris_id" padding="10" nullable="false" unsigned="true" identity="true" comment="Id"/>
         <column xsi:type="int" name="order_id" padding="10" nullable="false" unsigned="true" comment="Order Id"/>
         <column xsi:type="varchar" name="score" nullable="true" length="10" comment="Ris Score"/>
@@ -30,7 +30,7 @@
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="ris_id"/>
         </constraint>
-        <index referenceId="SWARMING_KOUNT_RIS_ORDER_ID" indexType="btree">
+        <index referenceId="kount_RIS_ORDER_ID" indexType="btree">
             <column name="order_id"/>
         </index>
     </table>

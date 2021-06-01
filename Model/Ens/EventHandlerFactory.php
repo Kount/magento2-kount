@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Ens;
+namespace Kount\Kount\Model\Ens;
 
 class EventHandlerFactory
 {
@@ -31,7 +31,7 @@ class EventHandlerFactory
 
     /**
      * @param string $handlerCode
-     * @return \Swarming\Kount\Model\Ens\EventHandlerInterface
+     * @return \Kount\Kount\Model\Ens\EventHandlerInterface
      * @throws \InvalidArgumentException
      */
     public function create($handlerCode)
@@ -42,7 +42,7 @@ class EventHandlerFactory
 
         $eventHandler = $this->objectManager->create($this->handlers[$handlerCode]);
         if (!$eventHandler instanceof EventHandlerInterface) {
-            throw new \InvalidArgumentException(get_class($eventHandler) . ' must be an instance of \Swarming\Kount\Model\Ens\EventHandlerInterface.');
+            throw new \InvalidArgumentException(get_class($eventHandler) . ' must be an instance of \Kount\Kount\Model\Ens\EventHandlerInterface.');
         }
         return $eventHandler;
     }

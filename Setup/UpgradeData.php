@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Setup;
+namespace Kount\Kount\Setup;
 
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
@@ -34,8 +34,8 @@ class UpgradeData implements \Magento\Framework\Setup\UpgradeDataInterface
         $setup->startSetup();
 
         if (version_compare($context->getVersion(), '2.0.0', '<')) {
-            $this->encryptApiKeyValue($setup, 'swarming_kount/account/api_key_production');
-            $this->encryptApiKeyValue($setup, 'swarming_kount/account/api_key_test');
+            $this->encryptApiKeyValue($setup, 'kount/account/api_key_production');
+            $this->encryptApiKeyValue($setup, 'kount/account/api_key_test');
         }
 
         $setup->endSetup();

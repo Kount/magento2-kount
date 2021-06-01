@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Config\Source;
+namespace Kount\Kount\Model\Config\Source;
 
 class WorkflowMode implements \Magento\Framework\Option\ArrayInterface
 {

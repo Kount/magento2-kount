@@ -1,18 +1,18 @@
 <?php
 /**
- * Copyright (c) 2020 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Ens\EventHandler;
+namespace Kount\Kount\Model\Ens\EventHandler;
 
-use Swarming\Kount\Model\Ens\EventHandlerInterface;
+use Kount\Kount\Model\Ens\EventHandlerInterface;
 
 class NotesAdd extends EventHandlerOrder implements EventHandlerInterface
 {
     const EVENT_NAME = 'WORKFLOW_NOTES_ADD';
 
     /**
-     * @var \Swarming\Kount\Model\Logger
+     * @var \Kount\Kount\Model\Logger
      */
     private $logger;
 
@@ -22,12 +22,12 @@ class NotesAdd extends EventHandlerOrder implements EventHandlerInterface
     protected $orderRepository;
 
     /**
-     * @param \Swarming\Kount\Model\Logger $logger
+     * @param \Kount\Kount\Model\Logger $logger
      * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
      * @param \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
      */
     public function __construct(
-        \Swarming\Kount\Model\Logger $logger,
+        \Kount\Kount\Model\Logger $logger,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
     ) {

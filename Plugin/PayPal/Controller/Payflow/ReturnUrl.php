@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Plugin\PayPal\Controller\Payflow;
+namespace Kount\Kount\Plugin\PayPal\Controller\Payflow;
 
 use Magento\Sales\Model\Order;
 
@@ -20,22 +20,22 @@ class ReturnUrl
     protected $orderFactory;
 
     /**
-     * @var \Swarming\Kount\Helper\Workflow
+     * @var \Kount\Kount\Helper\Workflow
      */
     protected $helperWorkflow;
 
     /**
-     * @var \Swarming\Kount\Model\Config\Workflow
+     * @var \Kount\Kount\Model\Config\Workflow
      */
     protected $configWorkflow;
 
     /**
-     * @var \Swarming\Kount\Model\WorkflowFactory
+     * @var \Kount\Kount\Model\WorkflowFactory
      */
     protected $workflowFactory;
 
     /**
-     * @var \Swarming\Kount\Model\Logger
+     * @var \Kount\Kount\Model\Logger
      */
     protected $logger;
 
@@ -50,18 +50,18 @@ class ReturnUrl
     /**
      * @param \Magento\Checkout\Model\Session $checkoutSession
      * @param \Magento\Sales\Model\OrderFactory $orderFactory
-     * @param \Swarming\Kount\Helper\Workflow $helperWorkflow
-     * @param \Swarming\Kount\Model\Config\Workflow $configWorkflow
-     * @param \Swarming\Kount\Model\WorkflowFactory $workflowFactory
-     * @param \Swarming\Kount\Model\Logger $logger
+     * @param \Kount\Kount\Helper\Workflow $helperWorkflow
+     * @param \Kount\Kount\Model\Config\Workflow $configWorkflow
+     * @param \Kount\Kount\Model\WorkflowFactory $workflowFactory
+     * @param \Kount\Kount\Model\Logger $logger
      */
     public function __construct(
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Sales\Model\OrderFactory $orderFactory,
-        \Swarming\Kount\Helper\Workflow $helperWorkflow,
-        \Swarming\Kount\Model\Config\Workflow $configWorkflow,
-        \Swarming\Kount\Model\WorkflowFactory $workflowFactory,
-        \Swarming\Kount\Model\Logger $logger
+        \Kount\Kount\Helper\Workflow $helperWorkflow,
+        \Kount\Kount\Model\Config\Workflow $configWorkflow,
+        \Kount\Kount\Model\WorkflowFactory $workflowFactory,
+        \Kount\Kount\Model\Logger $logger
     ) {
         $this->checkoutSession = $checkoutSession;
         $this->orderFactory = $orderFactory;

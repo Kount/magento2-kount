@@ -1,21 +1,21 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Order\Action;
+namespace Kount\Kount\Model\Order\Action;
 
 use Magento\Framework\Exception\LocalizedException;
-use Swarming\Kount\Model\Config\Source\DeclineAction;
-use Swarming\Kount\Model\Order\ActionInterface;
+use Kount\Kount\Model\Config\Source\DeclineAction;
+use Kount\Kount\Model\Order\ActionInterface;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Api\Data\OrderInterface;
-use Swarming\Kount\Model\Order\Ris as OrderRis;
+use Kount\Kount\Model\Order\Ris as OrderRis;
 
 class Decline implements ActionInterface
 {
     /**
-     * @var \Swarming\Kount\Model\Config\Workflow
+     * @var \Kount\Kount\Model\Config\Workflow
      */
     protected $configWorkflow;
 
@@ -35,23 +35,23 @@ class Decline implements ActionInterface
     protected $creditmemoManagement;
 
     /**
-     * @var \Swarming\Kount\Model\Logger
+     * @var \Kount\Kount\Model\Logger
      */
     protected $logger;
 
     /**
-     * @param \Swarming\Kount\Model\Config\Workflow $configWorkflow
+     * @param \Kount\Kount\Model\Config\Workflow $configWorkflow
      * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
      * @param \Magento\Sales\Controller\Adminhtml\Order\CreditmemoLoader $creditmemoLoader
      * @param \Magento\Sales\Api\CreditmemoManagementInterface $creditmemoManagement
-     * @param \Swarming\Kount\Model\Logger $logger
+     * @param \Kount\Kount\Model\Logger $logger
      */
     public function __construct(
-        \Swarming\Kount\Model\Config\Workflow $configWorkflow,
+        \Kount\Kount\Model\Config\Workflow $configWorkflow,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Magento\Sales\Controller\Adminhtml\Order\CreditmemoLoader $creditmemoLoader,
         \Magento\Sales\Api\CreditmemoManagementInterface $creditmemoManagement,
-        \Swarming\Kount\Model\Logger $logger
+        \Kount\Kount\Model\Logger $logger
     ) {
         $this->configWorkflow = $configWorkflow;
         $this->orderRepository = $orderRepository;

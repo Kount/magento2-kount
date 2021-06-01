@@ -1,11 +1,11 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Order;
+namespace Kount\Kount\Model\Order;
 
-use Swarming\Kount\Api\Data\RisInterface;
+use Kount\Kount\Api\Data\RisInterface;
 use Magento\Sales\Api\Data\OrderInterface;
 
 class Ris
@@ -19,24 +19,24 @@ class Ris
     protected $orderExtensionFactory;
 
     /**
-     * @var \Swarming\Kount\Api\Data\RisInterfaceFactory
+     * @var \Kount\Kount\Api\Data\RisInterfaceFactory
      */
     protected $risFactory;
 
     /**
-     * @var \Swarming\Kount\Model\Logger
+     * @var \Kount\Kount\Model\Logger
      */
     protected $logger;
 
     /**
-     * @param \Swarming\Kount\Api\Data\RisInterfaceFactory $risFactory
+     * @param \Kount\Kount\Api\Data\RisInterfaceFactory $risFactory
      * @param \Magento\Sales\Api\Data\OrderExtensionFactory $orderExtensionFactory
-     * @param \Swarming\Kount\Model\Logger $logger
+     * @param \Kount\Kount\Model\Logger $logger
      */
     public function __construct(
-        \Swarming\Kount\Api\Data\RisInterfaceFactory $risFactory,
+        \Kount\Kount\Api\Data\RisInterfaceFactory $risFactory,
         \Magento\Sales\Api\Data\OrderExtensionFactory $orderExtensionFactory,
-        \Swarming\Kount\Model\Logger $logger
+        \Kount\Kount\Model\Logger $logger
     ) {
         $this->risFactory = $risFactory;
         $this->orderExtensionFactory = $orderExtensionFactory;
@@ -45,7 +45,7 @@ class Ris
 
     /**
      * @param \Magento\Sales\Api\Data\OrderInterface $order
-     * @return \Swarming\Kount\Api\Data\RisInterface
+     * @return \Kount\Kount\Api\Data\RisInterface
      */
     public function getRis(OrderInterface $order)
     {
@@ -74,7 +74,7 @@ class Ris
     }
 
     /**
-     * @param \Swarming\Kount\Api\Data\RisInterface $ris
+     * @param \Kount\Kount\Api\Data\RisInterface $ris
      * @param \Magento\Sales\Api\Data\OrderInterface $order
      * @return void
      */

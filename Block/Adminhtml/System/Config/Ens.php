@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Block\Adminhtml\System\Config;
+namespace Kount\Kount\Block\Adminhtml\System\Config;
 
 use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Framework\Data\Form\Element\AbstractElement;
@@ -53,7 +53,7 @@ class Ens extends Field
             $store = $this->_storeManager->getWebsite($websiteId)->getDefaultStore();
             $this->frontendUrlBuilder->setScope($store);
         }
-        return $this->frontendUrlBuilder->getUrl('swarming_kount/ens', ['_forced_secure' => true, '_nosid' => true]);
+        return $this->frontendUrlBuilder->getUrl('kount/ens', ['_forced_secure' => true, '_nosid' => true]);
     }
 
     /**

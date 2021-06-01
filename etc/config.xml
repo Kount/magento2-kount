@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
-        <swarming_kount>
+        <kount>
             <account>
                 <enabled>0</enabled>
                 <test>0</test>
@@ -39,6 +39,6 @@
             <log>
                 <enabled>1</enabled>
             </log>
-        </swarming_kount>
+        </kount>
     </default>
 </config>

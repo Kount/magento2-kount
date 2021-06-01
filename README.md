@@ -7,7 +7,7 @@ This is the official Magento 2 extension for Kount.
 
 You can install our Magento 2 Kount extension via [Composer](http://getcomposer.org/). Please run these commands at the root of your Magento install:
  ```bash
- composer require swarming/magento2-kount
- php bin/magento module:enable Swarming_Kount
+ composer require kount/magento2-kount
+ php bin/magento module:enable kount
  php bin/magento setup:upgrade
  ```

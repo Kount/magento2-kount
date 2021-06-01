@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Config;
+namespace Kount\Kount\Model\Config;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
@@ -32,7 +32,7 @@ class Log
      */
     public function isEnabled($websiteCode = null)
     {
-        return $this->scopeConfig->isSetFlag('swarming_kount/log/enabled', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
+        return $this->scopeConfig->isSetFlag('kount/log/enabled', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
     }
 
     /**
@@ -40,6 +40,6 @@ class Log
      */
     public function isRisMetricsEnabled()
     {
-        return $this->scopeConfig->isSetFlag('swarming_kount/log/ris_metrics_enabled');
+        return $this->scopeConfig->isSetFlag('kount/log/ris_metrics_enabled');
     }
 }

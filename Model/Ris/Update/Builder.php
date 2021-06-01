@@ -1,39 +1,39 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Ris\Update;
+namespace Kount\Kount\Model\Ris\Update;
 
-use Swarming\Kount\Model\RisService;
+use Kount\Kount\Model\RisService;
 use Magento\Sales\Model\Order;
 
 class Builder
 {
     /**
-     * @var \Swarming\Kount\Model\Ris\UpdateFactory
+     * @var \Kount\Kount\Model\Ris\UpdateFactory
      */
     protected $updateFactory;
 
     /**
-     * @var \Swarming\Kount\Model\Ris\Base\Builder\PaymentInterface
+     * @var \Kount\Kount\Model\Ris\Base\Builder\PaymentInterface
      */
     protected $paymentBuilder;
 
     /**
-     * @var \Swarming\Kount\Model\Ris\Base\Builder\Session
+     * @var \Kount\Kount\Model\Ris\Base\Builder\Session
      */
     protected $sessionBuilder;
 
     /**
-     * @param \Swarming\Kount\Model\Ris\UpdateFactory $updateFactory
-     * @param \Swarming\Kount\Model\Ris\Base\Builder\Session $sessionBuilder
-     * @param \Swarming\Kount\Model\Ris\Base\Builder\PaymentInterface $paymentBuilder
+     * @param \Kount\Kount\Model\Ris\UpdateFactory $updateFactory
+     * @param \Kount\Kount\Model\Ris\Base\Builder\Session $sessionBuilder
+     * @param \Kount\Kount\Model\Ris\Base\Builder\PaymentInterface $paymentBuilder
      */
     public function __construct(
-        \Swarming\Kount\Model\Ris\UpdateFactory $updateFactory,
-        \Swarming\Kount\Model\Ris\Base\Builder\Session $sessionBuilder,
-        \Swarming\Kount\Model\Ris\Base\Builder\PaymentInterface $paymentBuilder
+        \Kount\Kount\Model\Ris\UpdateFactory $updateFactory,
+        \Kount\Kount\Model\Ris\Base\Builder\Session $sessionBuilder,
+        \Kount\Kount\Model\Ris\Base\Builder\PaymentInterface $paymentBuilder
     ) {
         $this->updateFactory = $updateFactory;
         $this->sessionBuilder = $sessionBuilder;

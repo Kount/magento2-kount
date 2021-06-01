@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Observer\Condition;
+namespace Kount\Kount\Model\Observer\Condition;
 
 use Magento\Sales\Model\Order\Payment;
-use Swarming\Kount\Model\Observer\ConditionInterface;
+use Kount\Kount\Model\Observer\ConditionInterface;
 
 class Positive implements ConditionInterface
 {

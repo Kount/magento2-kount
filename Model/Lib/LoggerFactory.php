@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Lib;
+namespace Kount\Kount\Model\Lib;
 
 use Magento\Framework\App\ObjectManager;
 
@@ -15,7 +15,7 @@ class LoggerFactory implements \Kount_Log_Factory_LoggerFactory
     protected $objectManager;
 
     /**
-     * @var \Swarming\Kount\Model\Lib\Settings
+     * @var \Kount\Kount\Model\Lib\Settings
      */
     protected $libSettings;
 
@@ -28,17 +28,17 @@ class LoggerFactory implements \Kount_Log_Factory_LoggerFactory
      * @var array
      */
     protected $loggerTypes = [
-        'SIMPLE' => \Swarming\Kount\Model\Lib\Logger::class,
-        'NOP' => \Swarming\Kount\Model\Lib\NopLogger::class
+        'SIMPLE' => \Kount\Kount\Model\Lib\Logger::class,
+        'NOP' => \Kount\Kount\Model\Lib\NopLogger::class
     ];
 
     /**
      * @param \Magento\Framework\ObjectManagerInterface $objectManager
-     * @param \Swarming\Kount\Model\Lib\Settings $libSettings
+     * @param \Kount\Kount\Model\Lib\Settings $libSettings
      */
     public function __construct(
         \Magento\Framework\ObjectManagerInterface $objectManager,
-        \Swarming\Kount\Model\Lib\Settings $libSettings
+        \Kount\Kount\Model\Lib\Settings $libSettings
     ) {
         $this->objectManager = $objectManager;
         $this->libSettings = $libSettings;
@@ -80,11 +80,11 @@ class LoggerFactory implements \Kount_Log_Factory_LoggerFactory
     }
 
     /**
-     * @return \Swarming\Kount\Model\Lib\LoggerFactory
+     * @return \Kount\Kount\Model\Lib\LoggerFactory
      */
     protected static function getInstance()
     {
-        return ObjectManager::getInstance()->get(\Swarming\Kount\Model\Lib\LoggerFactory::class);
+        return ObjectManager::getInstance()->get(\Kount\Kount\Model\Lib\LoggerFactory::class);
     }
 
     /**

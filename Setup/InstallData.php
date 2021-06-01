@@ -1,15 +1,15 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Setup;
+namespace Kount\Kount\Setup;
 
 use Magento\Framework\Setup\InstallDataInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Sales\Model\Order;
-use Swarming\Kount\Model\Order\Ris as OrderRis;
+use Kount\Kount\Model\Order\Ris as OrderRis;
 
 class InstallData implements InstallDataInterface
 {

@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Order;
+namespace Kount\Kount\Model\Order;
 
 class ActionFactory
 {
@@ -20,9 +20,9 @@ class ActionFactory
      * @var array
      */
     protected $actions = [
-        self::DECLINE => \Swarming\Kount\Model\Order\Action\Decline::class,
-        self::REVIEW => \Swarming\Kount\Model\Order\Action\Review::class,
-        self::RESTORE => \Swarming\Kount\Model\Order\Action\Restore::class
+        self::DECLINE => \Kount\Kount\Model\Order\Action\Decline::class,
+        self::REVIEW => \Kount\Kount\Model\Order\Action\Review::class,
+        self::RESTORE => \Kount\Kount\Model\Order\Action\Restore::class
     ];
 
     /**
@@ -36,7 +36,7 @@ class ActionFactory
 
     /**
      * @param string $action
-     * @return \Swarming\Kount\Model\Order\ActionInterface
+     * @return \Kount\Kount\Model\Order\ActionInterface
      * @throws \InvalidArgumentException
      */
     public function create($action)
@@ -48,7 +48,7 @@ class ActionFactory
         $actionObject = $this->objectManager->create($this->actions[$action]);
         if (!$actionObject instanceof ActionInterface) {
             throw new \InvalidArgumentException(
-                get_class($actionObject) . ' must be an instance of ' . \Swarming\Kount\Model\Order\ActionInterface::class
+                get_class($actionObject) . ' must be an instance of ' . \Kount\Kount\Model\Order\ActionInterface::class
             );
         }
         return $actionObject;

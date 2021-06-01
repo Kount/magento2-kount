@@ -1,23 +1,23 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Observer\Order;
+namespace Kount\Kount\Observer\Order;
 
 use Magento\Framework\Event\Observer;
 
 class SaveAfter implements \Magento\Framework\Event\ObserverInterface
 {
     /**
-     * @var \Swarming\Kount\Model\Order\Ris
+     * @var \Kount\Kount\Model\Order\Ris
      */
     protected $orderRis;
 
     /**
-     * @param \Swarming\Kount\Model\Order\Ris $orderRis
+     * @param \Kount\Kount\Model\Order\Ris $orderRis
      */
-    public function __construct(\Swarming\Kount\Model\Order\Ris $orderRis)
+    public function __construct(\Kount\Kount\Model\Order\Ris $orderRis)
     {
         $this->orderRis = $orderRis;
     }

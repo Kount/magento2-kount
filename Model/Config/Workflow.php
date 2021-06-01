@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Config;
+namespace Kount\Kount\Model\Config;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
@@ -30,7 +30,7 @@ class Workflow
      */
     public function getWorkflowMode($storeCode = null)
     {
-        return $this->scopeConfig->getValue('swarming_kount/workflow/workflow_mode', ScopeInterface::SCOPE_STORE, $storeCode);
+        return $this->scopeConfig->getValue('kount/workflow/workflow_mode', ScopeInterface::SCOPE_STORE, $storeCode);
     }
 
     /**
@@ -39,7 +39,7 @@ class Workflow
      */
     public function getDeclineAction($storeCode = null)
     {
-        return $this->scopeConfig->getValue('swarming_kount/workflow/decline_action', ScopeInterface::SCOPE_STORE, $storeCode);
+        return $this->scopeConfig->getValue('kount/workflow/decline_action', ScopeInterface::SCOPE_STORE, $storeCode);
     }
 
     /**
@@ -48,7 +48,7 @@ class Workflow
      */
     public function isNotifyProcessorDecline($storeCode = null)
     {
-        return $this->scopeConfig->isSetFlag('swarming_kount/workflow/notify_processor_decline', ScopeInterface::SCOPE_STORE, $storeCode);
+        return $this->scopeConfig->isSetFlag('kount/workflow/notify_processor_decline', ScopeInterface::SCOPE_STORE, $storeCode);
     }
 
     /**
@@ -58,7 +58,7 @@ class Workflow
     public function isPreventResettingOrderStatus($storeCode = null)
     {
         return $this->scopeConfig->isSetFlag(
-            'swarming_kount/workflow/prevent_resetting_order_status',
+            'kount/workflow/prevent_resetting_order_status',
             ScopeInterface::SCOPE_STORE,
             $storeCode
         );

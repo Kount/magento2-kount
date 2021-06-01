@@ -1,16 +1,16 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Ris\Base\Builder;
+namespace Kount\Kount\Model\Ris\Base\Builder;
 
 use Magento\Sales\Api\Data\OrderPaymentInterface;
 
-class Payment implements \Swarming\Kount\Model\Ris\Base\Builder\PaymentInterface
+class Payment implements \Kount\Kount\Model\Ris\Base\Builder\PaymentInterface
 {
     /**
-     * @var \Swarming\Kount\Model\Ris\Base\Builder\PaymentFactory
+     * @var \Kount\Kount\Model\Ris\Base\Builder\PaymentFactory
      */
     protected $paymentBuilderFactory;
 
@@ -25,12 +25,12 @@ class Payment implements \Swarming\Kount\Model\Ris\Base\Builder\PaymentInterface
     protected $defaultPayment;
 
     /**
-     * @param \Swarming\Kount\Model\Ris\Base\Builder\PaymentFactory $paymentBuilderFactory
+     * @param \Kount\Kount\Model\Ris\Base\Builder\PaymentFactory $paymentBuilderFactory
      * @param string $defaultPayment
      * @param array $payments
      */
     public function __construct(
-        \Swarming\Kount\Model\Ris\Base\Builder\PaymentFactory $paymentBuilderFactory,
+        \Kount\Kount\Model\Ris\Base\Builder\PaymentFactory $paymentBuilderFactory,
         $defaultPayment,
         array $payments
     ) {

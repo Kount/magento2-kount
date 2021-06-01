@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Block\Adminhtml\Order\View\Tab;
+namespace Kount\Kount\Block\Adminhtml\Order\View\Tab;
 
 class Kount extends \Magento\Backend\Block\Template implements \Magento\Backend\Block\Widget\Tab\TabInterface
 {
@@ -13,7 +13,7 @@ class Kount extends \Magento\Backend\Block\Template implements \Magento\Backend\
     protected $_template = 'order/view/tab/kount.phtml';
 
     /**
-     * @var \Swarming\Kount\Model\Config\Account
+     * @var \Kount\Kount\Model\Config\Account
      */
     protected $configAccount;
 
@@ -23,26 +23,26 @@ class Kount extends \Magento\Backend\Block\Template implements \Magento\Backend\
     protected $coreRegistry;
 
     /**
-     * @var \Swarming\Kount\Model\Order\Ris
+     * @var \Kount\Kount\Model\Order\Ris
      */
     protected $orderRis;
 
     /**
-     * @var \Swarming\Kount\Model\Ris
+     * @var \Kount\Kount\Model\Ris
      */
     protected $ris;
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Swarming\Kount\Model\Config\Account $configAccount
-     * @param \Swarming\Kount\Model\Order\Ris $orderRis
+     * @param \Kount\Kount\Model\Config\Account $configAccount
+     * @param \Kount\Kount\Model\Order\Ris $orderRis
      * @param \Magento\Framework\Registry $coreRegistry
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
-        \Swarming\Kount\Model\Config\Account $configAccount,
-        \Swarming\Kount\Model\Order\Ris $orderRis,
+        \Kount\Kount\Model\Config\Account $configAccount,
+        \Kount\Kount\Model\Order\Ris $orderRis,
         \Magento\Framework\Registry $coreRegistry,
         array $data = []
     ) {

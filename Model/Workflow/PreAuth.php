@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Workflow;
+namespace Kount\Kount\Model\Workflow;
 
-use Swarming\Kount\Model\WorkflowInterface;
-use Swarming\Kount\Model\WorkflowAbstract;
+use Kount\Kount\Model\WorkflowInterface;
+use Kount\Kount\Model\WorkflowAbstract;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Payment;
 use Magento\Framework\Exception\LocalizedException;

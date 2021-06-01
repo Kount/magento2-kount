@@ -1,13 +1,13 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Ris\Inquiry\Builder;
+namespace Kount\Kount\Model\Ris\Inquiry\Builder;
 
 use Magento\Framework\App\Area;
 use Magento\Framework\App\ObjectManager;
-use Swarming\Kount\Model\Config\Account as ConfigAccount;
+use Kount\Kount\Model\Config\Account as ConfigAccount;
 
 class Order
 {
@@ -34,17 +34,17 @@ class Order
     protected $directoryHelper;
 
     /**
-     * @var \Swarming\Kount\Model\Ris\Inquiry\Builder\Order\CartItemFactory
+     * @var \Kount\Kount\Model\Ris\Inquiry\Builder\Order\CartItemFactory
      */
     protected $cartItemFactory;
 
     /**
-     * @var \Swarming\Kount\Model\Config\Account
+     * @var \Kount\Kount\Model\Config\Account
      */
     protected $configAccount;
 
     /**
-     * @var \Swarming\Kount\Model\Config\PhoneToWeb
+     * @var \Kount\Kount\Model\Config\PhoneToWeb
      */
     protected $configPhoneToWeb;
 
@@ -54,7 +54,7 @@ class Order
     protected $httpHeader;
 
     /**
-     * @var \Swarming\Kount\Model\Logger
+     * @var \Kount\Kount\Model\Logger
      */
     protected $logger;
 
@@ -62,21 +62,21 @@ class Order
      * @param \Magento\Framework\App\State $appState
      * @param \Magento\Customer\Model\CustomerRegistry $customerRegistry
      * @param \Magento\Directory\Helper\Data $directoryHelper
-     * @param \Swarming\Kount\Model\Ris\Inquiry\Builder\Order\CartItemFactory $cartItemFactory
-     * @param \Swarming\Kount\Model\Config\PhoneToWeb $configPhoneToWeb
+     * @param \Kount\Kount\Model\Ris\Inquiry\Builder\Order\CartItemFactory $cartItemFactory
+     * @param \Kount\Kount\Model\Config\PhoneToWeb $configPhoneToWeb
      * @param \Magento\Framework\HTTP\Header $httpHeader
-     * @param \Swarming\Kount\Model\Logger $logger
-     * @param \Swarming\Kount\Model\Config\Account|null $configAccount
+     * @param \Kount\Kount\Model\Logger $logger
+     * @param \Kount\Kount\Model\Config\Account|null $configAccount
      */
     public function __construct(
         \Magento\Framework\App\State $appState,
         \Magento\Customer\Model\CustomerRegistry $customerRegistry,
         \Magento\Directory\Helper\Data $directoryHelper,
-        \Swarming\Kount\Model\Ris\Inquiry\Builder\Order\CartItemFactory $cartItemFactory,
-        \Swarming\Kount\Model\Config\PhoneToWeb $configPhoneToWeb,
+        \Kount\Kount\Model\Ris\Inquiry\Builder\Order\CartItemFactory $cartItemFactory,
+        \Kount\Kount\Model\Config\PhoneToWeb $configPhoneToWeb,
         \Magento\Framework\HTTP\Header $httpHeader,
-        \Swarming\Kount\Model\Logger $logger,
-        \Swarming\Kount\Model\Config\Account $configAccount = null
+        \Kount\Kount\Model\Logger $logger,
+        \Kount\Kount\Model\Config\Account $configAccount = null
     ) {
         $this->appState = $appState;
         $this->customerRegistry = $customerRegistry;

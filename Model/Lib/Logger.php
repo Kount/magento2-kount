@@ -1,14 +1,14 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Lib;
+namespace Kount\Kount\Model\Lib;
 
 class Logger implements \Kount_Log_Binding_Logger
 {
     /**
-     * @var \Swarming\Kount\Model\Logger
+     * @var \Kount\Kount\Model\Logger
      */
     protected $logger;
 
@@ -18,12 +18,12 @@ class Logger implements \Kount_Log_Binding_Logger
     protected $isRisLogger;
 
     /**
-     * @param \Swarming\Kount\Model\Logger $logger
-     * @param \Swarming\Kount\Model\Config\Log $configLog
+     * @param \Kount\Kount\Model\Logger $logger
+     * @param \Kount\Kount\Model\Config\Log $configLog
      */
     public function __construct(
-        \Swarming\Kount\Model\Logger $logger,
-        \Swarming\Kount\Model\Config\Log $configLog
+        \Kount\Kount\Model\Logger $logger,
+        \Kount\Kount\Model\Config\Log $configLog
     ) {
         $this->logger = $logger;
         $this->isRisLogger = $configLog->isRisMetricsEnabled();

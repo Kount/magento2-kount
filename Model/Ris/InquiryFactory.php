@@ -1,22 +1,22 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Ris;
+namespace Kount\Kount\Model\Ris;
 
 class InquiryFactory
 {
     /**
-     * @var \Swarming\Kount\Model\Lib\Settings
+     * @var \Kount\Kount\Model\Lib\Settings
      */
     protected $libSettings;
 
     /**
-     * @param \Swarming\Kount\Model\Lib\Settings $libSettings
+     * @param \Kount\Kount\Model\Lib\Settings $libSettings
      */
     public function __construct(
-        \Swarming\Kount\Model\Lib\Settings $libSettings
+        \Kount\Kount\Model\Lib\Settings $libSettings
     ) {
         $this->libSettings = $libSettings;
     }

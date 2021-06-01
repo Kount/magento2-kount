@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
 -->
@@ -10,10 +10,10 @@
         <tab id="kount" translate="label" sortOrder="600">
             <label>Kount</label>
         </tab>
-        <section id="swarming_kount" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="0">
+        <section id="kount" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="0">
             <label>Kount Integration</label>
             <tab>kount</tab>
-            <resource>Swarming_Kount::config</resource>
+            <resource>Kount_Kount::config</resource>
             <group id="account" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
                 <label>Account Information</label>
 
@@ -25,7 +25,7 @@
 
                 <field id="test" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Environment</label>
-                    <source_model>Swarming\Kount\Model\Config\Source\Environment</source_model>
+                    <source_model>Kount\Kount\Model\Config\Source\Environment</source_model>
                     <comment>Whether the extension server will run in test mode.</comment>
                     <depends>
                         <field id="enabled">1</field>
@@ -72,7 +72,7 @@
 
                 <field id="currency" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
                     <label>Currency</label>
-                    <frontend_model>Swarming\Kount\Block\Adminhtml\System\Config\Currency</frontend_model>
+                    <frontend_model>Kount\Kount\Block\Adminhtml\System\Config\Currency</frontend_model>
                     <source_model>Magento\Config\Model\Config\Source\Locale\Currency</source_model>
                     <depends>
                         <field id="enabled">1</field>
@@ -85,18 +85,18 @@
 
                 <field id="workflow_mode" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Payment Review Workflow Mode</label>
-                    <source_model>Swarming\Kount\Model\Config\Source\WorkflowMode</source_model>
+                    <source_model>Kount\Kount\Model\Config\Source\WorkflowMode</source_model>
                     <depends>
-                        <field id="swarming_kount/account/enabled">1</field>
+                        <field id="kount/account/enabled">1</field>
                     </depends>
                 </field>
 
                 <field id="decline_action" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Decline Action</label>
-                    <source_model>Swarming\Kount\Model\Config\Source\DeclineAction</source_model>
+                    <source_model>Kount\Kount\Model\Config\Source\DeclineAction</source_model>
                     <comment>Cancel should be used with payment method in Authorize Only mode.  Refund should be used with payment method in Authorize and Capture mode.</comment>
                     <depends>
-                        <field id="swarming_kount/account/enabled">1</field>
+                        <field id="kount/account/enabled">1</field>
                         <field id="workflow_mode">post_auth</field>
                     </depends>
                 </field>
@@ -106,7 +106,7 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>For Post Auth transactions only.</comment>
                     <depends>
-                        <field id="swarming_kount/account/enabled">1</field>
+                        <field id="kount/account/enabled">1</field>
                         <field id="workflow_mode">post_auth</field>
                     </depends>
                 </field>
@@ -116,7 +116,7 @@
                     <comment>Prevent resetting of order status on 'payment review' and 'fraud' by payment method.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
-                        <field id="swarming_kount/account/enabled">1</field>
+                        <field id="kount/account/enabled">1</field>
                     </depends>
                 </field>
             </group>
@@ -128,14 +128,14 @@
                     <label>Display on Review</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment><![CDATA[Orders in Kount review status display in customer's account.]]></comment>
-                    <backend_model>Swarming\Kount\Model\Config\Backend\OrderStatusReview</backend_model>
+                    <backend_model>Kount\Kount\Model\Config\Backend\OrderStatusReview</backend_model>
                 </field>
 
                 <field id="display_decline" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Display Declined</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment><![CDATA[Orders in Kount declined status display in customer's account.]]></comment>
-                    <backend_model>Swarming\Kount\Model\Config\Backend\OrderStatusDecline</backend_model>
+                    <backend_model>Kount\Kount\Model\Config\Backend\OrderStatusDecline</backend_model>
                 </field>
             </group>
 
@@ -145,10 +145,10 @@
 
                 <field id="disable_methods" translate="label comment" type="multiselect" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Disable Payment Method Codes</label>
-                    <source_model>Swarming\Kount\Model\Config\Source\PaymentMethods</source_model>
+                    <source_model>Kount\Kount\Model\Config\Source\PaymentMethods</source_model>
                     <comment>Select payment methods to disable.</comment>
                     <depends>
-                        <field id="swarming_kount/account/enabled">1</field>
+                        <field id="kount/account/enabled">1</field>
                     </depends>
                 </field>
             </group>
@@ -163,9 +163,9 @@
                 <field id="did_where" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Url</label>
                     <comment>ENS URL to be added in the Kount Agent Web Console</comment>
-                    <frontend_model>Swarming\Kount\Block\Adminhtml\System\Config\Ens</frontend_model>
+                    <frontend_model>Kount\Kount\Block\Adminhtml\System\Config\Ens</frontend_model>
                     <depends>
-                        <field id="swarming_kount/ens/enabled">1</field>
+                        <field id="kount/ens/enabled">1</field>
                     </depends>
                 </field>
                 <field id="kount_ips" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
@@ -173,14 +173,14 @@
                     <comment>ENS and additional load balancer IPs. Enter comma separated. ENS IPs can be obtained from Kount Customer Success Manager.</comment>
                     <validate>required-entry</validate>
                     <depends>
-                        <field id="swarming_kount/ens/enabled">1</field>
+                        <field id="kount/ens/enabled">1</field>
                     </depends>
                 </field>
                 <field id="addition_ips" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Additional IPs for Load Balancer</label>
                     <comment>Additional IPs from which allowed ENS. Enter comma separated.</comment>
                     <depends>
-                        <field id="swarming_kount/ens/enabled">1</field>
+                        <field id="kount/ens/enabled">1</field>
                     </depends>
                 </field>
             </group>
@@ -192,7 +192,7 @@
                     <label>Enable Kount SDK Logging</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
-                        <field id="swarming_kount/account/enabled">1</field>
+                        <field id="kount/account/enabled">1</field>
                     </depends>
                 </field>
 
@@ -200,16 +200,16 @@
                     <label>Log Ris Metrics</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
-                        <field id="swarming_kount/log/enabled">1</field>
-                        <field id="swarming_kount/account/enabled">1</field>
+                        <field id="kount/log/enabled">1</field>
+                        <field id="kount/account/enabled">1</field>
                     </depends>
                 </field>
 
                 <field id="download" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Log File</label>
-                    <frontend_model>Swarming\Kount\Block\Adminhtml\System\Config\Log</frontend_model>
+                    <frontend_model>Kount\Kount\Block\Adminhtml\System\Config\Log</frontend_model>
                     <depends>
-                        <field id="swarming_kount/account/enabled">1</field>
+                        <field id="kount/account/enabled">1</field>
                     </depends>
                 </field>
             </group>
@@ -221,7 +221,7 @@
                     <label>Use Kount for Backend Ordering</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
-                        <field id="swarming_kount/account/enabled">1</field>
+                        <field id="kount/account/enabled">1</field>
                     </depends>
                 </field>
 
@@ -230,16 +230,16 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Enable Phone-to-Web orders.</comment>
                     <depends>
-                        <field id="swarming_kount/account/enabled">1</field>
+                        <field id="kount/account/enabled">1</field>
                     </depends>
                 </field>
 
                 <field id="phonetoweb_ipaddresses" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>IP Address Exclude</label>
                     <comment>The IP Addresses you wish to exclude for Phone-to-Web orders. Enter comma separated.</comment>
-                    <frontend_model>Swarming\Kount\Block\Adminhtml\System\Config\IpAddress</frontend_model>
+                    <frontend_model>Kount\Kount\Block\Adminhtml\System\Config\IpAddress</frontend_model>
                     <depends>
-                        <field id="swarming_kount/account/enabled">1</field>
+                        <field id="kount/account/enabled">1</field>
                         <field id="phonetoweb_enabled">1</field>
                     </depends>
                 </field>

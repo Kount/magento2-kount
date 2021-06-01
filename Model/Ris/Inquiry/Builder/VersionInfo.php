@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Ris\Inquiry\Builder;
+namespace Kount\Kount\Model\Ris\Inquiry\Builder;
 
 class VersionInfo
 {
@@ -13,17 +13,17 @@ class VersionInfo
     protected $productMetadata;
 
     /**
-     * @var \Swarming\Kount\Helper\Data
+     * @var \Kount\Kount\Helper\Data
      */
     protected $helperData;
 
     /**
      * @param \Magento\Framework\App\ProductMetadataInterface $productMetadata
-     * @param \Swarming\Kount\Helper\Data $helperData
+     * @param \Kount\Kount\Helper\Data $helperData
      */
     public function __construct(
         \Magento\Framework\App\ProductMetadataInterface $productMetadata,
-        \Swarming\Kount\Helper\Data $helperData
+        \Kount\Kount\Helper\Data $helperData
     ) {
         $this->productMetadata = $productMetadata;
         $this->helperData = $helperData;

@@ -1,29 +1,29 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Config\Source;
+namespace Kount\Kount\Model\Config\Source;
 
 class PaymentMethods implements \Magento\Framework\Option\ArrayInterface
 {
     /**
-     * @var \Swarming\Kount\Model\Config\Backend\Scope
+     * @var \Kount\Kount\Model\Config\Backend\Scope
      */
     protected $configScope;
 
     /**
-     * @var \Swarming\Kount\Helper\Payment
+     * @var \Kount\Kount\Helper\Payment
      */
     protected $paymentHelper;
 
     /**
-     * @param \Swarming\Kount\Model\Config\Backend\Scope $configScope
-     * @param \Swarming\Kount\Helper\Payment $paymentHelper
+     * @param \Kount\Kount\Model\Config\Backend\Scope $configScope
+     * @param \Kount\Kount\Helper\Payment $paymentHelper
      */
     public function __construct(
-        \Swarming\Kount\Model\Config\Backend\Scope $configScope,
-        \Swarming\Kount\Helper\Payment $paymentHelper
+        \Kount\Kount\Model\Config\Backend\Scope $configScope,
+        \Kount\Kount\Helper\Payment $paymentHelper
     ) {
         $this->configScope = $configScope;
         $this->paymentHelper = $paymentHelper;
@@ -50,7 +50,7 @@ class PaymentMethods implements \Magento\Framework\Option\ArrayInterface
                 'label' => $method->getTitle() . " ({$method->getCode()})"
             ];
         }
-        
+
         return $options;
     }
 }

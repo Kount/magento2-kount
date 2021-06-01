@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
 -->
@@ -12,7 +12,7 @@
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">
-                            <resource id="Swarming_Kount::config" title="Swarming Kount Section" sortOrder="900" />
+                            <resource id="Kount_Kount::config" title="Kount Configuration" sortOrder="900" />
                         </resource>
                     </resource>
                 </resource>
