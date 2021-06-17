@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright (c) 2020 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
 -->
@@ -10,7 +10,7 @@
         <attribute name="class" value="kaxsdc"/>
         <attribute name="data-event" value="load"/>
         <referenceContainer name="content">
-            <block class="Swarming\Kount\Block\Checkout\DataCollector" name="swarming.kount.datacollector" template="Swarming_Kount::checkout/datacollector.phtml" cacheable="false"/>
+            <block class="Kount\Kount\Block\Checkout\DataCollector" name="kount.datacollector" template="Kount_Kount::checkout/datacollector.phtml" cacheable="false"/>
         </referenceContainer>
     </body>
 </page>

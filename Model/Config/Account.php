@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Config;
+namespace Kount\Kount\Model\Config;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
@@ -31,7 +31,7 @@ class Account
      */
     public function isEnabled($websiteCode = null)
     {
-        return $this->scopeConfig->isSetFlag('swarming_kount/account/enabled', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
+        return $this->scopeConfig->isSetFlag('kount/account/enabled', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
     }
 
     /**
@@ -53,7 +53,7 @@ class Account
     {
         return $this->scopeConfig->getValue(Store::XML_PATH_PRICE_SCOPE, ScopeInterface::SCOPE_STORE) == Store::PRICE_SCOPE_GLOBAL
             ? $this->scopeConfig->getValue(\Magento\Directory\Model\Currency::XML_PATH_CURRENCY_BASE)
-            : $this->scopeConfig->getValue('swarming_kount/account/currency');
+            : $this->scopeConfig->getValue('kount/account/currency');
     }
 
     /**
@@ -62,7 +62,7 @@ class Account
      */
     public function getMerchantNumber($websiteCode = null)
     {
-        return $this->scopeConfig->getValue('swarming_kount/account/merchantnum', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
+        return $this->scopeConfig->getValue('kount/account/merchantnum', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
     }
 
     /**
@@ -71,7 +71,7 @@ class Account
      */
     public function getWebsite($websiteCode = null)
     {
-        return $this->scopeConfig->getValue('swarming_kount/account/website', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
+        return $this->scopeConfig->getValue('kount/account/website', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
     }
 
     /**
@@ -81,7 +81,7 @@ class Account
     public function getApiKey($websiteCode = null)
     {
         $env = $this->isTestMode($websiteCode) ? 'test' : 'production';
-        return $this->scopeConfig->getValue("swarming_kount/account/api_key_{$env}", ScopeInterface::SCOPE_WEBSITE, $websiteCode);
+        return $this->scopeConfig->getValue("kount/account/api_key_{$env}", ScopeInterface::SCOPE_WEBSITE, $websiteCode);
     }
 
     /**
@@ -89,7 +89,7 @@ class Account
      */
     public function getConfigKey()
     {
-        return $this->scopeConfig->getValue('swarming_kount/account/config_key');
+        return $this->scopeConfig->getValue('kount/account/config_key');
     }
 
     /**
@@ -98,7 +98,7 @@ class Account
      */
     public function isTestMode($websiteCode = null)
     {
-        return $this->scopeConfig->isSetFlag('swarming_kount/account/test', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
+        return $this->scopeConfig->isSetFlag('kount/account/test', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
     }
 
     /**
@@ -107,7 +107,7 @@ class Account
      */
     public function getAwcUrl($websiteCode = null)
     {
-        return $this->scopeConfig->getValue('swarming_kount/account/awc_url' . $this->getModeSuffix($websiteCode));
+        return $this->scopeConfig->getValue('kount/account/awc_url' . $this->getModeSuffix($websiteCode));
     }
 
     /**
@@ -116,7 +116,7 @@ class Account
      */
     public function getRisUrl($websiteCode = null)
     {
-        return $this->scopeConfig->getValue('swarming_kount/account/ris_url' . $this->getModeSuffix($websiteCode));
+        return $this->scopeConfig->getValue('kount/account/ris_url' . $this->getModeSuffix($websiteCode));
     }
 
     /**
@@ -125,7 +125,7 @@ class Account
      */
     public function getDataCollectorUrl($websiteCode = null)
     {
-        return $this->scopeConfig->getValue('swarming_kount/account/data_collector_url' . $this->getModeSuffix($websiteCode));
+        return $this->scopeConfig->getValue('kount/account/data_collector_url' . $this->getModeSuffix($websiteCode));
     }
 
     /**
@@ -133,7 +133,7 @@ class Account
      */
     public function getDataCollectorWidth()
     {
-        return (int)$this->scopeConfig->isSetFlag('swarming_kount/account/data_collector_width');
+        return (int)$this->scopeConfig->isSetFlag('kount/account/data_collector_width');
     }
 
     /**
@@ -141,7 +141,7 @@ class Account
      */
     public function getDataCollectorHeight()
     {
-        return (int)$this->scopeConfig->isSetFlag('swarming_kount/account/data_collector_height');
+        return (int)$this->scopeConfig->isSetFlag('kount/account/data_collector_height');
     }
 
     /**

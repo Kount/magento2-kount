@@ -1,14 +1,14 @@
 {
-  "name": "swarming/magento2-kount",
-  "description": "Magento 2 Kount integration",
+  "name": "kount/magento2-kount",
+  "description": "Magento 2 Kount Integration",
   "keywords": ["magento2", "kount"],
-  "version": "4.3.3",
+  "version": "0.1.0",
   "type": "magento2-module",
   "license": ["proprietary"],
   "authors": [
     {
-      "name": "Swarming Technology",
-      "homepage": "https://swarmingtech.com"
+      "name": "Kount",
+      "homepage": "https://kount.com"
     }
   ],
   "require": {
@@ -27,7 +27,7 @@
   "autoload": {
     "files": ["registration.php"],
     "psr-4": {
-      "Swarming\\Kount\\": ""
+      "Kount\\Kount\\": ""
     }
   }
 }

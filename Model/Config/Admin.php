@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Config;
+namespace Kount\Kount\Model\Config;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
@@ -30,6 +30,6 @@ class Admin
      */
     public function isEnabled($websiteCode = null)
     {
-        return $this->scopeConfig->isSetFlag('swarming_kount/admin/enabled', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
+        return $this->scopeConfig->isSetFlag('kount/admin/enabled', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
     }
 }

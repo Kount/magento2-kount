@@ -1,16 +1,16 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Workflow;
+namespace Kount\Kount\Model\Workflow;
 
-use Swarming\Kount\Model\WorkflowInterface;
-use Swarming\Kount\Model\WorkflowAbstract;
+use Kount\Kount\Model\WorkflowInterface;
+use Kount\Kount\Model\WorkflowAbstract;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Payment;
-use Swarming\Kount\Model\RisService;
+use Kount\Kount\Model\RisService;
 
 class PostAuth extends WorkflowAbstract implements WorkflowInterface
 {

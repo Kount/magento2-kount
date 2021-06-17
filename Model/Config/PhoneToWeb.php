@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Config;
+namespace Kount\Kount\Model\Config;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
@@ -38,7 +38,7 @@ class PhoneToWeb
      */
     public function isEnabled()
     {
-        return $this->scopeConfig->isSetFlag('swarming_kount/admin/phonetoweb_enabled');
+        return $this->scopeConfig->isSetFlag('kount/admin/phonetoweb_enabled');
     }
 
     /**
@@ -48,7 +48,7 @@ class PhoneToWeb
     public function getIpAddresses($websiteCode = null)
     {
         $ipAddresses = $this->scopeConfig->getValue(
-            'swarming_kount/admin/phonetoweb_ipaddresses',
+            'kount/admin/phonetoweb_ipaddresses',
             ScopeInterface::SCOPE_WEBSITE,
             $websiteCode
         );

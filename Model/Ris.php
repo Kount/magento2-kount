@@ -1,11 +1,11 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model;
+namespace Kount\Kount\Model;
 
-use Swarming\Kount\Api\Data\RisInterface;
+use Kount\Kount\Api\Data\RisInterface;
 use Magento\Framework\Model\AbstractModel;
 
 class Ris extends AbstractModel implements RisInterface
@@ -15,7 +15,7 @@ class Ris extends AbstractModel implements RisInterface
      */
     protected function _construct()
     {
-        $this->_init(\Swarming\Kount\Model\ResourceModel\Ris::class);
+        $this->_init(\Kount\Kount\Model\ResourceModel\Ris::class);
     }
 
     /**

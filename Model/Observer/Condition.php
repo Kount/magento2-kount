@@ -1,16 +1,16 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Observer;
+namespace Kount\Kount\Model\Observer;
 
 use Magento\Sales\Model\Order\Payment;
 
 class Condition implements ConditionInterface
 {
     /**
-     * @var \Swarming\Kount\Model\Observer\ConditionFactory
+     * @var \Kount\Kount\Model\Observer\ConditionFactory
      */
     protected $conditionFactory;
 
@@ -25,12 +25,12 @@ class Condition implements ConditionInterface
     protected $conditions;
 
     /**
-     * @param \Swarming\Kount\Model\Observer\ConditionFactory $conditionFactory
+     * @param \Kount\Kount\Model\Observer\ConditionFactory $conditionFactory
      * @param bool $default
      * @param array $conditions
      */
     public function __construct(
-        \Swarming\Kount\Model\Observer\ConditionFactory $conditionFactory,
+        \Kount\Kount\Model\Observer\ConditionFactory $conditionFactory,
         $default = true,
         array $conditions = []
     ) {

@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Config;
+namespace Kount\Kount\Model\Config;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
@@ -38,7 +38,7 @@ class Ens
      */
     public function getKountIps()
     {
-        $ips = $this->scopeConfig->getValue('swarming_kount/ens/kount_ips');
+        $ips = $this->scopeConfig->getValue('kount/ens/kount_ips');
         return $this->explodeIps($ips);
     }
 
@@ -48,7 +48,7 @@ class Ens
      */
     public function getAdditionIps($websiteCode = null)
     {
-        $ips = $this->scopeConfig->getValue('swarming_kount/ens/addition_ips', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
+        $ips = $this->scopeConfig->getValue('kount/ens/addition_ips', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
         return $this->explodeIps($ips);
     }
 
@@ -116,6 +116,6 @@ class Ens
      */
     public function isEnabled($websiteCode = null)
     {
-        return (bool)$this->scopeConfig->getValue('swarming_kount/ens/enabled', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
+        return (bool)$this->scopeConfig->getValue('kount/ens/enabled', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
     }
 }

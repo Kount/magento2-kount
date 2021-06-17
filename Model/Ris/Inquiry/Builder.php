@@ -1,60 +1,60 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Ris\Inquiry;
+namespace Kount\Kount\Model\Ris\Inquiry;
 
 use Magento\Sales\Model\Order;
-use Swarming\Kount\Model\RisService;
+use Kount\Kount\Model\RisService;
 
 class Builder
 {
     /**
-     * @var \Swarming\Kount\Model\Ris\InquiryFactory
+     * @var \Kount\Kount\Model\Ris\InquiryFactory
      */
     protected $inquiryFactory;
 
     /**
-     * @var \Swarming\Kount\Model\Config\Account
+     * @var \Kount\Kount\Model\Config\Account
      */
     protected $configAccount;
 
     /**
-     * @var \Swarming\Kount\Model\Ris\Inquiry\Builder\VersionInfo
+     * @var \Kount\Kount\Model\Ris\Inquiry\Builder\VersionInfo
      */
     protected $versionBuilder;
 
     /**
-     * @var \Swarming\Kount\Model\Ris\Base\Builder\Session
+     * @var \Kount\Kount\Model\Ris\Base\Builder\Session
      */
     protected $sessionBuilder;
 
     /**
-     * @var \Swarming\Kount\Model\Ris\Inquiry\Builder\Order
+     * @var \Kount\Kount\Model\Ris\Inquiry\Builder\Order
      */
     protected $orderBuilder;
 
     /**
-     * @var \Swarming\Kount\Model\Ris\Base\Builder\PaymentInterface
+     * @var \Kount\Kount\Model\Ris\Base\Builder\PaymentInterface
      */
     protected $paymentBuilder;
 
     /**
-     * @param \Swarming\Kount\Model\Ris\InquiryFactory $inquiryFactory
-     * @param \Swarming\Kount\Model\Config\Account $configAccount
-     * @param \Swarming\Kount\Model\Ris\Inquiry\Builder\VersionInfo $versionBuilder
-     * @param \Swarming\Kount\Model\Ris\Base\Builder\Session $sessionBuilder
-     * @param \Swarming\Kount\Model\Ris\Inquiry\Builder\Order $orderBuilder
-     * @param \Swarming\Kount\Model\Ris\Base\Builder\PaymentInterface $paymentBuilder
+     * @param \Kount\Kount\Model\Ris\InquiryFactory $inquiryFactory
+     * @param \Kount\Kount\Model\Config\Account $configAccount
+     * @param \Kount\Kount\Model\Ris\Inquiry\Builder\VersionInfo $versionBuilder
+     * @param \Kount\Kount\Model\Ris\Base\Builder\Session $sessionBuilder
+     * @param \Kount\Kount\Model\Ris\Inquiry\Builder\Order $orderBuilder
+     * @param \Kount\Kount\Model\Ris\Base\Builder\PaymentInterface $paymentBuilder
      */
     public function __construct(
-        \Swarming\Kount\Model\Ris\InquiryFactory $inquiryFactory,
-        \Swarming\Kount\Model\Config\Account $configAccount,
-        \Swarming\Kount\Model\Ris\Inquiry\Builder\VersionInfo $versionBuilder,
-        \Swarming\Kount\Model\Ris\Base\Builder\Session $sessionBuilder,
-        \Swarming\Kount\Model\Ris\Inquiry\Builder\Order $orderBuilder,
-        \Swarming\Kount\Model\Ris\Base\Builder\PaymentInterface $paymentBuilder
+        \Kount\Kount\Model\Ris\InquiryFactory $inquiryFactory,
+        \Kount\Kount\Model\Config\Account $configAccount,
+        \Kount\Kount\Model\Ris\Inquiry\Builder\VersionInfo $versionBuilder,
+        \Kount\Kount\Model\Ris\Base\Builder\Session $sessionBuilder,
+        \Kount\Kount\Model\Ris\Inquiry\Builder\Order $orderBuilder,
+        \Kount\Kount\Model\Ris\Base\Builder\PaymentInterface $paymentBuilder
     ) {
         $this->inquiryFactory = $inquiryFactory;
         $this->configAccount = $configAccount;

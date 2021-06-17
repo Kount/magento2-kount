@@ -1,24 +1,24 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Order\Action;
+namespace Kount\Kount\Model\Order\Action;
 
-use Swarming\Kount\Model\Order\ActionInterface;
+use Kount\Kount\Model\Order\ActionInterface;
 
 class Restore implements ActionInterface
 {
     /**
-     * @var \Swarming\Kount\Model\Logger
+     * @var \Kount\Kount\Model\Logger
      */
     protected $logger;
 
     /**
-     * @param \Swarming\Kount\Model\Logger $logger
+     * @param \Kount\Kount\Model\Logger $logger
      */
     public function __construct(
-        \Swarming\Kount\Model\Logger $logger
+        \Kount\Kount\Model\Logger $logger
     ) {
         $this->logger = $logger;
     }

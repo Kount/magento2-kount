@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Controller\Ens;
+namespace Kount\Kount\Controller\Ens;
 
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Request\InvalidRequestException;
@@ -16,17 +16,17 @@ use Magento\Framework\Exception\LocalizedException;
 class Index extends Action implements \Magento\Framework\App\CsrfAwareActionInterface
 {
     /**
-     * @var \Swarming\Kount\Model\Config\Account
+     * @var \Kount\Kount\Model\Config\Account
      */
     protected $configAccount;
 
     /**
-     * @var \Swarming\Kount\Model\Config\Ens
+     * @var \Kount\Kount\Model\Config\Ens
      */
     protected $configEns;
 
     /**
-     * @var \Swarming\Kount\Model\Ens\Manager
+     * @var \Kount\Kount\Model\Ens\Manager
      */
     protected $ensManager;
 
@@ -36,25 +36,25 @@ class Index extends Action implements \Magento\Framework\App\CsrfAwareActionInte
     protected $remoteAddress;
 
     /**
-     * @var \Swarming\Kount\Model\Logger
+     * @var \Kount\Kount\Model\Logger
      */
     protected $logger;
 
     /**
      * @param \Magento\Framework\App\Action\Context $context
-     * @param \Swarming\Kount\Model\Config\Account $configAccount
-     * @param \Swarming\Kount\Model\Config\Ens $configEns
-     * @param \Swarming\Kount\Model\Ens\Manager $ensManager
+     * @param \Kount\Kount\Model\Config\Account $configAccount
+     * @param \Kount\Kount\Model\Config\Ens $configEns
+     * @param \Kount\Kount\Model\Ens\Manager $ensManager
      * @param \Magento\Framework\HTTP\PhpEnvironment\RemoteAddress $remoteAddress
-     * @param \Swarming\Kount\Model\Logger $logger
+     * @param \Kount\Kount\Model\Logger $logger
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
-        \Swarming\Kount\Model\Config\Account $configAccount,
-        \Swarming\Kount\Model\Config\Ens $configEns,
-        \Swarming\Kount\Model\Ens\Manager $ensManager,
+        \Kount\Kount\Model\Config\Account $configAccount,
+        \Kount\Kount\Model\Config\Ens $configEns,
+        \Kount\Kount\Model\Ens\Manager $ensManager,
         \Magento\Framework\HTTP\PhpEnvironment\RemoteAddress $remoteAddress,
-        \Swarming\Kount\Model\Logger $logger
+        \Kount\Kount\Model\Logger $logger
     ) {
         $this->configAccount = $configAccount;
         $this->configEns = $configEns;
@@ -81,7 +81,18 @@ class Index extends Action implements \Magento\Framework\App\CsrfAwareActionInte
                 );
             }
 
-            $xmlString = file_get_contents('php://input');
+            $xmlString = '<?xml version="1.0" encoding="UTF-8"?>
+<events merchant="900410" total="2">
+  <event>
+    <name>WORKFLOW_STATUS_EDIT</name>
+    <key site="JON" order_number="2000000001">D08N0DH1914G</key>
+    <old_value>R</old_value>
+    <new_value>A</new_value>
+    <agent>ian@swarmingtech.com</agent>
+    <occurred>2020-03-18 12:11:21</occurred>
+  </event>
+</events>';
+
             $this->respondOnReceiptOfEvents();
             $response = $this->ensManager->handleRequest($xmlString);
             $this->logger->info($response);

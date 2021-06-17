@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\ResourceModel\Ris;
+namespace Kount\Kount\Model\ResourceModel\Ris;
 
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
@@ -12,6 +12,6 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      */
     protected function _construct()
     {
-        $this->_init(\Swarming\Kount\Model\Ris::class, \Swarming\Kount\Model\ResourceModel\Ris::class);
+        $this->_init(\Kount\Kount\Model\Ris::class, \Kount\Kount\Model\ResourceModel\Ris::class);
     }
 }

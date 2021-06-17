@@ -1,17 +1,17 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Ens\EventHandler;
+namespace Kount\Kount\Model\Ens\EventHandler;
 
-use Swarming\Kount\Model\Ens\EventHandlerInterface;
-use Swarming\Kount\Model\RisService;
-use Swarming\Kount\Model\Order\ActionFactory as OrderActionFactory;
+use Kount\Kount\Model\Ens\EventHandlerInterface;
+use Kount\Kount\Model\RisService;
+use Kount\Kount\Model\Order\ActionFactory as OrderActionFactory;
 
 /**
  * Class StatusEdit
- * @package Swarming\Kount\Model\Ens\EventHandler
+ * @package Kount\Kount\Model\Ens\EventHandler
  */
 class StatusEdit extends EventHandlerOrder implements EventHandlerInterface
 {
@@ -23,12 +23,12 @@ class StatusEdit extends EventHandlerOrder implements EventHandlerInterface
     protected $orderFactory;
 
     /**
-     * @var \Swarming\Kount\Model\Order\ActionFactory
+     * @var \Kount\Kount\Model\Order\ActionFactory
      */
     protected $orderActionFactory;
 
     /**
-     * @var \Swarming\Kount\Model\Order\Ris
+     * @var \Kount\Kount\Model\Order\Ris
      */
     protected $orderRis;
 
@@ -38,23 +38,23 @@ class StatusEdit extends EventHandlerOrder implements EventHandlerInterface
     protected $orderRepository;
 
     /**
-     * @var \Swarming\Kount\Model\Logger
+     * @var \Kount\Kount\Model\Logger
      */
     protected $logger;
 
     /**
      * @param OrderActionFactory $orderActionFactory
-     * @param \Swarming\Kount\Model\Order\Ris $orderRis
+     * @param \Kount\Kount\Model\Order\Ris $orderRis
      * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
      * @param \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
-     * @param \Swarming\Kount\Model\Logger $logger
+     * @param \Kount\Kount\Model\Logger $logger
      */
     public function __construct(
-        \Swarming\Kount\Model\Order\ActionFactory $orderActionFactory,
-        \Swarming\Kount\Model\Order\Ris $orderRis,
+        \Kount\Kount\Model\Order\ActionFactory $orderActionFactory,
+        \Kount\Kount\Model\Order\Ris $orderRis,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
-        \Swarming\Kount\Model\Logger $logger
+        \Kount\Kount\Model\Logger $logger
     ) {
         $this->orderActionFactory = $orderActionFactory;
         $this->orderRis = $orderRis;
@@ -91,7 +91,7 @@ class StatusEdit extends EventHandlerOrder implements EventHandlerInterface
     }
 
     /**
-     * @param \Swarming\Kount\Api\Data\RisInterface $ris
+     * @param \Kount\Kount\Api\Data\RisInterface $ris
      * @param int $transactionId
      * @return bool
      *
@@ -109,7 +109,7 @@ class StatusEdit extends EventHandlerOrder implements EventHandlerInterface
         }
 
         if ($ris->getTransactionId() !== $transactionId) {
-            throw new \InvalidArgumentException('Transaction ID does not match order, 
+            throw new \InvalidArgumentException('Transaction ID does not match order,
                 event must be for discarded version of order!');
         }
 
@@ -131,7 +131,7 @@ class StatusEdit extends EventHandlerOrder implements EventHandlerInterface
     /**
      * @param string $oldStatus
      * @param \Magento\Sales\Model\Order $order
-     * @param \Swarming\Kount\Api\Data\RisInterface $ris
+     * @param \Kount\Kount\Api\Data\RisInterface $ris
      * @return bool
      */
     protected function isAllowedAction($oldStatus, $order, $ris)
@@ -160,7 +160,7 @@ class StatusEdit extends EventHandlerOrder implements EventHandlerInterface
 
     /**
      * @param \Magento\Sales\Model\Order $order
-     * @param \Swarming\Kount\Api\Data\RisInterface $ris
+     * @param \Kount\Kount\Api\Data\RisInterface $ris
      * @param string $status
      */
     protected function updateRisResponse($order, $ris, $status)
@@ -172,7 +172,7 @@ class StatusEdit extends EventHandlerOrder implements EventHandlerInterface
 
     /**
      * @param \Magento\Sales\Model\Order $order
-     * @param \Swarming\Kount\Api\Data\RisInterface $ris
+     * @param \Kount\Kount\Api\Data\RisInterface $ris
      * @param string $oldStatus
      * @param string $newStatus
      */

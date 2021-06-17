@@ -1,23 +1,23 @@
 <?php
 /**
- * Copyright (c) 2017 KOUNT, INC.
+ * Copyright (c) 2021 KOUNT, INC.
  * See COPYING.txt for license details.
  */
-namespace Swarming\Kount\Model\Lib;
+namespace Kount\Kount\Model\Lib;
 
 use Magento\Framework\App\ObjectManager;
-use Swarming\Kount\Model\Config\Log;
+use Kount\Kount\Model\Config\Log;
 use Magento\Framework\App\Filesystem\DirectoryList;
 
 class Settings
 {
     /**
-     * @var \Swarming\Kount\Model\Config\Account
+     * @var \Kount\Kount\Model\Config\Account
      */
     protected $configAccount;
 
     /**
-     * @var \Swarming\Kount\Model\Config\Log
+     * @var \Kount\Kount\Model\Config\Log
      */
     protected $configLog;
 
@@ -37,8 +37,8 @@ class Settings
     public function __construct()
     {
         $objectManager = ObjectManager::getInstance();
-        $this->configAccount = $objectManager->get(\Swarming\Kount\Model\Config\Account::class);
-        $this->configLog = $objectManager->get(\Swarming\Kount\Model\Config\Log::class);
+        $this->configAccount = $objectManager->get(\Kount\Kount\Model\Config\Account::class);
+        $this->configLog = $objectManager->get(\Kount\Kount\Model\Config\Log::class);
         $this->filesystem = $objectManager->get(\Magento\Framework\Filesystem::class);
     }
 
