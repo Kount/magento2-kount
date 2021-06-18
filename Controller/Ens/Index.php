@@ -81,17 +81,7 @@ class Index extends Action implements \Magento\Framework\App\CsrfAwareActionInte
                 );
             }
 
-            $xmlString = '<?xml version="1.0" encoding="UTF-8"?>
-<events merchant="900410" total="2">
-  <event>
-    <name>WORKFLOW_STATUS_EDIT</name>
-    <key site="JON" order_number="2000000001">D08N0DH1914G</key>
-    <old_value>R</old_value>
-    <new_value>A</new_value>
-    <agent>ian@swarmingtech.com</agent>
-    <occurred>2020-03-18 12:11:21</occurred>
-  </event>
-</events>';
+            $xmlString = file_get_contents('php://input');
 
             $this->respondOnReceiptOfEvents();
             $response = $this->ensManager->handleRequest($xmlString);
