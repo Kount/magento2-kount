@@ -30,10 +30,17 @@ class Review implements ActionInterface
      */
     public function process($order)
     {
+        $orderState = $order->getState();
+        $orderStatus = $order->getStatus();
+        if ($orderState === Order::STATE_HOLDED && $orderStatus === OrderRis::STATUS_KOUNT_REVIEW) {
+            $this->logger->info('Setting order to Kount Review status/state - already set, skipping');
+            return;
+        }
+
         $this->logger->info('Setting order to Kount Review status/state');
 
-        $order->setHoldBeforeState($order->getState());
-        $order->setHoldBeforeStatus($order->getStatus());
+        $order->setHoldBeforeState($orderState);
+        $order->setHoldBeforeStatus($orderStatus);
 
         $order->setState(Order::STATE_HOLDED);
         $order->addStatusToHistory(OrderRis::STATUS_KOUNT_REVIEW, __('Order on review from Kount.'), false);

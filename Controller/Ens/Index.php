@@ -127,7 +127,6 @@ class Index extends Action implements \Magento\Framework\App\CsrfAwareActionInte
     protected function respondOnReceiptOfEvents()
     {
         ob_start();
-        echo "200 OK";
         $size = ob_get_length();
         header("Content-Encoding: none");
         header("Content-Length: {$size}");
