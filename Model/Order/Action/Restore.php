@@ -28,10 +28,17 @@ class Restore implements ActionInterface
      */
     public function process($order)
     {
+        $orderState = $order->getHoldBeforeState();
+        $orderStatus = $order->getHoldBeforeStatus();
+        if (!$orderState || !$orderStatus) {
+            $this->logger->info('Restore order status/state by ENS Kount request - incomplete data, skipping');
+            return;
+        }
+
         $this->logger->info('Restore order status/state by ENS Kount request.');
 
-        $order->setState($order->getHoldBeforeState());
-        $order->addStatusToHistory($order->getHoldBeforeStatus(), __('Order status updated from Kount.'), false);
+        $order->setState($orderState);
+        $order->addStatusToHistory($orderStatus, __('Order status updated from Kount.'), false);
 
         $order->setHoldBeforeState(null);
         $order->setHoldBeforeStatus(null);

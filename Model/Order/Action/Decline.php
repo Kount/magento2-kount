@@ -119,6 +119,13 @@ class Decline implements ActionInterface
      */
     protected function setOrderStatusDecline(Order $order)
     {
+        $orderState = $order->getHoldBeforeState();
+        $orderStatus = $order->getHoldBeforeStatus();
+        if ($orderState === Order::STATE_HOLDED && $orderStatus === OrderRis::STATUS_KOUNT_DECLINE) {
+            $this->logger->info('Setting order to Kount Decline status/state - already set, skipping');
+            return;
+        }
+
         $this->logger->info('Setting order to Kount Decline status/state');
 
         $order->setHoldBeforeState($order->getState());
