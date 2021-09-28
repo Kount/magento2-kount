@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2021 KOUNT, INC.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="content">
+            <block template="Kount_Kount2FA::setup.phtml" class="Kount\Kount2FA\Block\Provider\Google" name="setup" cacheable="false" />
+        </referenceContainer>
+        <referenceBlock name="root">
+            <action method="setHeaderTitle">
+                <argument translate="true" name="title" xsi:type="string">Two-Factor Authentication Setup</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

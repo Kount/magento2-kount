@@ -1,0 +1,12 @@
+<?php
+/**
+ * Copyright (c) 2021 KOUNT, INC.
+ * See COPYING.txt for license details.
+ */
+
+/* @var $block \Kount\Kount\Block\Checkout\DataCollector */
+?>
+<script type="text/javascript" src="<?= $block->getJsDataCollectorUrl() ?>"></script>
+<script>
+    document.getElementById('kount_session_id').value = ka.sessionId;
+</script>

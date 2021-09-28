@@ -2,7 +2,7 @@
   "name": "kount/magento2-kount",
   "description": "Magento 2 Kount Integration",
   "keywords": ["magento2", "kount"],
-  "version": "1.0.1",
+  "version": "1.1.0",
   "type": "magento2-module",
   "license": ["proprietary"],
   "authors": [
@@ -25,9 +25,15 @@
     "kount/kount-ris-php-sdk": "^7.2"
   },
   "autoload": {
-    "files": ["registration.php"],
+    "files": [
+      "src/module-kount/registration.php",
+      "src/module-kount-control/registration.php",
+      "src/module-kount-2fa/registration.php"
+    ],
     "psr-4": {
-      "Kount\\Kount\\": ""
+      "Kount\\Kount\\": "src/module-kount",
+      "Kount\\KountControl\\": "src/module-kount-control",
+      "Kount\\Kount2FA\\": "src/module-kount-2fa"
     }
   }
 }
