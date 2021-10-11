@@ -121,6 +121,9 @@ class Action
         if (!$customer->getId() || !$this->customerSession->isLoggedIn()) {
             $needRedirect = false;
         }
+        if ($this->customerSession->getIsNewCustomer() === true) {
+            $needRedirect = false;
+        }
         if (in_array($request->getFullActionName(), $this->getAllowedRoutes($customer))) {
             $needRedirect = false;
         }
@@ -152,9 +155,9 @@ class Action
     {
         $routes[] = self::CUSTOMER_ACCOUNT_LOGOUT_ROUTE;
         if ($this->is2faConfiguredForCustomer($customer)) {
-            $routes = [self::KOUNT_2_FA_ACCOUNT_AUTHENTICATE_ROUTE];
+            $routes[] = self::KOUNT_2_FA_ACCOUNT_AUTHENTICATE_ROUTE;
         } else {
-            $routes = [self::KOUNT_2_FA_ACCOUNT_SETUP_ROUTE];
+            $routes[] = self::KOUNT_2_FA_ACCOUNT_SETUP_ROUTE;
         }
 
         return $routes;

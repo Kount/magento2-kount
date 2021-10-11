@@ -41,12 +41,18 @@ class CreatePost
     private $kountControlConfig;
 
     /**
+     * @var \Magento\Customer\Model\Session
+     */
+    private $customerSession;
+
+    /**
      * @param \Magento\Framework\Message\ManagerInterface $messageManager
      * @param \Magento\Framework\App\Response\Http $httpResponse
      * @param \Magento\Framework\UrlInterface $url
      * @param \Kount\KountControl\Model\RisCustomerRegistration $risCustomerRegistration
      * @param \Kount\Kount\Model\Logger $logger
      * @param \Kount\KountControl\Helper\Config $kountControlConfig
+     * @param \Magento\Customer\Model\Session $customerSession
      */
     public function __construct(
         \Magento\Framework\Message\ManagerInterface $messageManager,
@@ -54,7 +60,8 @@ class CreatePost
         \Magento\Framework\UrlInterface $url,
         \Kount\KountControl\Model\RisCustomerRegistration $risCustomerRegistration,
         \Kount\Kount\Model\Logger $logger,
-        \Kount\KountControl\Helper\Config $kountControlConfig
+        \Kount\KountControl\Helper\Config $kountControlConfig,
+        \Magento\Customer\Model\Session $customerSession
     ) {
         $this->messageManager = $messageManager;
         $this->httpResponse = $httpResponse;
@@ -62,6 +69,7 @@ class CreatePost
         $this->risCustomerRegistration = $risCustomerRegistration;
         $this->logger = $logger;
         $this->kountControlConfig = $kountControlConfig;
+        $this->customerSession = $customerSession;
     }
 
     /**
@@ -73,6 +81,7 @@ class CreatePost
      */
     public function aroundExecute(HttpPostActionInterface $httpPostAction, \Closure $proceed)
     {
+        $this->customerSession->setIsNewCustomer(true);
         if (!$this->kountControlConfig->isSignupEnabled()) {
             return $proceed();
         } else {
