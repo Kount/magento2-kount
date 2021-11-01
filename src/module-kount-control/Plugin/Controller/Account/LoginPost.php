@@ -74,43 +74,49 @@ class LoginPost
             $sessionId = $httpPostAction->getRequest()->getParams()['kountsessionid'];
             $this->customerSession->setKountSessionId($sessionId);
         }
-        // Start work with Login API and Event API
-        try {
-            $this->customerLogin->login($sessionId);
-          // Exit from API workflow if KountControl not configured properly or got "Allow" Login API decision
-        } catch (
+
+        if ($sessionId !== '') {
+            // Start work with Login API and Event API
+            try {
+                $this->customerLogin->login($sessionId);
+                // Exit from API workflow if KountControl not configured properly or got "Allow" Login API decision
+            } catch (
             \Kount\KountControl\Exception\ConfigException
             | \Kount\KountControl\Exception\PositiveApiResponse $e
-        ) {
-            $this->logger->info($e->getMessage());
-          // Exit from API workflow if it not has all required params for API call or got "Block" Login API decision
-        } catch (
+            ) {
+                $this->logger->info($e->getMessage());
+                // Exit from API workflow if it not has all required params for API call or got "Block" Login API decision
+            } catch (
             \Kount\KountControl\Exception\ParamsException
             | \Kount\KountControl\Exception\NegativeApiResponse $e
-        ) {
-            $isSuccessful = false;
-            // Log out customer in this case
-            $this->logoutCustomer();
-            $this->logger->warning($e->getMessage());
-          // Exit from API workflow if it got "Challenge" Login API decision and need 2FA
-        } catch (
+            ) {
+                $isSuccessful = false;
+                // Log out customer in this case
+                $this->logoutCustomer();
+                $this->logger->warning($e->getMessage());
+                // Exit from API workflow if it got "Challenge" Login API decision and need 2FA
+            } catch (
             \Kount\KountControl\Exception\ChallengeApiResponse $e
-        ) {
-            $isChallenge = true;
-            $this->logger->info($e->getMessage());
-        } catch (\Magento\Framework\Exception\LocalizedException $e) {
-            $this->logger->error(__('KountControl: ' . $e->getMessage()));
-        }
+            ) {
+                $isChallenge = true;
+                $this->logger->info($e->getMessage());
+            } catch (\Magento\Framework\Exception\LocalizedException $e) {
+                $this->logger->error(__('KountControl: ' . $e->getMessage()));
+            }
 
-        // Specifies the need for 2FA
-        if ($isChallenge) {
-            $this->customerSession->set2faSuccessful(false);
-            return $this->httpResponse->setRedirect($this->url->getUrl('customer/account'));
-        }
-        // Redirect to customer login page in case of failed API call
-        if (!$isSuccessful) {
-            return $this->httpResponse->setRedirect($this->url->getUrl('customer/account/login'));
+            // Specifies the need for 2FA
+            if ($isChallenge) {
+                $this->customerSession->set2faSuccessful(false);
+                return $this->httpResponse->setRedirect($this->url->getUrl('customer/account'));
+            }
+            // Redirect to customer login page in case of failed API call
+            if (!$isSuccessful) {
+                return $this->httpResponse->setRedirect($this->url->getUrl('customer/account/login'));
+            } else {
+                return $result;
+            }
         } else {
+            $this->logger->error(__('KountControl: "kountsessionid" not set.'));
             return $result;
         }
     }

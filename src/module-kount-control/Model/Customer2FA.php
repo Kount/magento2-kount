@@ -34,6 +34,17 @@ class Customer2FA
     private $kountControlConfig;
 
     /**
+     * @var \Kount\Kount\Model\Logger
+     */
+    private $logger;
+
+    /**
+     * @var LoginPost
+     */
+    private $loginPost;
+
+
+    /**
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Kount\Kount\Model\Config\Account $kountConfig
      * @param \Kount\KountControl\Model\ControlApi\Event $eventService
@@ -45,13 +56,49 @@ class Customer2FA
         \Kount\Kount\Model\Config\Account $kountConfig,
         \Kount\KountControl\Model\ControlApi\Event $eventService,
         \Kount\KountControl\Model\ControlApi\TrustedDevice $trustedDeviceService,
-        \Kount\KountControl\Helper\Config $kountControlConfig
+        \Kount\KountControl\Helper\Config $kountControlConfig,
+        \Kount\Kount\Model\Logger $logger,
+        \Kount\KountControl\Plugin\Controller\Account\LoginPost $loginPost
     ) {
         $this->customerSession = $customerSession;
         $this->kountConfig = $kountConfig;
         $this->eventService = $eventService;
         $this->trustedDeviceService = $trustedDeviceService;
         $this->kountControlConfig = $kountControlConfig;
+        $this->logger = $logger;
+        $this->loginPost = $loginPost;
+    }
+
+    /**
+     * Initialize Trusted Device API call
+     *
+     * @param $isPost
+     */
+    public function twoFactorAuthenticate($isPost)
+    {
+        if ($isPost) {
+            try {
+                if ($this->customerSession->get2faSuccessful()) {
+                    $this->executeTrustedDeviceRequest(1);
+                } elseif ($this->customerSession->get2faAttemptCount()
+                    >= $this->kountControlConfig->get2faFailedAttemptsAmount()) {
+                    $this->executeTrustedDeviceRequest(0);
+                }
+            } catch (
+            \Kount\KountControl\Exception\ConfigException
+            | \Kount\KountControl\Exception\PositiveApiResponse $e
+            ) {
+                $this->logger->info($e->getMessage());
+            } catch (
+            \Kount\KountControl\Exception\ParamsException
+            | \Kount\KountControl\Exception\NegativeApiResponse $e
+            ) {
+                $this->loginPost->logoutCustomer();
+                $this->logger->warning($e->getMessage());
+            } catch (\Magento\Framework\Exception\LocalizedException $e) {
+                $this->logger->error(__('KountControl: ' . $e->getMessage()));
+            }
+        }
     }
 
     /**
@@ -64,7 +111,7 @@ class Customer2FA
      * @throws \Kount\KountControl\Exception\ParamsException
      * @throws \Kount\KountControl\Exception\PositiveApiResponse
      */
-    public function twoFactorAuthenticate($result)
+    public function executeTrustedDeviceRequest($result)
     {
         if (!$this->kountControlConfig->isTrustedDeviceEnabled()) {
             throw new \Kount\KountControl\Exception\ConfigException(__('KountControl: Login service disabled'));
@@ -79,20 +126,22 @@ class Customer2FA
         }
 
         $loginResult = $this->customerSession->getLoginResult();
-        $this->eventService->setLoginResult($loginResult);
-        $this->trustedDeviceService->setDeviceId($loginResult['deviceId']);
-        if ($result === 1) {
-            $this->eventService->successApiCall($sessionId, $clientId);
-            $this->trustedDeviceService->trustedApiCall($sessionId, $clientId);
-            throw new \Kount\KountControl\Exception\PositiveApiResponse(__(
-                'KountControl: Kount2FA decision is TRUSTED'
-            ));
-        } else {
-            $this->eventService->failedApiCall($sessionId, $clientId);
-            $this->trustedDeviceService->bannedApiCall($sessionId, $clientId);
-            throw new \Kount\KountControl\Exception\NegativeApiResponse(__(
-                'KountControl: Kount2FA decision is BANNED'
-            ));
+        if ($loginResult !== null) {
+            $this->eventService->setLoginResult($loginResult);
+            $this->trustedDeviceService->setDeviceId($loginResult['deviceId']);
+            if ($result === 1) {
+                $this->eventService->successApiCall($sessionId, $clientId);
+                $this->trustedDeviceService->trustedApiCall($sessionId, $clientId);
+                throw new \Kount\KountControl\Exception\PositiveApiResponse(__(
+                    'KountControl: Kount2FA decision is TRUSTED'
+                ));
+            } else {
+                $this->eventService->failedApiCall($sessionId, $clientId);
+                $this->trustedDeviceService->bannedApiCall($sessionId, $clientId);
+                throw new \Kount\KountControl\Exception\NegativeApiResponse(__(
+                    'KountControl: Kount2FA decision is BANNED'
+                ));
+            }
         }
     }
 }

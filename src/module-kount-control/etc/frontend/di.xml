@@ -13,9 +13,9 @@
         <plugin name="kount_login" type="\Kount\KountControl\Plugin\Controller\Account\LoginPost" />
     </type>
     <type name="\Kount\Kount2FA\Controller\Account\Setup">
-        <plugin name="kount_2fa_setup" type="\Kount\KountControl\Plugin\Controller\Account\TfaController" />
+        <plugin name="kount_2fa_setup" type="\Kount\KountControl\Plugin\Controller\Account\Setup" />
     </type>
     <type name="\Kount\Kount2FA\Controller\Account\Authenticate">
-        <plugin name="kount_2fa_authenticate" type="\Kount\KountControl\Plugin\Controller\Account\TfaController" />
+        <plugin name="kount_2fa_authenticate" type="\Kount\KountControl\Plugin\Controller\Account\Authenticate" />
     </type>
 </config>
