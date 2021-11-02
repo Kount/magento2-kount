@@ -44,22 +44,7 @@ class Authenticate
     public function afterExecute(\Kount\Kount2FA\Controller\Account\Authenticate $subject)
     {
         if ($subject->getRequest()->getPostValue()) {
-            try {
-                $this->customer2FA->twoFactorAuthenticate(true);
-            } catch (
-            \Kount\KountControl\Exception\ConfigException
-            | \Kount\KountControl\Exception\PositiveApiResponse $e
-            ) {
-                $this->logger->info($e->getMessage());
-            } catch (
-            \Kount\KountControl\Exception\ParamsException
-            | \Kount\KountControl\Exception\NegativeApiResponse $e
-            ) {
-                $this->loginPost->logoutCustomer();
-                $this->logger->warning($e->getMessage());
-            } catch (\Magento\Framework\Exception\LocalizedException $e) {
-                $this->logger->error(__('KountControl: ' . $e->getMessage()));
-            }
+            $this->customer2FA->twoFactorAuthenticate();
         }
     }
 }

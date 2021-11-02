@@ -79,25 +79,25 @@ class LoginPost
             // Start work with Login API and Event API
             try {
                 $this->customerLogin->login($sessionId);
+            } catch (
+                \Kount\KountControl\Exception\ConfigException
+             | \Kount\KountControl\Exception\PositiveApiResponse $e
+            ) {
                 // Exit from API workflow if KountControl not configured properly or got "Allow" Login API decision
-            } catch (
-            \Kount\KountControl\Exception\ConfigException
-            | \Kount\KountControl\Exception\PositiveApiResponse $e
-            ) {
                 $this->logger->info($e->getMessage());
-                // Exit from API workflow if it not has all required params for API call or got "Block" Login API decision
             } catch (
-            \Kount\KountControl\Exception\ParamsException
-            | \Kount\KountControl\Exception\NegativeApiResponse $e
+                \Kount\KountControl\Exception\ParamsException
+                | \Kount\KountControl\Exception\NegativeApiResponse $e
             ) {
+                // Exit from API workflow if it not has all required params for API call or got "Block" Login API decision
                 $isSuccessful = false;
                 // Log out customer in this case
                 $this->logoutCustomer();
                 $this->logger->warning($e->getMessage());
-                // Exit from API workflow if it got "Challenge" Login API decision and need 2FA
             } catch (
-            \Kount\KountControl\Exception\ChallengeApiResponse $e
+                \Kount\KountControl\Exception\ChallengeApiResponse $e
             ) {
+                // Exit from API workflow if it got "Challenge" Login API decision and need 2FA
                 $isChallenge = true;
                 $this->logger->info($e->getMessage());
             } catch (\Magento\Framework\Exception\LocalizedException $e) {

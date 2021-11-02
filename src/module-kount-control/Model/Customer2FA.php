@@ -71,40 +71,36 @@ class Customer2FA
 
     /**
      * Initialize Trusted Device API call
-     *
-     * @param $isPost
      */
-    public function twoFactorAuthenticate($isPost)
+    public function twoFactorAuthenticate()
     {
-        if ($isPost) {
-            try {
-                if ($this->customerSession->get2faSuccessful()) {
-                    $this->executeTrustedDeviceRequest(1);
-                } elseif ($this->customerSession->get2faAttemptCount()
-                    >= $this->kountControlConfig->get2faFailedAttemptsAmount()) {
-                    $this->executeTrustedDeviceRequest(0);
-                }
-            } catch (
-            \Kount\KountControl\Exception\ConfigException
-            | \Kount\KountControl\Exception\PositiveApiResponse $e
-            ) {
-                $this->logger->info($e->getMessage());
-            } catch (
-            \Kount\KountControl\Exception\ParamsException
-            | \Kount\KountControl\Exception\NegativeApiResponse $e
-            ) {
-                $this->loginPost->logoutCustomer();
-                $this->logger->warning($e->getMessage());
-            } catch (\Magento\Framework\Exception\LocalizedException $e) {
-                $this->logger->error(__('KountControl: ' . $e->getMessage()));
+        try {
+            if ($this->customerSession->get2faSuccessful()) {
+                $this->executeTrustedDeviceRequest(1);
+            } elseif ($this->customerSession->get2faAttemptCount()
+                >= $this->kountControlConfig->get2faFailedAttemptsAmount()) {
+                $this->executeTrustedDeviceRequest(0);
             }
+        } catch (
+        \Kount\KountControl\Exception\ConfigException
+        | \Kount\KountControl\Exception\PositiveApiResponse $e
+        ) {
+            $this->logger->info($e->getMessage());
+        } catch (
+        \Kount\KountControl\Exception\ParamsException
+        | \Kount\KountControl\Exception\NegativeApiResponse $e
+        ) {
+            $this->loginPost->logoutCustomer();
+            $this->logger->warning($e->getMessage());
+        } catch (\Magento\Framework\Exception\LocalizedException $e) {
+            $this->logger->error(__('KountControl: ' . $e->getMessage()));
         }
     }
 
     /**
      * Goes through KountControl diagram and initiate API requests to KountControl
      *
-     * @param $sessionId
+     * @param $result
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Kount\KountControl\Exception\ConfigException
      * @throws \Kount\KountControl\Exception\NegativeApiResponse
@@ -113,6 +109,7 @@ class Customer2FA
      */
     public function executeTrustedDeviceRequest($result)
     {
+        // Check configuration for Trusted Device
         if (!$this->kountControlConfig->isTrustedDeviceEnabled()) {
             throw new \Kount\KountControl\Exception\ConfigException(__('KountControl: Login service disabled'));
         }
@@ -120,6 +117,7 @@ class Customer2FA
         $userId = $this->customerSession->getCustomerId();
         $clientId = $this->kountConfig->getMerchantNumber();
         $sessionId = $this->customerSession->getKountSessionId();
+        // Check all necessary params
         if ($sessionId === '' || $userId === '' || $this->kountConfig->getMerchantNumber() === '') {
             throw new \Kount\KountControl\Exception\ParamsException(__('KountControl: lost POST params. '
                 . '$sessionId = "%1"; $userId = "%2"; $clientId', $sessionId, $userId, $clientId));
@@ -129,6 +127,7 @@ class Customer2FA
         if ($loginResult !== null) {
             $this->eventService->setLoginResult($loginResult);
             $this->trustedDeviceService->setDeviceId($loginResult['deviceId']);
+            // Send successful or failed API requests to Kount
             if ($result === 1) {
                 $this->eventService->successApiCall($sessionId, $clientId);
                 $this->trustedDeviceService->trustedApiCall($sessionId, $clientId);
