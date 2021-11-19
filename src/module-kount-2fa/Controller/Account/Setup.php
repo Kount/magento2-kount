@@ -77,7 +77,6 @@ class Setup extends Action
         $post = $this->getRequest()->getPostValue();
         if (!$post) {
             $resultPage = $this->resultPageFactory->create();
-            $resultPage->setHeader('Login-Required', 'true');
             return $resultPage;
         } else {
             $authenticator = $this->layoutFactory->create()->createBlock('Kount\Kount2FA\Block\Provider\Google');

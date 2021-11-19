@@ -76,7 +76,6 @@ class Authenticate extends Action
         $post = $this->getRequest()->getPostValue();
         if (!$post) {
             $resultPage = $this->resultPageFactory->create();
-            $resultPage->setHeader('Login-Required', 'true');
             return $resultPage;
         } else {
             $secret = $this->secretFactory->create()->load(
