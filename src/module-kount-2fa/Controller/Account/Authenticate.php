@@ -9,12 +9,13 @@ namespace Kount\Kount2FA\Controller\Account;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
-use Magento\Framework\App\RequestInterface;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultInterface;
-use Magento\Framework\Exception\NotFoundException;
 use Kount\Kount2FA\Lib\PHPGangsta\GoogleAuthenticator;
 use Kount\Kount2FA\Model\SecretFactory;
+use Magento\Framework\Controller\ResultFactory;
+use Kount\KountControl\Helper\Config;
+use Magento\Framework\View\Result\PageFactory as ResultPageFactory;
 
 class Authenticate extends Action
 {
@@ -34,34 +35,49 @@ class Authenticate extends Action
     private $customerSession;
 
     /**
-     * Authenticate constructor.
+     * @var Config
+     */
+    private $kountControlConfig;
+
+    /**
+     * @var ResultPageFactory
+     */
+    private $resultPageFactory;
+
+    /**
      * @param Context $context
      * @param Session $customerSession
      * @param GoogleAuthenticator $googleAuthenticator
      * @param SecretFactory $secretFactory
+     * @param Config $kountControlConfig
+     * @param ResultPageFactory $resultPageFactory
      */
     public function __construct(
         Context $context,
         Session $customerSession,
         GoogleAuthenticator $googleAuthenticator,
-        SecretFactory $secretFactory
+        SecretFactory $secretFactory,
+        Config $kountControlConfig,
+        ResultPageFactory $resultPageFactory
     ) {
         $this->customerSession = $customerSession;
         parent::__construct($context);
         $this->googleAuthenticator = $googleAuthenticator;
         $this->secretFactory = $secretFactory;
+        $this->kountControlConfig = $kountControlConfig;
+        $this->resultPageFactory = $resultPageFactory;
     }
 
     /**
-     * @return ResponseInterface|ResultInterface|void
+     * @return ResponseInterface|ResultInterface|ResultPageFactory
      */
     public function execute()
     {
         $post = $this->getRequest()->getPostValue();
         if (!$post) {
-            $this->_view->loadLayout();
-            $this->_view->getPage()->getConfig()->getTitle()->set(__('Two-Factor Authentication'));
-            $this->_view->renderLayout();
+            $resultPage = $this->resultPageFactory->create();
+            $resultPage->setHeader('Login-Required', 'true');
+            return $resultPage;
         } else {
             $secret = $this->secretFactory->create()->load(
                 $this->customerSession->getCustomerId(),
@@ -70,12 +86,35 @@ class Authenticate extends Action
             if ($this->authenticateQRCode($secret, $post['code'])) {
                 $this->messageManager->addSuccessMessage(__('Two Factor Authentication successful'));
                 $this->customerSession->set2faSuccessful(true);
-                $this->_redirect('customer/account');
+                $result = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+                $result->setPath('customer/account');
+
+                return $result;
             } else {
-                $this->messageManager->addErrorMessage(__('Two Factor Authentication code incorrect'));
-                $this->customerSession->set2faSuccessful(false);
                 $this->customerSession->set2faAttemptCount($this->customerSession->get2faAttemptCount() + 1);
-                $this->_redirect('*/*/*');
+                if (
+                    $this->customerSession->get2faAttemptCount()
+                    >= $this->kountControlConfig->get2faFailedAttemptsAmount()
+                ) {
+                    $this->messageManager->addErrorMessage(
+                        __(
+                            'Invalid 2FA Authentication Code. You have spent all possible tries to enter valid 2FA '
+                            . 'code. Please log in again!'
+                        )
+                    );
+                    $result = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+                    $result->setPath('customer/account/login');
+
+                    return $result;
+                } else {
+                    $this->messageManager->addErrorMessage(
+                        __('Invalid 2FA Authentication Code')
+                    );
+                    $result = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+                    $result->setPath('kount2fa/account/authenticate');
+
+                    return $result;
+                }
             }
         }
     }

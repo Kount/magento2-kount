@@ -43,13 +43,32 @@ class Customer2FA
      */
     private $loginPost;
 
+    /**
+     * @var \Magento\Framework\UrlInterface
+     */
+    private $url;
+
+    /**
+     * @var \Magento\Framework\App\ResponseFactory
+     */
+    private $responseFactory;
+
+    /**
+     * @var \Magento\Framework\Message\ManagerInterface
+     */
+    private $messageManager;
 
     /**
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Kount\Kount\Model\Config\Account $kountConfig
-     * @param \Kount\KountControl\Model\ControlApi\Event $eventService
-     * @param \Kount\KountControl\Model\ControlApi\TrustedDevice $trustedDeviceService
+     * @param ControlApi\Event $eventService
+     * @param ControlApi\TrustedDevice $trustedDeviceService
      * @param \Kount\KountControl\Helper\Config $kountControlConfig
+     * @param \Kount\Kount\Model\Logger $logger
+     * @param \Kount\KountControl\Plugin\Controller\Account\LoginPost $loginPost
+     * @param \Magento\Framework\UrlInterface $url
+     * @param \Magento\Framework\App\ResponseFactory $responseFactory
+     * @param \Magento\Framework\Message\ManagerInterface $messageManager
      */
     public function __construct(
         \Magento\Customer\Model\Session $customerSession,
@@ -58,7 +77,10 @@ class Customer2FA
         \Kount\KountControl\Model\ControlApi\TrustedDevice $trustedDeviceService,
         \Kount\KountControl\Helper\Config $kountControlConfig,
         \Kount\Kount\Model\Logger $logger,
-        \Kount\KountControl\Plugin\Controller\Account\LoginPost $loginPost
+        \Kount\KountControl\Plugin\Controller\Account\LoginPost $loginPost,
+        \Magento\Framework\UrlInterface $url,
+        \Magento\Framework\App\ResponseFactory $responseFactory,
+        \Magento\Framework\Message\ManagerInterface $messageManager
     ) {
         $this->customerSession = $customerSession;
         $this->kountConfig = $kountConfig;
@@ -67,6 +89,9 @@ class Customer2FA
         $this->kountControlConfig = $kountControlConfig;
         $this->logger = $logger;
         $this->loginPost = $loginPost;
+        $this->url = $url;
+        $this->responseFactory = $responseFactory;
+        $this->messageManager = $messageManager;
     }
 
     /**
@@ -82,13 +107,17 @@ class Customer2FA
                 $this->executeTrustedDeviceRequest(0);
             }
         } catch (
-        \Kount\KountControl\Exception\ConfigException
-        | \Kount\KountControl\Exception\PositiveApiResponse $e
+            \Kount\KountControl\Exception\ConfigException
+            | \Kount\KountControl\Exception\PositiveApiResponse $e
         ) {
             $this->logger->info($e->getMessage());
         } catch (
-        \Kount\KountControl\Exception\ParamsException
-        | \Kount\KountControl\Exception\NegativeApiResponse $e
+            \Kount\KountControl\Exception\ParamsException $e
+        ) {
+            $this->loginPost->logoutCustomer();
+            $this->logger->warning($e->getMessage());
+        } catch (
+            \Kount\KountControl\Exception\NegativeApiResponse $e
         ) {
             $this->loginPost->logoutCustomer();
             $this->logger->warning($e->getMessage());
@@ -118,7 +147,7 @@ class Customer2FA
         $clientId = $this->kountConfig->getMerchantNumber();
         $sessionId = $this->customerSession->getKountSessionId();
         // Check all necessary params
-        if ($sessionId === '' || $userId === '' || $this->kountConfig->getMerchantNumber() === '') {
+        if ($sessionId === null || $userId === '' || $this->kountConfig->getMerchantNumber() === '') {
             throw new \Kount\KountControl\Exception\ParamsException(__('KountControl: lost POST params. '
                 . '$sessionId = "%1"; $userId = "%2"; $clientId', $sessionId, $userId, $clientId));
         }

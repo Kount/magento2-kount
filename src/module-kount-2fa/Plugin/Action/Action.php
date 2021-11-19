@@ -22,7 +22,9 @@ class Action
 
     const KOUNT_2_FA_ACCOUNT_SETUP_ROUTE = 'kount_kount2fa_account_setup';
     const KOUNT_2_FA_ACCOUNT_AUTHENTICATE_ROUTE = 'kount_kount2fa_account_authenticate';
+    const CUSTOMER_ACCOUNT_LOGIN_ROUTE = 'customer_account_login';
     const CUSTOMER_ACCOUNT_LOGOUT_ROUTE = 'customer_account_logout';
+    const CUSTOMER_SECTION_LOAD_ROUTE = 'customer_section_load';
 
     const KOUNT_2_FA_ACCOUNT_SETUP_PATH = 'kount2fa/account/setup';
     const KOUNT_2_FA_ACCOUNT_AUTHENTICATE_PATH = 'kount2fa/account/authenticate';
@@ -153,7 +155,9 @@ class Action
      */
     private function getAllowedRoutes(Customer $customer)
     {
+        $routes[] = self::CUSTOMER_ACCOUNT_LOGIN_ROUTE;
         $routes[] = self::CUSTOMER_ACCOUNT_LOGOUT_ROUTE;
+        $routes[] = self::CUSTOMER_SECTION_LOAD_ROUTE;
         if ($this->is2faConfiguredForCustomer($customer)) {
             $routes[] = self::KOUNT_2_FA_ACCOUNT_AUTHENTICATE_ROUTE;
         } else {

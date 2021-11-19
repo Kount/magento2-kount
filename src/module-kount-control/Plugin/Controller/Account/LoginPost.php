@@ -37,24 +37,32 @@ class LoginPost
     private $url;
 
     /**
+     * @var \Magento\Framework\Message\ManagerInterface
+     */
+    private $messageManager;
+
+    /**
      * @param \Kount\KountControl\Model\CustomerLogin $customerLogin
      * @param \Kount\Kount\Model\Logger $logger
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Framework\App\Response\Http $httpResponse
      * @param \Magento\Framework\UrlInterface $url
+     * @param \Magento\Framework\Message\ManagerInterface $messageManager
      */
     public function __construct(
         \Kount\KountControl\Model\CustomerLogin $customerLogin,
         \Kount\Kount\Model\Logger $logger,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\App\Response\Http $httpResponse,
-        \Magento\Framework\UrlInterface $url
+        \Magento\Framework\UrlInterface $url,
+        \Magento\Framework\Message\ManagerInterface $messageManager
     ) {
         $this->customerLogin = $customerLogin;
         $this->logger = $logger;
         $this->customerSession = $customerSession;
         $this->httpResponse = $httpResponse;
         $this->url = $url;
+        $this->messageManager = $messageManager;
     }
 
     /**
@@ -75,7 +83,7 @@ class LoginPost
             $this->customerSession->setKountSessionId($sessionId);
         }
 
-        if ($sessionId !== '') {
+        if ($sessionId !== '' && ($this->customerSession->getCustomer()->getId() !== null)) {
             // Start work with Login API and Event API
             try {
                 $this->customerLogin->login($sessionId);
@@ -86,10 +94,18 @@ class LoginPost
                 // Exit from API workflow if KountControl not configured properly or got "Allow" Login API decision
                 $this->logger->info($e->getMessage());
             } catch (
-                \Kount\KountControl\Exception\ParamsException
-                | \Kount\KountControl\Exception\NegativeApiResponse $e
+                \Kount\KountControl\Exception\NegativeApiResponse $e
             ) {
                 // Exit from API workflow if it not has all required params for API call or got "Block" Login API decision
+                $isSuccessful = false;
+                // Log out customer in this case
+                $this->logoutCustomer();
+                $this->messageManager->addErrorMessage(__("The sign-in is not available for your customer account."));
+                $this->logger->warning($e->getMessage());
+            } catch (
+                \Kount\KountControl\Exception\ParamsException $e
+            ) {
+                // Exit from API workflow if it not has all required params for API call
                 $isSuccessful = false;
                 // Log out customer in this case
                 $this->logoutCustomer();

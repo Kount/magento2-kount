@@ -40,11 +40,17 @@ class Authenticate
 
     /**
      * Checks if 2FA succeeded after /setup or /authenticate controller's call of Kount2FA module
+     *
+     * @param \Kount\Kount2FA\Controller\Account\Authenticate $subject
+     * @param $result
+     * @return mixed
      */
-    public function afterExecute(\Kount\Kount2FA\Controller\Account\Authenticate $subject)
+    public function afterExecute(\Kount\Kount2FA\Controller\Account\Authenticate $subject, $result)
     {
         if ($subject->getRequest()->getPostValue()) {
             $this->customer2FA->twoFactorAuthenticate();
         }
+
+        return $result;
     }
 }
