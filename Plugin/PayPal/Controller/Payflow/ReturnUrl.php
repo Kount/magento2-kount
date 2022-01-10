@@ -94,7 +94,9 @@ class ReturnUrl
             return $result;
         }
 
-        $postAuthWorkFlow = $this->workflowFactory->create($this->configWorkflow->getWorkflowMode($order->getStoreId()));
+        $postAuthWorkFlow = $this->workflowFactory->create(
+            $this->configWorkflow->getWorkflowMode($order->getStoreId())
+        );
 
         if ($this->isOrderSuccess($order)) {
             $postAuthWorkFlow->success($order);

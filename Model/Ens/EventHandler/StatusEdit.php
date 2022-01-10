@@ -9,10 +9,6 @@ use Kount\Kount\Model\Ens\EventHandlerInterface;
 use Kount\Kount\Model\RisService;
 use Kount\Kount\Model\Order\ActionFactory as OrderActionFactory;
 
-/**
- * Class StatusEdit
- * @package Kount\Kount\Model\Ens\EventHandler
- */
 class StatusEdit extends EventHandlerOrder implements EventHandlerInterface
 {
     const EVENT_NAME = 'WORKFLOW_STATUS_EDIT';
@@ -43,23 +39,31 @@ class StatusEdit extends EventHandlerOrder implements EventHandlerInterface
     protected $logger;
 
     /**
-     * @param OrderActionFactory $orderActionFactory
+     * @var \Kount\Kount\Model\RisService
+     */
+    protected $risService;
+
+    /**
+     * @param \Kount\Kount\Model\Order\ActionFactory $orderActionFactory
      * @param \Kount\Kount\Model\Order\Ris $orderRis
      * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
      * @param \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
      * @param \Kount\Kount\Model\Logger $logger
+     * @param \Kount\Kount\Model\RisService $risService
      */
     public function __construct(
         \Kount\Kount\Model\Order\ActionFactory $orderActionFactory,
         \Kount\Kount\Model\Order\Ris $orderRis,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
-        \Kount\Kount\Model\Logger $logger
+        \Kount\Kount\Model\Logger $logger,
+        RisService $risService
     ) {
         $this->orderActionFactory = $orderActionFactory;
         $this->orderRis = $orderRis;
         $this->orderRepository = $orderRepository;
         $this->logger = $logger;
+        $this->risService = $risService;
         parent::__construct($orderRepository, $searchCriteriaBuilder);
     }
 
@@ -69,7 +73,6 @@ class StatusEdit extends EventHandlerOrder implements EventHandlerInterface
     public function process($event)
     {
         list($transactionId, $orderId, $oldValue, $newValue) = $this->fetchVars($event);
-
         $this->logger->info('ENS Event Details');
         $this->logger->info('Name: ' . self::EVENT_NAME);
         $this->logger->info('order_number: ' . $orderId);
@@ -85,7 +88,6 @@ class StatusEdit extends EventHandlerOrder implements EventHandlerInterface
         $this->validateTransactionId($ris, $transactionId);
         $this->validateStatus($oldValue);
         $this->validateStatus($newValue);
-
         $this->updateRisResponse($order, $ris, $newValue);
         $this->updateOrderStatus($order, $ris, $oldValue, $newValue);
     }
@@ -103,16 +105,16 @@ class StatusEdit extends EventHandlerOrder implements EventHandlerInterface
             throw new \InvalidArgumentException('Invalid Transaction ID.');
         }
 
-
         if (empty($ris->getTransactionId())) {
             throw new \InvalidArgumentException('Invalid Order Transaction ID.');
         }
 
         if ($ris->getTransactionId() !== $transactionId) {
-            throw new \InvalidArgumentException('Transaction ID does not match order,
-                event must be for discarded version of order!');
+            throw new \InvalidArgumentException(
+                'Transaction ID does not match order,
+                event must be for discarded version of order!'
+            );
         }
-
         return true;
     }
 
@@ -122,7 +124,7 @@ class StatusEdit extends EventHandlerOrder implements EventHandlerInterface
      */
     protected function validateStatus($status)
     {
-        if (empty($status) || !in_array($status, RisService::getAutos(), true)) {
+        if (empty($status) || !in_array($status, $this->risService->getAutos(), true)) {
             throw new \InvalidArgumentException('Invalid status.');
         }
         return true;
@@ -200,8 +202,10 @@ class StatusEdit extends EventHandlerOrder implements EventHandlerInterface
      */
     protected function approveOrder($order)
     {
-        $this->logger->info('Kount status transitioned from review to allow. Order: '
-            . $order->getIncrementId());
+        $this->logger->info(
+            'Kount status transitioned from review to allow. Order: '
+            . $order->getIncrementId()
+        );
 
         $this->orderActionFactory->create(OrderActionFactory::RESTORE)->process($order);
         $this->orderRepository->save($order);
@@ -212,8 +216,10 @@ class StatusEdit extends EventHandlerOrder implements EventHandlerInterface
      */
     protected function declineOrder($order)
     {
-        $this->logger->info('Kount status transitioned from review to decline. Order: '
-            . $order->getIncrementId());
+        $this->logger->info(
+            'Kount status transitioned from review to decline. Order: '
+            . $order->getIncrementId()
+        );
 
         $this->orderActionFactory->create(OrderActionFactory::RESTORE)->process($order);
         $this->orderRepository->save($order);

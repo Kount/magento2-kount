@@ -8,7 +8,8 @@ namespace Kount\Kount\Model\Ris\Inquiry\Builder\Payment;
 use Kount\Kount\Model\Ris\Base\Builder\PaymentInterface;
 use Magento\Sales\Api\Data\OrderPaymentInterface;
 
-class AuthorizenetAcceptjs  extends \Kount\Kount\Model\Ris\Update\Builder\Payment\AuthorizenetAcceptjs implements PaymentInterface
+class AuthorizenetAcceptjs extends \Kount\Kount\Model\Ris\Update\Builder\Payment\AuthorizenetAcceptjs
+    implements PaymentInterface
 {
     /**
      * @param \Kount_Ris_Request|\Kount_Ris_Request_Inquiry $request

@@ -22,7 +22,9 @@ class Log extends Field
     {
         $dir = $this->_filesystem->getDirectoryWrite(DirectoryList::VAR_DIR);
         if ($dir->isFile('log/' . ConfigLog::FILENAME)) {
-            $html = '<a id="' . $element->getHtmlId() . '" href="' . $this->getUrl('kount/config/log') . '">' . __('Download') . '</a>';
+            $html = '<a id="' . $element->getHtmlId() . '" href="' . $this->getUrl('kount/config/log') . '">' . __(
+                    'Download'
+                ) . '</a>';
         } else {
             $html = '<span id="' . $element->getHtmlId() . '">' . __('File is not generated yet.') . '</a>';
         }

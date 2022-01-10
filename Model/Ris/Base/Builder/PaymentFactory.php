@@ -30,7 +30,9 @@ class PaymentFactory
     {
         $payment = $this->objectManager->create($paymentClass);
         if (!$payment instanceof PaymentInterface) {
-            throw new \InvalidArgumentException(get_class($payment) . ' must be an instance of \Kount\Kount\Model\Ris\Base\Builder\PaymentInterface.');
+            throw new \InvalidArgumentException(
+                get_class($payment) . ' must be an instance of \Kount\Kount\Model\Ris\Base\Builder\PaymentInterface.'
+            );
         }
         return $payment;
     }

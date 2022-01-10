@@ -42,7 +42,9 @@ class EventHandlerFactory
 
         $eventHandler = $this->objectManager->create($this->handlers[$handlerCode]);
         if (!$eventHandler instanceof EventHandlerInterface) {
-            throw new \InvalidArgumentException(get_class($eventHandler) . ' must be an instance of \Kount\Kount\Model\Ens\EventHandlerInterface.');
+            throw new \InvalidArgumentException(
+                get_class($eventHandler) . ' must be an instance of \Kount\Kount\Model\Ens\EventHandlerInterface.'
+            );
         }
         return $eventHandler;
     }

@@ -159,7 +159,6 @@ interface RisInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      */
     public function setEmails($emails);
 
-
     /**
      * @return string
      */

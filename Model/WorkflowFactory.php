@@ -43,7 +43,9 @@ class WorkflowFactory
 
         $workflow = $this->objectManager->create($this->workflowModes[$mode]);
         if (!$workflow instanceof WorkflowInterface) {
-            throw new \InvalidArgumentException(get_class($workflow) . ' must be an instance of \Kount\Kount\Model\WorkflowInterface.');
+            throw new \InvalidArgumentException(
+                get_class($workflow) . ' must be an instance of \Kount\Kount\Model\WorkflowInterface.'
+            );
         }
         return $workflow;
     }
