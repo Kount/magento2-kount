@@ -123,9 +123,6 @@ class Action
         if (!$customer->getId() || !$this->customerSession->isLoggedIn()) {
             $needRedirect = false;
         }
-        if ($this->customerSession->getIsNewCustomer() === true) {
-            $needRedirect = false;
-        }
         if (in_array($request->getFullActionName(), $this->getAllowedRoutes($customer))) {
             $needRedirect = false;
         }
