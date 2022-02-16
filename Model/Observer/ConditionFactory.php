@@ -30,7 +30,9 @@ class ConditionFactory
     {
         $skipCondition = $this->objectManager->create($className);
         if (!$skipCondition instanceof ConditionInterface) {
-            throw new \InvalidArgumentException(get_class($skipCondition) . ' must be an instance of \Kount\Kount\Model\Observer\ConditionInterface.');
+            throw new \InvalidArgumentException(
+                get_class($skipCondition) . ' must be an instance of \Kount\Kount\Model\Observer\ConditionInterface.'
+            );
         }
         return $skipCondition;
     }

@@ -69,7 +69,11 @@ class Workflow
             return false;
         }
 
-        if ($paymentMethodCode && in_array($paymentMethodCode, $this->configPaymentMethods->getDisableMethods($websiteId), true)) {
+        if ($paymentMethodCode && in_array(
+                $paymentMethodCode,
+                $this->configPaymentMethods->getDisableMethods($websiteId),
+                true
+            )) {
             $this->logger->info('Kount disabled for payment method: ' . $paymentMethodCode);
             return false;
         }

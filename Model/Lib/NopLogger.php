@@ -7,11 +7,4 @@ namespace Kount\Kount\Model\Lib;
 
 class NopLogger extends \Kount_Log_Binding_NopLogger
 {
-    /**
-     * @param string $name
-     */
-    public function __construct($name = '')
-    {
-        parent::__construct($name);
-    }
 }

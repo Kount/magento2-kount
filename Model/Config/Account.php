@@ -51,7 +51,10 @@ class Account
      */
     public function getCurrency()
     {
-        return $this->scopeConfig->getValue(Store::XML_PATH_PRICE_SCOPE, ScopeInterface::SCOPE_STORE) == Store::PRICE_SCOPE_GLOBAL
+        return $this->scopeConfig->getValue(
+            Store::XML_PATH_PRICE_SCOPE,
+            ScopeInterface::SCOPE_STORE
+        ) == Store::PRICE_SCOPE_GLOBAL
             ? $this->scopeConfig->getValue(\Magento\Directory\Model\Currency::XML_PATH_CURRENCY_BASE)
             : $this->scopeConfig->getValue('kount/account/currency');
     }
@@ -81,7 +84,11 @@ class Account
     public function getApiKey($websiteCode = null)
     {
         $env = $this->isTestMode($websiteCode) ? 'test' : 'production';
-        return $this->scopeConfig->getValue("kount/account/api_key_{$env}", ScopeInterface::SCOPE_WEBSITE, $websiteCode);
+        return $this->scopeConfig->getValue(
+            "kount/account/api_key_{$env}",
+            ScopeInterface::SCOPE_WEBSITE,
+            $websiteCode
+        );
     }
 
     /**

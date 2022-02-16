@@ -14,10 +14,8 @@ class RisService
     const AUTO_REVIEW = 'R';
     const AUTO_ESCALATE = 'E';
     const AUTO_APPROVE = 'A';
-
     const AUTH_AUTHORIZED = 'A';
     const AUTH_DECLINED = 'D';
-
     const MACK_YES = 'Y';
     const MACK_NO = 'N';
 
@@ -78,7 +76,7 @@ class RisService
     /**
      * @return array
      */
-    public static function getAutos()
+    public function getAutos()
     {
         return [self::AUTO_APPROVE, self::AUTO_REVIEW, self::AUTO_ESCALATE, self::AUTO_DECLINE];
     }
@@ -91,15 +89,18 @@ class RisService
      * @return bool
      * @throws LocalizedException
      */
-    public function inquiryRequest(Order $order, $graceful = true, $auth = RisService::AUTH_AUTHORIZED, $mack = RisService::MACK_YES)
-    {
+    public function inquiryRequest(
+        Order $order, $graceful = true, $auth = RisService::AUTH_AUTHORIZED, $mack = RisService::MACK_YES
+    ) {
         $ris = $this->orderRis->getRis($order);
         if (!empty($ris->getResponse())) {
             $this->logger->info('Skipp second time inquiry request.'); /* Authorize.net calls payment place twice */
             return false;
         }
 
-        \Kount_Log_Factory_LogFactory::setLoggerFactory($this->loggerFactory->setWebsiteId($order->getStore()->getWebsiteId()));
+        \Kount_Log_Factory_LogFactory::setLoggerFactory(
+            $this->loggerFactory->setWebsiteId($order->getStore()->getWebsiteId())
+        );
         $inquiryRequest = $this->inquiryBuilder->build($order, $auth, $mack);
         $inquiryResponse = $this->requestSender->send($inquiryRequest);
 
@@ -147,7 +148,9 @@ class RisService
             return false;
         }
 
-        \Kount_Log_Factory_LogFactory::setLoggerFactory($this->loggerFactory->setWebsiteId($order->getStore()->getWebsiteId()));
+        \Kount_Log_Factory_LogFactory::setLoggerFactory(
+            $this->loggerFactory->setWebsiteId($order->getStore()->getWebsiteId())
+        );
         $updateRequest = $this->updateBuilder->build($order, $ris->getTransactionId(), $processorAuthorized);
         $this->requestSender->send($updateRequest);
 

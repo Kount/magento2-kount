@@ -235,8 +235,8 @@ class Ris extends AbstractModel implements RisInterface
     }
 
     /**
- * @return string
- */
+     * @return string
+     */
     public function getDevices()
     {
         return $this->getData(self::DEVICES);

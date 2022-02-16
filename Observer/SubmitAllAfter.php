@@ -90,7 +90,12 @@ class SubmitAllAfter implements \Magento\Framework\Event\ObserverInterface
             $workflow->success($order);
             $status = $order->getStatus();
             if (in_array($status, self::REVIEW_STATUSES)) {
-                throw new LocalizedException(__('Order declined. Please ensure your information is correct. If the problem persists, please contact us for assistance.'));
+                throw new LocalizedException(
+                    __(
+                        'Order declined. Please ensure your information is correct. If the problem persists,
+                        please contact us for assistance.'
+                    )
+                );
             }
         }
 

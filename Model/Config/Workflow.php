@@ -48,7 +48,11 @@ class Workflow
      */
     public function isNotifyProcessorDecline($storeCode = null)
     {
-        return $this->scopeConfig->isSetFlag('kount/workflow/notify_processor_decline', ScopeInterface::SCOPE_STORE, $storeCode);
+        return $this->scopeConfig->isSetFlag(
+            'kount/workflow/notify_processor_decline',
+            ScopeInterface::SCOPE_STORE,
+            $storeCode
+        );
     }
 
     /**
