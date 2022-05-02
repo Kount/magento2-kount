@@ -11,12 +11,12 @@ use Magento\Sales\Api\Data\OrderPaymentInterface;
 class NoPayment implements PaymentInterface
 {
     /**
-     * @param \Kount_Ris_Request|\Kount_Ris_Request_Update $request
+     * @param \Kount_Ris_Request $request
      * @param \Magento\Sales\Api\Data\OrderPaymentInterface $payment
-     * @return void
+     * @return $this|void
      */
     public function process(\Kount_Ris_Request $request, OrderPaymentInterface $payment)
     {
-        /* Nothing update*/
+        return $this;
     }
 }

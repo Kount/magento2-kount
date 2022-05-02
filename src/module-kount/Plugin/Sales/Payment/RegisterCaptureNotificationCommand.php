@@ -55,7 +55,9 @@ class RegisterCaptureNotificationCommand
         }
 
         if ($state == Order::STATE_PROCESSING
-            || ($this->isHoldByKount($order) && $this->configWorkflow->isPreventResettingOrderStatus($order->getStoreId()))
+            || ($this->isHoldByKount($order) && $this->configWorkflow->isPreventResettingOrderStatus(
+                    $order->getStoreId()
+                ))
         ) {
             return __($message, $order->getBaseCurrency()->formatTxt($amount));
         }

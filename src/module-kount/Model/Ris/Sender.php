@@ -52,19 +52,30 @@ class Sender
     public function send(\Kount_Ris_Request $request)
     {
         try {
-            $response = $request->getResponse();
-            if (!$response) {
-                throw new \Exception('Invalid response from Kount RIS.');
-            }
-
-            $this->checkAndLogError($response);
-            $this->checkAndLogWarnings($response);
-            $this->checkAndLogErrorCode($response);
-        } catch (\Exception $e) {
+            $response = $this->getResponse($request);
+        } catch (\Kount_Ris_Exception $e) {
             $this->logger->error('Exception while making RIS request: ' . $e->getMessage());
             return false;
         }
 
+        return $response;
+    }
+
+    /**
+     * @param \Kount_Ris_Request $request
+     * @return \Kount_Ris_Response
+     * @throws \Kount_Ris_Exception
+     */
+    protected function getResponse(\Kount_Ris_Request $request)
+    {
+        $response = $request->getResponse();
+        if (!$response) {
+            throw new \Kount_Ris_Exception('Invalid response from Kount RIS.');
+        }
+
+        $this->checkAndLogError($response);
+        $this->checkAndLogWarnings($response);
+        $this->checkAndLogErrorCode($response);
         return $response;
     }
 

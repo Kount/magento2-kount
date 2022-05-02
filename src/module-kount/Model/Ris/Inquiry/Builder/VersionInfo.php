@@ -34,7 +34,10 @@ class VersionInfo
      */
     public function process(\Kount_Ris_Request_Inquiry $request)
     {
-        $request->setUserDefinedField('PLATFORM', $this->productMetadata->getEdition() . ':' . $this->productMetadata->getVersion());
+        $request->setUserDefinedField(
+            'PLATFORM',
+            $this->productMetadata->getEdition() . ':' . $this->productMetadata->getVersion()
+        );
         $request->setUserDefinedField('EXT', $this->helperData->getModuleVersion());
     }
 }

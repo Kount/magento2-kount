@@ -5,6 +5,7 @@
  */
 namespace Kount\Kount\Model;
 
+use Magento\Framework\App\Area;
 use Magento\Sales\Model\Order;
 use Magento\Framework\Exception\LocalizedException;
 
@@ -14,12 +15,11 @@ class RisService
     const AUTO_REVIEW = 'R';
     const AUTO_ESCALATE = 'E';
     const AUTO_APPROVE = 'A';
-
     const AUTH_AUTHORIZED = 'A';
     const AUTH_DECLINED = 'D';
-
     const MACK_YES = 'Y';
     const MACK_NO = 'N';
+    const DEFAULT_ANID = '0123456789';
 
     /**
      * @var \Kount\Kount\Model\Ris\Inquiry\Builder
@@ -52,6 +52,11 @@ class RisService
     protected $logger;
 
     /**
+     * @var \Magento\Framework\App\State|mixed
+     */
+    private $state;
+
+    /**
      * @param \Kount\Kount\Model\Ris\Inquiry\Builder $inquiryBuilder
      * @param \Kount\Kount\Model\Ris\Update\Builder $updateBuilder
      * @param \Kount\Kount\Model\Ris\Sender $requestSender
@@ -65,7 +70,8 @@ class RisService
         \Kount\Kount\Model\Ris\Sender $requestSender,
         \Kount\Kount\Model\Order\Ris $orderRis,
         \Kount\Kount\Model\Lib\LoggerFactory $loggerFactory,
-        \Kount\Kount\Model\Logger $logger
+        \Kount\Kount\Model\Logger $logger,
+        \Magento\Framework\App\State $state
     ) {
         $this->inquiryBuilder = $inquiryBuilder;
         $this->updateBuilder = $updateBuilder;
@@ -73,12 +79,13 @@ class RisService
         $this->orderRis = $orderRis;
         $this->loggerFactory = $loggerFactory;
         $this->logger = $logger;
+        $this->state = $state;
     }
 
     /**
      * @return array
      */
-    public static function getAutos()
+    public function getAutos()
     {
         return [self::AUTO_APPROVE, self::AUTO_REVIEW, self::AUTO_ESCALATE, self::AUTO_DECLINE];
     }
@@ -91,16 +98,37 @@ class RisService
      * @return bool
      * @throws LocalizedException
      */
-    public function inquiryRequest(Order $order, $graceful = true, $auth = RisService::AUTH_AUTHORIZED, $mack = RisService::MACK_YES)
-    {
+    public function inquiryRequest(
+        Order $order, $graceful = true, $auth = RisService::AUTH_AUTHORIZED, $mack = RisService::MACK_YES
+    ) {
         $ris = $this->orderRis->getRis($order);
         if (!empty($ris->getResponse())) {
             $this->logger->info('Skipp second time inquiry request.'); /* Authorize.net calls payment place twice */
             return false;
         }
 
-        \Kount_Log_Factory_LogFactory::setLoggerFactory($this->loggerFactory->setWebsiteId($order->getStore()->getWebsiteId()));
+        \Kount_Log_Factory_LogFactory::setLoggerFactory(
+            $this->loggerFactory->setWebsiteId($order->getStore()->getWebsiteId())
+        );
         $inquiryRequest = $this->inquiryBuilder->build($order, $auth, $mack);
+        if ($this->state->getAreaCode() === Area::AREA_ADMINHTML) {
+            try {
+                $inquiryRequest->setMode(\Kount_Ris_Request_Inquiry::MODE_P);
+            } catch (\Kount_Ris_IllegalArgumentException $e) {
+                $this->logger->warning('Mode doesn\'t mach any of the defined inquiry modes');
+                return false;
+            }
+
+            if ($order->getShippingAddress() !== null && $order->getShippingAddress()->getTelephone() !== null) {
+                $phone = $order->getShippingAddress()->getTelephone();
+                $phone = preg_replace("/[^a-zA-Z0-9]+/", "", $phone);
+            } else {
+                $phone = self::DEFAULT_ANID;
+            }
+
+            $inquiryRequest->setAnid($phone);
+        }
+
         $inquiryResponse = $this->requestSender->send($inquiryRequest);
 
         if (!$inquiryResponse instanceof \Kount_Ris_Response) {
@@ -147,7 +175,9 @@ class RisService
             return false;
         }
 
-        \Kount_Log_Factory_LogFactory::setLoggerFactory($this->loggerFactory->setWebsiteId($order->getStore()->getWebsiteId()));
+        \Kount_Log_Factory_LogFactory::setLoggerFactory(
+            $this->loggerFactory->setWebsiteId($order->getStore()->getWebsiteId())
+        );
         $updateRequest = $this->updateBuilder->build($order, $ris->getTransactionId(), $processorAuthorized);
         $this->requestSender->send($updateRequest);
 

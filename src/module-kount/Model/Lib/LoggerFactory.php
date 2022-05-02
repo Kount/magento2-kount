@@ -61,7 +61,9 @@ class LoggerFactory implements \Kount_Log_Factory_LoggerFactory
     {
         $logger = $this->objectManager->create($this->getLoggerClass());
         if (!$logger instanceof \Kount_Log_Binding_Logger) {
-            throw new \InvalidArgumentException(get_class($logger) . ' must be an instance of \Kount_Log_Binding_Logger.');
+            throw new \InvalidArgumentException(
+                get_class($logger) . ' must be an instance of \Kount_Log_Binding_Logger.'
+            );
         }
         return $logger;
     }

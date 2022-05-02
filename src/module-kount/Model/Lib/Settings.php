@@ -8,6 +8,7 @@ namespace Kount\Kount\Model\Lib;
 use Magento\Framework\App\ObjectManager;
 use Kount\Kount\Model\Config\Log;
 use Magento\Framework\App\Filesystem\DirectoryList;
+use Kount\Kount\Exception\KountException;
 
 class Settings
 {
@@ -96,7 +97,7 @@ class Settings
     {
         $settings = $this->getSettings($websiteCode);
         if (!isset($settings[$name])) {
-            throw new \Exception("The configuration setting [{$name}] is not defined");
+            throw new KountException("The configuration setting [{$name}] is not defined");
         }
         return $settings[$name];
     }
