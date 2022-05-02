@@ -2,7 +2,7 @@
   "name": "kount/magento2-kount",
   "description": "Magento 2 Kount Integration",
   "keywords": ["magento2", "kount"],
-  "version": "4.3.5",
+  "version": "4.3.6",
   "type": "magento2-module",
   "license": ["proprietary"],
   "authors": [
