@@ -22,7 +22,7 @@
     "magento/module-store": "^100.0.0|^101.0.0",
     "magento/module-directory": "^100.0.0",
     "magento/framework": "^102.0.0|^103.0.0",
-    "kount/kount-ris-php-sdk": "^7.2|^7.3"
+    "kount/kount-ris-php-sdk": "^7.2|^7.3|^7.4"
   },
   "autoload": {
     "files": [
