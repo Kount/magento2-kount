@@ -6,7 +6,7 @@
 
 /* @var $block \Kount\Kount\Block\Checkout\DataCollector */
 ?>
-<script type="text/javascript" src="<?= $block->getJsDataCollectorUrl() ?>"></script>
+<script type="text/javascript" src="<?= $block->escapeHtmlAttr($block->getJsDataCollectorUrl()) ?>"></script>
 <script>
     document.getElementById('kount_session_id').value = ka.sessionId;
 </script>
