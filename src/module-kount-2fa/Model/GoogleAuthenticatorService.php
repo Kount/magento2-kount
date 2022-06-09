@@ -6,7 +6,9 @@
 
 namespace Kount\Kount2FA\Model;
 
+use Endroid\QrCode\Encoding\Encoding;
 use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
 use Kount\Kount2FA\Lib\PHPGangsta\GoogleAuthenticator;
 
 class GoogleAuthenticatorService extends GoogleAuthenticator
@@ -28,14 +30,13 @@ class GoogleAuthenticatorService extends GoogleAuthenticator
         if (true === is_string($title)) {
             $text = sprintf('%s&issuer=%s', $text, $title);
         }
+        $writer = new PngWriter();
         $qrCode = new QrCode($text);
+        $qrCode->setData($text);
         $qrCode->setSize($size);
-        $qrCode->setWriterByName('png');
         $qrCode->setMargin(0);
-        $qrCode->setEncoding('UTF-8');
+        $qrCode->setEncoding(new Encoding('UTF-8'));
         $qrCode->setSize($size);
-        $qrCode->setText($text);
-
-        return $qrCode->writeString();
+        return $writer->write($qrCode)->getString();
     }
 }

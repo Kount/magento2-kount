@@ -9,15 +9,22 @@ namespace Kount\Kount2FA\Controller\Account;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
+use Magento\Framework\App\Action\HttpGetActionInterface;
+use Magento\Framework\App\Action\HttpPostActionInterface;
+use Magento\Framework\App\CsrfAwareActionInterface;
+use Magento\Framework\App\Request\InvalidRequestException;
+use Magento\Framework\App\RequestInterface;
 use Magento\Framework\App\ResponseInterface;
+use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\ResultInterface;
+use Magento\Framework\Phrase;
 use Magento\Framework\View\LayoutFactory;
 use Kount\Kount2FA\Model\SecretFactory;
 use Magento\Framework\Controller\ResultFactory;
 use Kount\KountControl\Helper\Config;
 use Magento\Framework\View\Result\PageFactory as ResultPageFactory;
 
-class Setup extends Action
+class Setup extends Action implements CsrfAwareActionInterface, HttpGetActionInterface, HttpPostActionInterface
 {
     /**
      * @var Session
@@ -118,5 +125,29 @@ class Setup extends Action
                 }
             }
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createCsrfValidationException(
+        RequestInterface $request
+    ): ?InvalidRequestException {
+        /** @var Redirect $resultRedirect */
+        $resultRedirect = $this->resultRedirectFactory->create();
+        $resultRedirect->setPath('*/*/*');
+
+        return new InvalidRequestException(
+            $resultRedirect,
+            [new Phrase('Invalid Form Key. Please refresh the page.')]
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function validateForCsrf(RequestInterface $request): ?bool
+    {
+        return null;
     }
 }
