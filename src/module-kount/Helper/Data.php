@@ -29,6 +29,14 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getModuleVersion()
     {
-        return $this->packageInfo->getVersion($this->_getModuleName());
+        return $this->packageInfo->getVersion($this->getModuleName());
+    }
+
+    /**
+     * @return string
+     */
+    public function getModuleName(): string
+    {
+        return $this->_getModuleName();
     }
 }

@@ -7,6 +7,8 @@ namespace Kount\Kount\Model\Ris\Inquiry\Builder;
 
 class VersionInfo
 {
+    const SDK_VALUE = 'CUST';
+
     /**
      * @var \Magento\Framework\App\ProductMetadataInterface
      */
@@ -18,15 +20,23 @@ class VersionInfo
     protected $helperData;
 
     /**
+     * @var \Magento\Framework\Module\ResourceInterface
+     */
+    protected $moduleResource;
+
+    /**
      * @param \Magento\Framework\App\ProductMetadataInterface $productMetadata
      * @param \Kount\Kount\Helper\Data $helperData
+     * @param \Magento\Framework\Module\ResourceInterface $moduleResource
      */
     public function __construct(
         \Magento\Framework\App\ProductMetadataInterface $productMetadata,
-        \Kount\Kount\Helper\Data $helperData
+        \Kount\Kount\Helper\Data $helperData,
+        \Magento\Framework\Module\ResourceInterface $moduleResource
     ) {
         $this->productMetadata = $productMetadata;
         $this->helperData = $helperData;
+        $this->moduleResource = $moduleResource;
     }
 
     /**
@@ -39,5 +49,10 @@ class VersionInfo
             $this->productMetadata->getEdition() . ':' . $this->productMetadata->getVersion()
         );
         $request->setUserDefinedField('EXT', $this->helperData->getModuleVersion());
+        $request->setParm('SDK', self::SDK_VALUE);
+        $request->setParm(
+            'SDK_VERSION',
+            sprintf('TPA-Magento-%s', $this->moduleResource->getDataVersion($this->helperData->getModuleName()))
+        );
     }
 }
