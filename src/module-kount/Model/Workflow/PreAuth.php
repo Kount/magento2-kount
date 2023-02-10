@@ -5,6 +5,7 @@
  */
 namespace Kount\Kount\Model\Workflow;
 
+use Kount\Kount\Model\RisService;
 use Kount\Kount\Model\WorkflowInterface;
 use Kount\Kount\Model\WorkflowAbstract;
 use Magento\Sales\Model\Order;
@@ -34,12 +35,16 @@ class PreAuth extends WorkflowAbstract implements WorkflowInterface
      */
     public function failure(Order $order)
     {
+        if (!$this->configWorkflow->isNotifyProcessorDecline($order->getStoreId())) {
+            return;
+        }
+
         $this->logger->info('On Magento Order Fail');
         $this->logger->info('Order failed, sending update to Kount RIS.');
         $this->logger->info('Order Id: ' . $order->getIncrementId());
         $this->logger->info('Order Store Id: ' . $order->getStoreId());
 
-        $this->risService->updateRequest($order, false);
+        $this->risService->inquiryRequest($order, true, RisService::AUTH_DECLINED, RisService::MACK_NO);
     }
 
     /**
