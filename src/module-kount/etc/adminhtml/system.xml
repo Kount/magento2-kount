@@ -97,17 +97,14 @@
                     <comment>Cancel should be used with payment method in Authorize Only mode.  Refund should be used with payment method in Authorize and Capture mode.</comment>
                     <depends>
                         <field id="kount/account/enabled">1</field>
-                        <field id="workflow_mode">post_auth</field>
                     </depends>
                 </field>
 
                 <field id="notify_processor_decline" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Notify Kount RIS of Processor Decline</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>For Post Auth transactions only.</comment>
                     <depends>
                         <field id="kount/account/enabled">1</field>
-                        <field id="workflow_mode">post_auth</field>
                     </depends>
                 </field>
 
