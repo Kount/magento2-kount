@@ -134,8 +134,10 @@ class Index extends Action implements \Magento\Framework\App\CsrfAwareActionInte
         header("Content-Length: {$size}");
         header("Connection: close");
         ob_end_flush();
-        ob_flush();
-        flush();
+        if(ob_get_level() > 0){
+            ob_flush();
+            flush();
+        }
         if (session_id()) {
             session_write_close();
         }
