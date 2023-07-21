@@ -86,7 +86,7 @@ class LoggerFactory implements \Kount_Log_Factory_LoggerFactory
      */
     protected static function getInstance()
     {
-        return ObjectManager::getInstance()->get(\Kount\Kount\Model\Lib\LoggerFactory::class);
+        return ObjectManager::getInstance()->get(self::class);
     }
 
     /**

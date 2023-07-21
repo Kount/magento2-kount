@@ -4,15 +4,6 @@
  * See COPYING.txt for license details.
  */
 
-/**
- * PHP Class for handling Google Authenticator 2-factor authentication.
- *
- * @author Michael Kliewe
- * @copyright 2012 Michael Kliewe
- * @license http://www.opensource.org/licenses/bsd-license.php BSD License
- *
- * @link http://www.phpgangsta.de/
- */
 namespace Kount\Kount2FA\Lib\PHPGangsta;
 
 class GoogleAuthenticator
@@ -39,8 +30,6 @@ class GoogleAuthenticator
         $rnd = false;
         if (function_exists('random_bytes')) {
             $rnd = random_bytes($secretLength);
-        } elseif (function_exists('mcrypt_create_iv')) {
-            $rnd = mcrypt_create_iv($secretLength, MCRYPT_DEV_URANDOM);
         } elseif (function_exists('openssl_random_pseudo_bytes')) {
             $rnd = openssl_random_pseudo_bytes($secretLength, $cryptoStrong);
             if (!$cryptoStrong) {
