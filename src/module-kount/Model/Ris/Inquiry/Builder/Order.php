@@ -270,10 +270,11 @@ class Order
         $cart = [];
         /** @var \Magento\Sales\Model\Order\Item $realOrderItem */
         foreach ($realOrderItems as $realOrderItem) {
+            $productName = $realOrderItem->getName() ?? $realOrderItem->getSku();
             $cart[] = $this->cartItemFactory->create([
                 'productType' => $realOrderItem->getSku(),
-                'itemName' => $realOrderItem->getName(),
-                'description' => ($realOrderItem->getDescription() ? $realOrderItem->getDescription() : ''),
+                'itemName' => $productName,
+                'description' => ($realOrderItem->getDescription() ? $realOrderItem->getDescription() : $productName),
                 'quantity' => round($realOrderItem->getQtyOrdered()),
                 'price' => $this->convertAndRoundAmount($realOrderItem->getBasePrice(), $order->getBaseCurrencyCode()),
             ]);
