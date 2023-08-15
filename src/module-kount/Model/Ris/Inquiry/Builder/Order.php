@@ -315,6 +315,9 @@ class Order
     protected function getIpAddress(\Magento\Sales\Model\Order $order)
     {
         $ipAddress = ($order->getXForwardedFor() ?: ($this->getRequestXForwardedFor() ?: $order->getRemoteIp()));
+        if (!$ipAddress) {
+            return "";
+        }
         if (false !== strpos($ipAddress, ',')) {
             $ipAddress = explode(',', $ipAddress);
             $ipAddress = array_shift($ipAddress);
