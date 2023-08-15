@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2022 KOUNT, INC.
+ * Copyright (c) 2023 KOUNT, INC.
  * See COPYING.txt for license details.
  */
 namespace Kount\Kount\Model\Ris\Inquiry\Builder;
@@ -270,10 +270,11 @@ class Order
         $cart = [];
         /** @var \Magento\Sales\Model\Order\Item $realOrderItem */
         foreach ($realOrderItems as $realOrderItem) {
+            $productName = $realOrderItem->getName() ?? $realOrderItem->getSku();
             $cart[] = $this->cartItemFactory->create([
                 'productType' => $realOrderItem->getSku(),
-                'itemName' => $realOrderItem->getName(),
-                'description' => ($realOrderItem->getDescription() ? $realOrderItem->getDescription() : ''),
+                'itemName' => $productName,
+                'description' => ($realOrderItem->getDescription() ? $realOrderItem->getDescription() : $productName),
                 'quantity' => round($realOrderItem->getQtyOrdered()),
                 'price' => $this->convertAndRoundAmount($realOrderItem->getBasePrice(), $order->getBaseCurrencyCode()),
             ]);
@@ -315,6 +316,9 @@ class Order
     protected function getIpAddress(\Magento\Sales\Model\Order $order)
     {
         $ipAddress = ($order->getXForwardedFor() ?: ($this->getRequestXForwardedFor() ?: $order->getRemoteIp()));
+        if (!$ipAddress) {
+            return "";
+        }
         if (false !== strpos($ipAddress, ',')) {
             $ipAddress = explode(',', $ipAddress);
             $ipAddress = array_shift($ipAddress);

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2022 KOUNT, INC.
+ * Copyright (c) 2023 KOUNT, INC.
  * See COPYING.txt for license details.
  */
 namespace Kount\Kount\Model\Lib;
@@ -86,7 +86,7 @@ class LoggerFactory implements \Kount_Log_Factory_LoggerFactory
      */
     protected static function getInstance()
     {
-        return ObjectManager::getInstance()->get(\Kount\Kount\Model\Lib\LoggerFactory::class);
+        return ObjectManager::getInstance()->get(self::class);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2022 KOUNT, INC.
+ * Copyright (c) 2023 KOUNT, INC.
  * See COPYING.txt for license details.
  */
 namespace Kount\Kount\Controller\Ens;
@@ -134,8 +134,10 @@ class Index extends Action implements \Magento\Framework\App\CsrfAwareActionInte
         header("Content-Length: {$size}");
         header("Connection: close");
         ob_end_flush();
-        ob_flush();
-        flush();
+        if(ob_get_level() > 0){
+            ob_flush();
+            flush();
+        }
         if (session_id()) {
             session_write_close();
         }
