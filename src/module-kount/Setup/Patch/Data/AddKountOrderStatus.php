@@ -33,24 +33,42 @@ class AddKountOrderStatus implements DataPatchInterface
      */
     public function apply(): void
     {
-        $setup = $this->moduleDataSetup;
-        /* Add Kount order statuses */
-        $status = [
-            ['status' => OrderRis::STATUS_KOUNT_REVIEW , 'label' => __('Review')],
-            ['status' => OrderRis::STATUS_KOUNT_DECLINE , 'label' => __('Decline')],
-        ];
-        $setup->getConnection()->insertArray($setup->getTable('sales_order_status'), ['status', 'label'], $status);
+        if(!$this->kountStatusExist()){
+            $setup = $this->moduleDataSetup;
 
-        /* Attach Kount statuses to holded order state */
-        $states = [
-            ['status' => OrderRis::STATUS_KOUNT_REVIEW, 'state' => Order::STATE_HOLDED, 'is_default' => 0],
-            ['status' => OrderRis::STATUS_KOUNT_DECLINE, 'state' => Order::STATE_HOLDED, 'is_default' => 0],
-        ];
-        $setup->getConnection()->insertArray(
-            $setup->getTable('sales_order_status_state'),
-            ['status', 'state', 'is_default'],
-            $states
-        );
+            /* Add Kount order statuses */
+            $status = [
+                ['status' => OrderRis::STATUS_KOUNT_REVIEW , 'label' => __('Review')],
+                ['status' => OrderRis::STATUS_KOUNT_DECLINE , 'label' => __('Decline')],
+            ];
+            $setup->getConnection()->insertArray($setup->getTable('sales_order_status'), ['status', 'label'], $status);
+
+            /* Attach Kount statuses to holded order state */
+            $states = [
+                ['status' => OrderRis::STATUS_KOUNT_REVIEW, 'state' => Order::STATE_HOLDED, 'is_default' => 0],
+                ['status' => OrderRis::STATUS_KOUNT_DECLINE, 'state' => Order::STATE_HOLDED, 'is_default' => 0],
+            ];
+            $setup->getConnection()->insertArray(
+                $setup->getTable('sales_order_status_state'),
+                ['status', 'state', 'is_default'],
+                $states
+            );
+        }
+
+    }
+
+    /**
+     * @return bool
+     */
+    protected function kountStatusExist(): bool
+    {
+        $setup = $this->moduleDataSetup;
+        $connection = $setup->getConnection();
+        $salesOrderStatus = $connection->getTableName('sales_order_status');
+        $selectQuery = $connection->select()->from($salesOrderStatus)->where('status = ?',OrderRis::STATUS_KOUNT_REVIEW);
+        $kountStatus = $connection->fetchAll($selectQuery);
+
+        return count($kountStatus) > 0;
     }
 
     /**
