@@ -64,7 +64,7 @@ class AddKountOrderStatus implements DataPatchInterface
     {
         $setup = $this->moduleDataSetup;
         $connection = $setup->getConnection();
-        $salesOrderStatus = $connection->getTableName('sales_order_status');
+        $salesOrderStatus = $setup->getTable('sales_order_status');
         $selectQuery = $connection->select()->from($salesOrderStatus)->where('status = ?',OrderRis::STATUS_KOUNT_REVIEW);
         $kountStatus = $connection->fetchAll($selectQuery);
 
