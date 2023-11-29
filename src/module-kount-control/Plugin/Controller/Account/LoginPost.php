@@ -7,7 +7,7 @@
 namespace Kount\KountControl\Plugin\Controller\Account;
 
 use Magento\Framework\App\Action\HttpPostActionInterface;
-use Magento\Framework\Controller\Result\Redirect;
+use Magento\Framework\Controller\AbstractResult;
 
 class LoginPost
 {
@@ -72,7 +72,7 @@ class LoginPost
      * @param Redirect $result
      * @return Redirect
      */
-    public function afterExecute(HttpPostActionInterface $httpPostAction, Redirect $result)
+    public function afterExecute(HttpPostActionInterface $httpPostAction, AbstractResult $result)
     {
         $this->customerSession->set2faSuccessful(true);
         $sessionId = '';
