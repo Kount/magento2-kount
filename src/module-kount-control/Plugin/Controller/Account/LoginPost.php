@@ -69,10 +69,10 @@ class LoginPost
      * Initiates API request to Kount system about customer log in. Logs out customer if API response is negative.
      *
      * @param HttpPostActionInterface $httpPostAction
-     * @param Redirect $result
+     * @param $result
      * @return Redirect
      */
-    public function afterExecute(HttpPostActionInterface $httpPostAction, Redirect $result)
+    public function afterExecute(HttpPostActionInterface $httpPostAction, $result)
     {
         $this->customerSession->set2faSuccessful(true);
         $sessionId = '';
