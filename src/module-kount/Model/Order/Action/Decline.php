@@ -20,6 +20,11 @@ class Decline implements ActionInterface
     protected $configWorkflow;
 
     /**
+     * @var \Magento\Framework\Registry
+     */
+    private $registry;
+
+    /**
      * @var \Magento\Sales\Api\OrderRepositoryInterface
      */
     protected $orderRepository;
@@ -41,6 +46,7 @@ class Decline implements ActionInterface
 
     /**
      * @param \Kount\Kount\Model\Config\Workflow $configWorkflow
+     * @param \Magento\Framework\Registry $registry
      * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
      * @param \Magento\Sales\Controller\Adminhtml\Order\CreditmemoLoader $creditmemoLoader
      * @param \Magento\Sales\Api\CreditmemoManagementInterface $creditmemoManagement
@@ -48,12 +54,14 @@ class Decline implements ActionInterface
      */
     public function __construct(
         \Kount\Kount\Model\Config\Workflow $configWorkflow,
+        \Magento\Framework\Registry $registry,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Magento\Sales\Controller\Adminhtml\Order\CreditmemoLoader $creditmemoLoader,
         \Magento\Sales\Api\CreditmemoManagementInterface $creditmemoManagement,
         \Kount\Kount\Model\Logger $logger
     ) {
         $this->configWorkflow = $configWorkflow;
+        $this->registry = $registry;
         $this->orderRepository = $orderRepository;
         $this->creditmemoLoader = $creditmemoLoader;
         $this->creditmemoManagement = $creditmemoManagement;
@@ -159,6 +167,7 @@ class Decline implements ActionInterface
                 $this->creditmemoLoader->setOrderId($order->getId());
                 $this->creditmemoLoader->setInvoiceId($invoice->getId());
 
+                $this->registry->unregister('current_creditmemo');
                 $creditmemo = $this->creditmemoLoader->load();
                 if (!$creditmemo instanceof \Magento\Sales\Model\Order\Creditmemo) {
                     throw new LocalizedException(
