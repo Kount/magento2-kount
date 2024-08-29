@@ -26,10 +26,10 @@
   },
   "autoload": {
     "files": [
-      "src/module-kount/registration.php"
+      "registration.php"
     ],
     "psr-4": {
-      "Kount\\Kount\\": "src/module-kount"
+      "Kount\\Kount\\": ""
     }
   }
 }
