@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2024 KOUNT, INC.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <kount>
+            <account>
+                <enabled>0</enabled>
+                <test>0</test>
+                <api_key_production backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+                <api_key_test backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+                <config_key><![CDATA[1b^jIFD)e1@<ZKuH"A+?Ea`p+ATAo6@:Wee+EM+(FD5Z2/N<]]></config_key>
+                <awc_url>https://awc.kount.net</awc_url>
+                <awc_url_test_mode>https://awc.test.kount.net</awc_url_test_mode>
+                <ris_url>https://risk.kount.net</ris_url>
+                <ris_url_test_mode>https://risk.test.kount.net</ris_url_test_mode>
+                <data_collector_url>https://ssl.kaptcha.com</data_collector_url>
+                <data_collector_url_test_mode>https://tst.kaptcha.com</data_collector_url_test_mode>
+                <data_collector_width>1</data_collector_width>
+                <data_collector_height>1</data_collector_height>
+                <currency>USD</currency>
+            </account>
+            <phonetoweb>
+                <enable>0</enable>
+            </phonetoweb>
+            <ens>
+                <enabled>1</enabled>
+                <kount_ips>64.128.91.251,209.81.12.251</kount_ips>
+            </ens>
+            <workflow>
+                <workflow_mode>pre_auth</workflow_mode>
+                <decline_action>cancel</decline_action>
+                <notify_processor_decline>1</notify_processor_decline>
+            </workflow>
+            <log>
+                <enabled>1</enabled>
+            </log>
+        </kount>
+    </default>
+</config>
