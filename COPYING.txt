@@ -1,6 +1,6 @@
 The Kount Magento 2 Extension is released under the following license:
 
-Copyright (c) 2024 KOUNT, INC.
+Copyright (c) 2025 KOUNT, INC.
 
 Kount Magento 2 Extension LICENSE
 
