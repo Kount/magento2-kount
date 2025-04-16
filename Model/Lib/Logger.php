@@ -59,7 +59,7 @@ class Logger implements \Kount_Log_Binding_Logger
      */
     public function warn($message, $exception = null)
     {
-        $this->logger->warn($message);
+        $this->logger->warning($message);
     }
 
     /**
