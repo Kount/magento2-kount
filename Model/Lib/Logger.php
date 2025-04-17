@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2024 KOUNT, INC.
+ * Copyright (c) 2025 KOUNT, INC.
  * See COPYING.txt for license details.
  */
 namespace Kount\Kount\Model\Lib;
@@ -59,7 +59,7 @@ class Logger implements \Kount_Log_Binding_Logger
      */
     public function warn($message, $exception = null)
     {
-        $this->logger->warn($message);
+        $this->logger->warning($message);
     }
 
     /**
