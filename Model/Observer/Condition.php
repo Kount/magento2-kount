@@ -44,7 +44,7 @@ class Condition implements ConditionInterface
      * @param int|null $storeId
      * @return bool
      */
-    public function is(Payment $payment, $storeId = null)
+    public function is(Payment $payment, ?int $storeId = null)
     {
         $methodCode = $payment->getMethod();
         if (isset($this->conditions[$methodCode])) {

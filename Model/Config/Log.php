@@ -30,7 +30,7 @@ class Log
      * @param string|null $websiteCode
      * @return bool
      */
-    public function isEnabled($websiteCode = null)
+    public function isEnabled(?string $websiteCode = null)
     {
         return $this->scopeConfig->isSetFlag('kount/log/enabled', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
     }

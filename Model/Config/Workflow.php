@@ -28,7 +28,7 @@ class Workflow
      * @param string|null $storeCode
      * @return string
      */
-    public function getWorkflowMode($storeCode = null)
+    public function getWorkflowMode(?string $storeCode = null)
     {
         return $this->scopeConfig->getValue('kount/workflow/workflow_mode', ScopeInterface::SCOPE_STORE, $storeCode);
     }
@@ -37,7 +37,7 @@ class Workflow
      * @param string|null $storeCode
      * @return string
      */
-    public function getDeclineAction($storeCode = null)
+    public function getDeclineAction(?string $storeCode = null)
     {
         return $this->scopeConfig->getValue('kount/workflow/decline_action', ScopeInterface::SCOPE_STORE, $storeCode);
     }
@@ -46,7 +46,7 @@ class Workflow
      * @param string|null $storeCode
      * @return bool
      */
-    public function isNotifyProcessorDecline($storeCode = null)
+    public function isNotifyProcessorDecline(?string $storeCode = null)
     {
         return $this->scopeConfig->isSetFlag(
             'kount/workflow/notify_processor_decline',
@@ -59,7 +59,7 @@ class Workflow
      * @param string|null $storeCode
      * @return bool
      */
-    public function isPreventResettingOrderStatus($storeCode = null)
+    public function isPreventResettingOrderStatus(?string $storeCode = null)
     {
         return $this->scopeConfig->isSetFlag(
             'kount/workflow/prevent_resetting_order_status',

@@ -46,7 +46,7 @@ class Settings
     /**
      * @param string|null $websiteCode
      */
-    protected function initSettings($websiteCode = null)
+    protected function initSettings(?string $websiteCode = null)
     {
         $this->settings = [
             'MERCHANT_ID' => $this->configAccount->getMerchantNumber($websiteCode),
@@ -81,7 +81,7 @@ class Settings
      * @param string|null $websiteCode
      * @return array
      */
-    public function getSettings($websiteCode = null)
+    public function getSettings(?string $websiteCode = null)
     {
         $this->initSettings($websiteCode);
         return $this->settings;
@@ -93,7 +93,7 @@ class Settings
      * @return string
      * @throws \Exception
      */
-    public function getConfigSetting($name, $websiteCode = null)
+    public function getConfigSetting($name, ?string $websiteCode = null)
     {
         $settings = $this->getSettings($websiteCode);
         if (!isset($settings[$name])) {

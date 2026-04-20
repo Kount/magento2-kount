@@ -45,7 +45,7 @@ class PhoneToWeb
      * @param string|null $websiteCode
      * @return array
      */
-    public function getIpAddresses($websiteCode = null)
+    public function getIpAddresses(?string $websiteCode = null)
     {
         $ipAddresses = $this->scopeConfig->getValue(
             'kount/admin/phonetoweb_ipaddresses',
@@ -69,7 +69,7 @@ class PhoneToWeb
      * @param string|null $websiteCode
      * @return bool
      */
-    public function isIpWhite($ipAddress, $websiteCode = null)
+    public function isIpWhite($ipAddress, ?string $websiteCode = null)
     {
         return $this->isEnabled() && in_array($ipAddress, $this->getIpAddresses($websiteCode), true);
     }

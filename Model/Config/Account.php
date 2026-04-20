@@ -29,7 +29,7 @@ class Account
      * @param string|null $websiteCode
      * @return bool
      */
-    public function isEnabled($websiteCode = null)
+    public function isEnabled(?string $websiteCode = null)
     {
         return $this->scopeConfig->isSetFlag('kount/account/enabled', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
     }
@@ -38,7 +38,7 @@ class Account
      * @param string|null $websiteCode
      * @return bool
      */
-    public function isAvailable($websiteCode = null)
+    public function isAvailable(?string $websiteCode = null)
     {
         return $this->isEnabled($websiteCode)
             && !empty($this->getMerchantNumber($websiteCode))
@@ -63,7 +63,7 @@ class Account
      * @param string|null $websiteCode
      * @return string
      */
-    public function getMerchantNumber($websiteCode = null)
+    public function getMerchantNumber(?string $websiteCode = null)
     {
         return $this->scopeConfig->getValue('kount/account/merchantnum', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
     }
@@ -72,7 +72,7 @@ class Account
      * @param string|null $websiteCode
      * @return string
      */
-    public function getWebsite($websiteCode = null)
+    public function getWebsite(?string $websiteCode = null)
     {
         return $this->scopeConfig->getValue('kount/account/website', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
     }
@@ -81,7 +81,7 @@ class Account
      * @param string|null $websiteCode
      * @return string
      */
-    public function getApiKey($websiteCode = null)
+    public function getApiKey(?string $websiteCode = null)
     {
         $env = $this->isTestMode($websiteCode) ? 'test' : 'production';
         return $this->scopeConfig->getValue(
@@ -103,7 +103,7 @@ class Account
      * @param string|null $websiteCode
      * @return bool
      */
-    public function isTestMode($websiteCode = null)
+    public function isTestMode(?string $websiteCode = null)
     {
         return $this->scopeConfig->isSetFlag('kount/account/test', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
     }
@@ -112,7 +112,7 @@ class Account
      * @param string|null $websiteCode
      * @return string
      */
-    public function getAwcUrl($websiteCode = null)
+    public function getAwcUrl(?string $websiteCode = null)
     {
         return $this->scopeConfig->getValue('kount/account/awc_url' . $this->getModeSuffix($websiteCode));
     }
@@ -121,7 +121,7 @@ class Account
      * @param string|null $websiteCode
      * @return string
      */
-    public function getRisUrl($websiteCode = null)
+    public function getRisUrl(?string $websiteCode = null)
     {
         return $this->scopeConfig->getValue('kount/account/ris_url' . $this->getModeSuffix($websiteCode));
     }
@@ -130,7 +130,7 @@ class Account
      * @param string|null $websiteCode
      * @return string
      */
-    public function getDataCollectorUrl($websiteCode = null)
+    public function getDataCollectorUrl(?string $websiteCode = null)
     {
         return $this->scopeConfig->getValue('kount/account/data_collector_url' . $this->getModeSuffix($websiteCode));
     }
@@ -155,7 +155,7 @@ class Account
      * @param string|null $websiteCode
      * @return string
      */
-    protected function getModeSuffix($websiteCode = null)
+    protected function getModeSuffix(?string $websiteCode = null)
     {
         return $this->isTestMode($websiteCode) ? '_test_mode' : '';
     }

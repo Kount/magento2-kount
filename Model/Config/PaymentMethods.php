@@ -28,7 +28,7 @@ class PaymentMethods
      * @param string|null $websiteCode
      * @return array
      */
-    public function getDisableMethods($websiteCode = null)
+    public function getDisableMethods(?string $websiteCode = null)
     {
         $methods = $this->scopeConfig->getValue(
             'kount/paymentmethods/disable_methods',
