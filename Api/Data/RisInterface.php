@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2025 KOUNT, INC.
+ * Copyright (c) 2026 KOUNT, INC.
  * See COPYING.txt for license details.
  */
 namespace Kount\Kount\Api\Data;
