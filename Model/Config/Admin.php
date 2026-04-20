@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2025 KOUNT, INC.
+ * Copyright (c) 2026 KOUNT, INC.
  * See COPYING.txt for license details.
  */
 namespace Kount\Kount\Model\Config;
@@ -28,7 +28,7 @@ class Admin
      * @param string|null $websiteCode
      * @return bool
      */
-    public function isEnabled($websiteCode = null)
+    public function isEnabled(?string $websiteCode = null)
     {
         return $this->scopeConfig->isSetFlag('kount/admin/enabled', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
     }

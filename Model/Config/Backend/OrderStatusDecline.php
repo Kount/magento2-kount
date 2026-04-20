@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2025 KOUNT, INC.
+ * Copyright (c) 2026 KOUNT, INC.
  * See COPYING.txt for license details.
  */
 namespace Kount\Kount\Model\Config\Backend;
@@ -28,8 +28,8 @@ class OrderStatusDecline extends \Magento\Framework\App\Config\Value
         \Magento\Framework\App\Config\ScopeConfigInterface $config,
         \Magento\Framework\App\Cache\TypeListInterface $cacheTypeList,
         \Magento\Sales\Model\ResourceModel\Order\Status $orderStatusResource,
-        \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
-        \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
+        ?\Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
+        ?\Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         array $data = []
     ) {
         $this->orderStatusResource = $orderStatusResource;

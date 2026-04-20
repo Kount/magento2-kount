@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2025 KOUNT, INC.
+ * Copyright (c) 2026 KOUNT, INC.
  * See COPYING.txt for license details.
  */
 namespace Kount\Kount\Model\Observer;
@@ -14,5 +14,5 @@ interface ConditionInterface
      * @param int|null $storeId
      * @return bool
      */
-    public function is(Payment $payment, $storeId = null);
+    public function is(Payment $payment, ?int $storeId = null);
 }

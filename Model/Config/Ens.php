@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2025 KOUNT, INC.
+ * Copyright (c) 2026 KOUNT, INC.
  * See COPYING.txt for license details.
  */
 namespace Kount\Kount\Model\Config;
@@ -46,7 +46,7 @@ class Ens
      * @param string|null $websiteCode
      * @return array
      */
-    public function getAdditionIps($websiteCode = null)
+    public function getAdditionIps(?string $websiteCode = null)
     {
         $ips = $this->scopeConfig->getValue('kount/ens/addition_ips', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
         return $this->explodeIps($ips);
@@ -94,7 +94,7 @@ class Ens
      * @param string|null $websiteCode
      * @return array
      */
-    public function getAllowedIps($websiteCode = null)
+    public function getAllowedIps(?string $websiteCode = null)
     {
         return array_merge($this->getKountIps(), $this->getAdditionIps($websiteCode));
     }
@@ -104,7 +104,7 @@ class Ens
      * @param string|null $websiteCode
      * @return bool
      */
-    public function isAllowedIp($ip, $websiteCode = null)
+    public function isAllowedIp($ip, ?string $websiteCode = null)
     {
         $allowedIps = $this->getAllowedIps($websiteCode);
         return in_array($ip, $allowedIps, true) || $this->isInCidrRange($ip, $allowedIps) ;
@@ -114,7 +114,7 @@ class Ens
      * @param string|null $websiteCode
      * @return bool
      */
-    public function isEnabled($websiteCode = null)
+    public function isEnabled(?string $websiteCode = null)
     {
         return (bool)$this->scopeConfig->getValue('kount/ens/enabled', ScopeInterface::SCOPE_WEBSITE, $websiteCode);
     }

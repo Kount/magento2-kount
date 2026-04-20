@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2025 KOUNT, INC.
+ * Copyright (c) 2026 KOUNT, INC.
  * See COPYING.txt for license details.
  */
 namespace Kount\Kount\Model\Ris\Inquiry\Builder;
@@ -76,7 +76,7 @@ class Order
         \Kount\Kount\Model\Config\PhoneToWeb $configPhoneToWeb,
         \Magento\Framework\HTTP\Header $httpHeader,
         \Kount\Kount\Model\Logger $logger,
-        \Kount\Kount\Model\Config\Account $configAccount = null
+        ?\Kount\Kount\Model\Config\Account $configAccount = null
     ) {
         $this->appState = $appState;
         $this->customerRegistry = $customerRegistry;

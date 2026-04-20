@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2025 KOUNT, INC.
+ * Copyright (c) 2026 KOUNT, INC.
  * See COPYING.txt for license details.
  */
 namespace Kount\Kount\Model\Ris;
@@ -25,7 +25,7 @@ class UpdateFactory
      * @param string|null $websiteCode
      * @return \Kount_Ris_Request_Update
      */
-    public function create($websiteCode = null)
+    public function create(?string $websiteCode = null)
     {
         $settings = new \Kount_Ris_ArraySettings($this->libSettings->getSettings($websiteCode));
         return new \Kount_Ris_Request_Update($settings);
